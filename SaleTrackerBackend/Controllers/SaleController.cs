@@ -1,6 +1,7 @@
 namespace SaleTrackerBackend.Controllers;
 
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SaleTrackerBackend.Models;
 using SaleTrackerBackend.Models.Dto;
@@ -8,7 +9,7 @@ using SaleTrackerBackend.Repository;
 
 [ApiController]
 [Route("api/sale")]
-//[Authorize]
+[Authorize]
 public class SaleController : ControllerBase
 {
 
@@ -39,12 +40,7 @@ public class SaleController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ResponseDto<List<GetSaleDto>>>> GetAll([FromQuery] int? page)
     {
-
-        var products = await saleRepo.GetAllAsync(page ?? 1);
-        if (products is null)
-        {
-            products = [];
-        }
+        var products = await saleRepo.GetAllAsync(page ?? 1) ?? [];
         return Ok(new ResponseDto<List<GetSaleDto>> { Data = products.Select(p => p.Adapt<GetSaleDto>()).ToList() });
     }
 

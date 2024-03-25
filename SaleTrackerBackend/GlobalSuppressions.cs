@@ -7,3 +7,4 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "<Pending>", Scope = "member", Target = "~M:SaleTrackerBackend.Controllers.AuthController.#ctor(Microsoft.AspNetCore.Identity.UserManager{Microsoft.AspNetCore.Identity.IdentityUser},Microsoft.AspNetCore.Identity.SignInManager{Microsoft.AspNetCore.Identity.IdentityUser},SaleTrackerBackend.Services.TokenService)")]
 [assembly: SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "<Pending>", Scope = "member", Target = "~M:SaleTrackerBackend.Data.DataContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{SaleTrackerBackend.Data.DataContext})")]
+[assembly: SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "<Pending>", Scope = "member", Target = "~M:SaleTrackerBackend.Controllers.SaleController.#ctor(SaleTrackerBackend.Repository.SaleRepository)")]

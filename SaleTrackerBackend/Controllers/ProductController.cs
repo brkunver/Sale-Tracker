@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/product")]
-//[Authorize]
+[Authorize]
 public class ProductController : ControllerBase
 {
     private readonly ProductRepository productRepo;
