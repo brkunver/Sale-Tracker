@@ -13,6 +13,7 @@
 *.log
 *.jfm
 *.gpstate
+*.jpg
 
 # Build results
 [Dd]ebug/
@@ -81,4 +82,3 @@ $RECYCLE.BIN/
 # Visual Studio Code
 .vscode/
 
-wwwroot/uploads/*
