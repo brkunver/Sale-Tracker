@@ -88,6 +88,7 @@ public class ProductRepository
                 prod.Description = product.Description;
                 prod.Price = product.Price;
                 prod.UpdatedOn = DateTime.Now;
+                prod.ImageUrl = product.ImageUrl;
                 await SaveAsync();
                 return true;
             }

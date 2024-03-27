@@ -13,4 +13,16 @@ public class DataContext : IdentityDbContext
     {
 
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Sale>()
+            .HasOne(s => s.Product)
+            .WithMany()
+            .HasForeignKey(s => s.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
+
 }

@@ -1,6 +1,6 @@
+namespace SaleTrackerBackend.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SaleTrackerBackend.Models;
 
 public class Product
 {
@@ -14,4 +14,5 @@ public class Product
 
     public DateTime CreatedOn { get; set; } = DateTime.Now;
     public DateTime UpdatedOn { get; set; } = DateTime.Now;
+    public string ImageUrl { get; set; } = "default.jpg";
 }
