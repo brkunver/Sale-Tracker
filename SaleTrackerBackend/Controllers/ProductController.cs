@@ -11,12 +11,12 @@ using SaleTrackerBackend.Services;
 
 [ApiController]
 [Route("api/product")]
-//[Authorize]
+[Authorize]
 
 public class ProductController : ControllerBase
 {
     private readonly ProductRepository productRepo;
-    private readonly IWebHostEnvironment _webHostEnvironment;
+    // private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly CreateImageService createImageService;
     private readonly DeleteImageService deleteImageService;
 
@@ -25,7 +25,7 @@ public class ProductController : ControllerBase
         productRepo = productRepository;
         createImageService = _createImageService;
         deleteImageService = _deleteImageService;
-        _webHostEnvironment = webHostEnvironment;
+        // _webHostEnvironment = webHostEnvironment;
     }
 
     [HttpPost]
@@ -55,9 +55,9 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ResponseDto<List<GetProductDto>>>> GetAll([FromQuery] int? page)
+    public async Task<ActionResult<ResponseDto<List<GetProductDto>>>> GetAll([FromQuery] int? page, int? count)
     {
-        var products = await productRepo.GetAllAsync(page ?? 1);
+        var products = await productRepo.GetAllAsync(page ?? 1, count ?? 5);
         products ??= [];
         return Ok(new ResponseDto<List<GetProductDto>> { Data = products.Select(p => p.Adapt<GetProductDto>()).ToList() });
     }
@@ -139,16 +139,17 @@ public class ProductController : ControllerBase
     }
 
 
-    [HttpGet("image/{imagename}")]
-    public IActionResult GetImage(string imagename)
-    {
-        var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", imagename);
-        if (!System.IO.File.Exists(imagePath))
-        {
-            return NotFound();
-        }
-        var imageBytes = System.IO.File.ReadAllBytes(imagePath);
-        return File(imageBytes, "image/jpeg");
-    }
+    // [HttpGet("image/{imagename}")]
+    // [AllowAnonymous]
+    // public IActionResult GetImage(string imagename)
+    // {
+    //     var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", imagename);
+    //     if (!System.IO.File.Exists(imagePath))
+    //     {
+    //         return NotFound();
+    //     }
+    //     var imageBytes = System.IO.File.ReadAllBytes(imagePath);
+    //     return File(imageBytes, "image/jpeg");
+    // }
 
 }

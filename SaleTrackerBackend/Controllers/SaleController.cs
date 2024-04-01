@@ -37,12 +37,6 @@ public class SaleController : ControllerBase
         return Ok(new ResponseDto<string> { Success = true, Message = "Created" });
     }
 
-    [HttpGet]
-    public async Task<ActionResult<ResponseDto<List<GetSaleDto>>>> GetAll([FromQuery] int? page)
-    {
-        var products = await saleRepo.GetAllAsync(page ?? 1) ?? [];
-        return Ok(new ResponseDto<List<GetSaleDto>> { Data = products.Select(p => p.Adapt<GetSaleDto>()).ToList() });
-    }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<ResponseDto<GetSaleDto>>> GetById([FromRoute] int id)
@@ -97,4 +91,12 @@ public class SaleController : ControllerBase
             return BadRequest(new ResponseDto<int> { Message = "error", Success = false });
         }
     }
+
+    [HttpGet]
+    public async Task<ActionResult<ResponseDto<List<GetSaleWithProductDto>>>> GetAllWithProducts([FromQuery] int? page, int? count)
+    {
+        var products = await saleRepo.GetAllWithProductAsync(page ?? 1, count ?? 5) ?? [];
+        return Ok(new ResponseDto<List<GetSaleWithProductDto>> { Data = products });
+    }
+
 }

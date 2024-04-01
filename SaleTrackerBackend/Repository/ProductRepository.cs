@@ -52,11 +52,11 @@ public class ProductRepository
         }
     }
 
-    public async Task<List<Product>?> GetAllAsync(int page)
+    public async Task<List<Product>?> GetAllAsync(int page, int? count)
     {
         try
         {
-            var products = db.Products.Skip((page - 1) * 10).Take(10).OrderBy(p => p.ProductId);
+            var products = db.Products.Skip((page - 1) * 10).Take(count ?? 5).OrderBy(p => p.ProductId);
             return await products.ToListAsync();
         }
         catch (Exception)

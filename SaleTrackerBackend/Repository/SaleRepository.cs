@@ -1,8 +1,10 @@
 namespace SaleTrackerBackend.Repository;
 
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using SaleTrackerBackend.Data;
 using SaleTrackerBackend.Models;
+using SaleTrackerBackend.Models.Dto;
 
 public class SaleRepository
 {
@@ -104,11 +106,11 @@ public class SaleRepository
         }
     }
 
-    public async Task<List<Sale>?> GetAllAsync(int page)
+    public async Task<List<Sale>?> GetAllAsync(int page, int count)
     {
         try
         {
-            var sales = db.Sales.Skip((page - 1) * 10).Take(10).OrderBy(s => s.SaleId);
+            var sales = db.Sales.Skip((page - 1) * 10).Take(count).OrderBy(s => s.SaleId);
             return await sales.ToListAsync();
         }
         catch (Exception)
@@ -123,6 +125,43 @@ public class SaleRepository
         {
             var sale = await db.Sales.FindAsync(id);
             return sale;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    public async Task<List<GetSaleWithProductDto>?> GetAllWithProductAsync(int page, int count)
+    {
+        try
+        {
+            var sales = await db.Sales
+                .Include(s => s.Product)
+                .Skip((page - 1) * count)
+                .Take(count)
+                .OrderBy(s => s.SaleId)
+                .ToListAsync();
+
+            if (sales.Count == 0)
+            {
+                return [];
+            }
+    
+            var dto = sales.Select(s => new GetSaleWithProductDto
+            {
+                SaleId = s.SaleId,
+                SaledOn = s.SaledOn,
+                ProductId = s.ProductId,
+                ProductName = s.Product.Name,
+                ProductDescription = s.Product.Description,
+                ProductPrice = s.Product.Price,
+                ProductCreatedOn = s.Product.CreatedOn,
+                ProductUpdatedOn = s.Product.UpdatedOn,
+                ProductImageUrl = s.Product.ImageUrl
+            }).ToList();
+
+            return dto;
         }
         catch (Exception)
         {
