@@ -6,7 +6,7 @@ import { LoaderCircle } from "lucide-react"
 
 function ProductsPage() {
   let query = useQuery({
-    queryKey: ["ProductCount"],
+    queryKey: ["productCount"],
     queryFn: async () => await getCount(),
   })
 
@@ -14,7 +14,7 @@ function ProductsPage() {
     <div className="flex">
       <SideBar />
       <main className="flex flex-col items-center mx-auto">
-        <h1 className="text-3xl">Products</h1>
+        <h1 className="text-3xl lg:py-8">Products</h1>
         <div className="flex gap-2 justify-center items-center text-lg font-semibold">
           <p>Total Count = </p>
           <p>

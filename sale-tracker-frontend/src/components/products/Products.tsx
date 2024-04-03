@@ -32,7 +32,7 @@ export default function Products(props: Props) {
       <div className="text-center grid place-content-center lg:min-w-[300px] lg:min-h-[300px] ">
         <div className="flex flex-col items-center justify-center space-y-2">
           <CircleX size={48} />
-          <p>Error Loading Products</p>
+          <p className="text-red-500 text-lg">Error Loading Products</p>
           <button onClick={() => query.refetch()} className="bg-blue-700 text-gray-50 py-2 px-4 rounded">
             Try Again
           </button>
