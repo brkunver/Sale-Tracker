@@ -7,8 +7,7 @@ function DashboardPage() {
     <div className="flex">
       <SideBar />
       <main className="flex flex-col items-center text-center mx-auto">
-        <h1>Dashboard</h1>
-
+        <h1 className="text-3xl ">Dashboard</h1>
         <div className="grid grid-cols-2 gap-10">
           <Products />
           <Sales />

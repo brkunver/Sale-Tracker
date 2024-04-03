@@ -110,7 +110,7 @@ public class SaleRepository
     {
         try
         {
-            var sales = db.Sales.Skip((page - 1) * 10).Take(count).OrderBy(s => s.SaleId);
+            var sales = db.Sales.Skip((page - 1) * count).Take(count).OrderBy(s => s.SaleId);
             return await sales.ToListAsync();
         }
         catch (Exception)
