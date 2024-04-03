@@ -1,5 +1,6 @@
 import { BadgeDollarSign, Banknote, LogOut, ShoppingBag } from "lucide-react"
-import { Link } from "react-router-dom"
+
+import { Link, redirect } from "react-router-dom"
 
 function SideBar() {
   return (
@@ -36,7 +37,9 @@ function SideBar() {
       </div>
 
       <div className="lg:hidden flex flex-col gap-6">
-        <Banknote size={40} color="#03c700" />
+        <Link to={"/dashboard"}>
+          <Banknote size={40} color="#03c700" />
+        </Link>
         <Link to={"/products"}>
           <ShoppingBag size={40} />
         </Link>
@@ -48,7 +51,7 @@ function SideBar() {
           className=""
           onClick={() => {
             localStorage.removeItem("token")
-            window.location.reload()
+            redirect("/")
           }}
         >
           <LogOut size={40} />

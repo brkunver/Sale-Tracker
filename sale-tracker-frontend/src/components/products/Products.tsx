@@ -2,16 +2,18 @@ import { getAllProducts, getImageUrl } from "@/utils/productApiCalls"
 import { useQuery } from "@tanstack/react-query"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CircleX, LoaderCircle } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface Props {
   page?: number
   count?: number
+  className?: string
 }
 export default function Products(props: Props) {
   let page = props.page ?? 1
   let count = props.count ?? 5
   let query = useQuery({
-    queryKey: ["products", page],
+    queryKey: ["products", page, count],
     queryFn: async () => await getAllProducts(page, count),
   })
 
@@ -40,17 +42,19 @@ export default function Products(props: Props) {
   }
 
   return (
-    <Table className="w-fit">
+    <Table className={cn("w-fit", props.className)}>
       <TableHeader>
         <TableRow>
-          <TableHead className="min-w-16 lg:min-w-24">Image</TableHead>
-          <TableHead className="min-w-16 lg:min-w-24 text-center">Name</TableHead>
-          <TableHead className="min-w-16 lg:min-w-24 text-right">Price</TableHead>
+          <TableHead className="min-w-10 text-left">ID</TableHead>
+          <TableHead className="min-w-10 lg:min-w-24">Image</TableHead>
+          <TableHead className="min-w-10 lg:min-w-24 text-center">Name</TableHead>
+          <TableHead className="min-w-10 lg:min-w-24 text-right">Price</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {query.data?.data.map((product) => (
           <TableRow key={product.productId}>
+            <TableCell className="text-left">{product.productId}</TableCell>
             <TableCell>
               <img
                 src={getImageUrl(product.imageUrl)}
@@ -59,7 +63,7 @@ export default function Products(props: Props) {
               />
             </TableCell>
             <TableCell>{product.name}</TableCell>
-            <TableCell className="text-right text-green-800 text-base">{product.price}</TableCell>
+            <TableCell className="text-right text-green-800 text-base">{product.price}$</TableCell>
           </TableRow>
         ))}
       </TableBody>

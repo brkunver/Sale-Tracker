@@ -16,14 +16,17 @@ type SaleData = {
   data: Sale[]
 }
 
-let bearerToken = localStorage.getItem("token")
-let headers = new Headers()
-headers.append("Authorization", "Bearer " + bearerToken)
+function getTokenHeader() {
+  let bearerToken = localStorage.getItem("token")
+  let headers = new Headers()
+  headers.append("Authorization", "Bearer " + bearerToken)
+  return headers
+}
 
 export async function getAllSales(page?: number, count?: number) {
   let url = import.meta.env.VITE_API_URL + "/api/sale?page=" + (page ?? 1) + "&count=" + (count ?? 5)
   let response = await fetch(url, {
-    headers: headers,
+    headers: getTokenHeader(),
   })
   if (!response.ok) {
     throw new Error(response.statusText)
