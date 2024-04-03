@@ -54,3 +54,15 @@ export async function getImageUrlById(productId: number) {
   let product = await getSingleProduct(productId)
   return getImageUrl(product.imageUrl)
 }
+
+export async function getCount() {
+  let url = import.meta.env.VITE_API_URL + "/api/product/count"
+  let response = await fetch(url, {
+    headers: getTokenHeader(),
+  })
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+  let data = await response.json()
+  return data.data as number
+}
