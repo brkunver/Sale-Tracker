@@ -12,30 +12,28 @@ public class ProductRepository
         db = context;
     }
 
-    public async Task<bool> CreateAsync(Product product)
+    public async Task CreateAsync(Product product)
     {
         try
         {
             var newProduct = await db.Products.AddAsync(product);
             await SaveAsync();
-            return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return false;
+            throw new Exception("Error creating product: " + ex.Message);
         }
     }
 
-    public async Task<bool?> SaveAsync()
+    public async Task SaveAsync()
     {
         try
         {
             await db.SaveChangesAsync();
-            return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return false;
+            throw new Exception("Error saving changes: " + ex.Message);
         }
     }
 
@@ -77,7 +75,7 @@ public class ProductRepository
         }
     }
 
-    public async Task<bool> UpdateAsync(int id, Product product)
+    public async Task UpdateAsync(int id, Product product)
     {
         try
         {
@@ -90,32 +88,33 @@ public class ProductRepository
                 prod.UpdatedOn = DateTime.Now;
                 prod.ImageUrl = product.ImageUrl;
                 await SaveAsync();
-                return true;
             }
-            return false;
+            else
+            {
+                throw new Exception("Product not found");
+            }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return false;
+            throw new Exception("Error updating product: " + ex.Message);
         }
     }
 
-    public async Task<bool> DeleteByIdAsync(int id)
+    public async Task DeleteByIdAsync(int id)
     {
         try
         {
             var prod = await db.Products.FindAsync(id);
             if (prod is null)
             {
-                return false;
+                throw new Exception("Product not found");
             }
             db.Products.Remove(prod);
             await SaveAsync();
-            return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return false;
+            throw new Exception("Error deleting product: " + ex.Message);
         }
     }
 }

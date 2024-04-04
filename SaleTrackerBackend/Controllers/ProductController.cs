@@ -36,19 +36,20 @@ public class ProductController : ControllerBase
             return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid data" });
         }
         var fileName = "default.jpg";
-
         if (input.FormFile is not null)
         {
             fileName = await createImageService.CreateImage(input.FormFile);
         }
-
         var product = input.Adapt<Product>();
         product.ImageUrl = fileName;
-        var result = await productRepo.CreateAsync(product);
 
-        if (!result)
+        try
         {
-            return BadRequest(new ResponseDto<string> { Success = false, Message = "Cannot created" });
+            await productRepo.CreateAsync(product);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ResponseDto<string> { Success = false, Message = ex.Message });
         }
 
         return Ok(new ResponseDto<string> { Success = true, Message = "Created" });
@@ -95,11 +96,13 @@ public class ProductController : ControllerBase
             updatedProduct.ImageUrl = await createImageService.CreateImage(input.FormFile);
         }
 
-        var result = await productRepo.UpdateAsync(id, updatedProduct);
-
-        if (!result)
+        try
         {
-            return BadRequest(new ResponseDto<string> { Success = false, Message = "Cannot update" });
+            await productRepo.UpdateAsync(id, updatedProduct);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ResponseDto<string> { Success = false, Message = ex.Message });
         }
 
         return Ok(new ResponseDto<string> { Success = true, Message = "Updated" });
@@ -114,10 +117,13 @@ public class ProductController : ControllerBase
             return NotFound(new ResponseDto<string> { Success = false, Message = "Not found" });
         }
 
-        var result = await productRepo.DeleteByIdAsync(id);
-        if (!result)
+        try
         {
-            return BadRequest(new ResponseDto<string> { Success = false, Message = "Cannot deleted" });
+            await productRepo.DeleteByIdAsync(id);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ResponseDto<string> { Success = false, Message = ex.Message });
         }
 
         deleteImageService.DeleteImage(product.ImageUrl);
