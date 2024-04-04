@@ -31,16 +31,16 @@ public class SaleRepository
         {
             if (sale.ProductId == null)
             {
-                throw new Exception("Product not specified for sale"); 
+                throw new Exception("Product not specified for sale");
             }
-        
+
             var product = await db.Products.FindAsync(sale.ProductId);
             if (product is null)
             {
-                throw new Exception("Product not found"); 
+                throw new Exception("Product not found");
             }
 
-            sale.Product = product; 
+            sale.Product = product;
 
             await db.Sales.AddAsync(sale);
             await SaveAsync();
@@ -88,7 +88,7 @@ public class SaleRepository
             var sale1 = await db.Sales.FindAsync(id);
             if (sale1 != null)
             {
-                sale1.SaledOn = DateTime.Now;
+                sale1.SaledOn = sale.SaledOn;
                 sale1.ProductId = sale.ProductId;
                 await SaveAsync();
             }
@@ -144,7 +144,7 @@ public class SaleRepository
             {
                 return [];
             }
-    
+
             var dto = sales.Select(s => new GetSaleWithProductDto
             {
                 SaleId = s.SaleId,
@@ -173,7 +173,7 @@ public class SaleRepository
             decimal totalRevenue = await db.Sales
                 .Where(s => s.SaledOn >= startDate && s.SaledOn <= endDate)
                 .SumAsync(s => s.Product.Price);
-            
+
             return totalRevenue;
         }
         catch (Exception)
