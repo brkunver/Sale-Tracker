@@ -63,7 +63,11 @@ export default function Sales(props: Props) {
           <TableRow key={sale.saleId}>
             <TableCell className="text-center">{sale.saleId}</TableCell>
             <TableCell>
-              <img src={getImageUrl(sale.productImageUrl)} alt={sale.productName} className="w-10 h-10 rounded-full" />
+              <img
+                src={getImageUrl(sale.productImageUrl)}
+                alt={sale.productName}
+                className="w-10 h-10 rounded-full object-cover"
+              />
             </TableCell>
             <TableCell>{sale.productName}</TableCell>
             <TableCell className="text-center ">{formatDate(sale.saledOn)}</TableCell>
