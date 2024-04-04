@@ -6,7 +6,7 @@ import { LoaderCircle } from "lucide-react"
 
 function ProductsPage() {
   let query = useQuery({
-    queryKey: ["productCount"],
+    queryKey: ["products", "count"],
     queryFn: async () => await getCount(),
   })
 
@@ -28,7 +28,7 @@ function ProductsPage() {
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-2 ">
-          <Products className="" page={1} count={10} />
+          <Products className="" page={1} count={10} showDelete={true} />
         </div>
       </main>
     </div>

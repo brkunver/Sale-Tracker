@@ -9,7 +9,9 @@ import NotFound from "./pages/NotFound"
 import ProductsPage from "./pages/ProductsPage"
 import SalesPage from "./pages/SalesPage"
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { gcTime: 1000 * 60 * 2, staleTime: 1000 * 60 * 2 }},
+})
 const router = createBrowserRouter([
   {
     path: "/",

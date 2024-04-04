@@ -3,11 +3,13 @@ import { useQuery } from "@tanstack/react-query"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CircleX, LoaderCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
+import DeleteProduct from "./DeleteProduct"
 
 interface Props {
   page?: number
   count?: number
   className?: string
+  showDelete?: boolean
 }
 export default function Products(props: Props) {
   let page = props.page ?? 1
@@ -45,15 +47,21 @@ export default function Products(props: Props) {
     <Table className={cn("w-fit", props.className)}>
       <TableHeader>
         <TableRow>
+          {props.showDelete && <TableHead className="min-w-10 text-center">Delete</TableHead>}
           <TableHead className="min-w-10 text-left">ID</TableHead>
           <TableHead className="min-w-10 lg:min-w-24">Image</TableHead>
-          <TableHead className="min-w-10 lg:min-w-24 text-center">Name</TableHead>
+          <TableHead className="min-w-10 lg:min-w-24 text-left">Name</TableHead>
           <TableHead className="min-w-10 lg:min-w-24 text-right">Price</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {query.data?.data.map((product) => (
           <TableRow key={product.productId}>
+            {props.showDelete && (
+              <TableCell className="min-w-10 text-center">
+                <DeleteProduct productId={product.productId} />
+              </TableCell>
+            )}
             <TableCell className="text-left">{product.productId}</TableCell>
             <TableCell>
               <img
