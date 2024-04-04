@@ -9,7 +9,7 @@ using SaleTrackerBackend.Repository;
 
 [ApiController]
 [Route("api/sale")]
-[Authorize]
+//[Authorize]
 public class SaleController : ControllerBase
 {
 
@@ -27,14 +27,15 @@ public class SaleController : ControllerBase
             return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid data" });
         }
 
-        var result = await saleRepo.CreateAsync(input.Adapt<Sale>());
-
-        if (!result)
+        try
         {
-            return BadRequest(new ResponseDto<string> { Success = false, Message = "Cannot created" });
+            await saleRepo.CreateAsync(input.Adapt<Sale>());
+            return Ok(new ResponseDto<string> { Success = true, Message = "Created" });
         }
-
-        return Ok(new ResponseDto<string> { Success = true, Message = "Created" });
+        catch (Exception ex)
+        {
+            return BadRequest(new ResponseDto<string> { Success = false, Message = $"Failed to create sale: {ex.Message}" });
+        }
     }
 
 
@@ -57,25 +58,29 @@ public class SaleController : ControllerBase
             return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid data" });
         }
 
-        var result = await saleRepo.UpdateAsync(id, input.Adapt<Sale>());
-
-        if (!result)
+        try
         {
-            return BadRequest(new ResponseDto<string> { Success = false, Message = "Cannot update" });
+            await saleRepo.UpdateAsync(id, input.Adapt<Sale>());
+            return Ok(new ResponseDto<string> { Success = true, Message = "Updated" });
         }
-
-        return Ok(new ResponseDto<string> { Success = true, Message = "Updated" });
+        catch (Exception ex)
+        {
+            return BadRequest(new ResponseDto<string> { Success = false, Message = ex.Message });
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<ActionResult<ResponseDto<string>>> Delete([FromRoute] int id)
     {
-        var result = await saleRepo.DeleteByIdAsync(id);
-        if (!result)
+        try
         {
-            return BadRequest(new ResponseDto<string> { Success = false, Message = "Cannot deleted" });
+            await saleRepo.DeleteByIdAsync(id);
+            return Ok(new ResponseDto<string> { Success = true, Message = "Deleted" });
         }
-        return Ok(new ResponseDto<string> { Success = true, Message = "Deleted" });
+        catch (Exception ex)
+        {
+            return BadRequest(new ResponseDto<string> { Success = false, Message = $"Failed to delete: {ex.Message}" });
+        }
     }
 
     [HttpGet("count")]
@@ -99,4 +104,20 @@ public class SaleController : ControllerBase
         return Ok(new ResponseDto<List<GetSaleWithProductDto>> { Data = products });
     }
 
+
+    [HttpGet("revenue")]
+    public async Task<ActionResult<ResponseDto<decimal>>> GetTotalRevenueLastMonth(DateTime? startDate, DateTime? endDate)
+    {
+        try
+        {
+            startDate ??= DateTime.Now.AddMonths(-1);
+            endDate ??= DateTime.Now;
+            var totalRevenue = await saleRepo.GetTotalSaleRevenueBetweenIntervals((DateTime)startDate, (DateTime)endDate);
+            return Ok(new ResponseDto<decimal> { Data = totalRevenue });
+        }
+        catch (Exception)
+        {
+            return BadRequest(new ResponseDto<decimal> { Message = "Error", Success = false });
+        }
+    }
 }

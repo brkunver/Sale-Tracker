@@ -9,7 +9,7 @@ function DashboardPage() {
       <main className="flex flex-col items-center text-center mx-auto">
         <h1 className="text-3xl lg:py-8">Dashboard</h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-2">
-          <Products className="" page={1} />
+          <Products className=""  />
           <Sales className="" />
         </div>
       </main>

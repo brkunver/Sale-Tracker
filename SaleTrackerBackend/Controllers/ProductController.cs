@@ -11,7 +11,7 @@ using SaleTrackerBackend.Services;
 
 [ApiController]
 [Route("api/product")]
-[Authorize]
+//[Authorize]
 
 public class ProductController : ControllerBase
 {

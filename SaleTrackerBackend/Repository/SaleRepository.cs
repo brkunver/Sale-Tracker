@@ -1,6 +1,5 @@
 namespace SaleTrackerBackend.Repository;
 
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using SaleTrackerBackend.Data;
 using SaleTrackerBackend.Models;
@@ -26,51 +25,47 @@ public class SaleRepository
         }
     }
 
-    public async Task<bool> CreateAsync(Sale sale)
+    public async Task CreateAsync(Sale sale)
     {
         try
         {
             if (sale.ProductId == null)
             {
-                return false; // Satış yapılacak ürün belirtilmemiş
+                throw new Exception("Product not specified for sale"); 
             }
-
-            // Veritabanından ilgili ürünü alarak Sale nesnesine atayın
+        
             var product = await db.Products.FindAsync(sale.ProductId);
-            if (product == null)
+            if (product is null)
             {
-                return false; // Ürün bulunamadı
+                throw new Exception("Product not found"); 
             }
 
-            sale.Product = product; // Sale nesnesine ürünü atayın
+            sale.Product = product; 
 
             await db.Sales.AddAsync(sale);
             await SaveAsync();
-            return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return false;
+            throw new Exception("Failed to create sale", ex);
         }
     }
 
-    public async Task<bool> DeleteByIdAsync(int id)
+    public async Task DeleteByIdAsync(int id)
     {
         try
         {
             var sale = await db.Sales.FindAsync(id);
             if (sale is null)
             {
-                return false;
+                throw new Exception("Sale not found");
             }
             db.Sales.Remove(sale);
             await SaveAsync();
-            return true;
         }
         catch (Exception)
         {
-            return false;
-            throw;
+            throw new Exception("Failed to delete sale");
         }
     }
 
@@ -86,7 +81,7 @@ public class SaleRepository
         }
     }
 
-    public async Task<bool> UpdateAsync(int id, Sale sale)
+    public async Task UpdateAsync(int id, Sale sale)
     {
         try
         {
@@ -96,13 +91,15 @@ public class SaleRepository
                 sale1.SaledOn = DateTime.Now;
                 sale1.ProductId = sale.ProductId;
                 await SaveAsync();
-                return true;
             }
-            return false;
+            else
+            {
+                throw new Exception("Sale not found");
+            }
         }
         catch (Exception)
         {
-            return false;
+            throw new Exception("Update failed");
         }
     }
 
@@ -168,4 +165,21 @@ public class SaleRepository
             return null;
         }
     }
+
+    public async Task<decimal> GetTotalSaleRevenueBetweenIntervals(DateTime startDate, DateTime endDate)
+    {
+        try
+        {
+            decimal totalRevenue = await db.Sales
+                .Where(s => s.SaledOn >= startDate && s.SaledOn <= endDate)
+                .SumAsync(s => s.Product.Price);
+            
+            return totalRevenue;
+        }
+        catch (Exception)
+        {
+            throw new Exception("Failed to get total sale revenue between intervals");
+        }
+    }
+
 }
