@@ -42,7 +42,6 @@ export default function DeleteProduct(props: Props) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-
           <AlertDialogAction onClick={() => mutation.mutate()} className="bg-red-700 hover:bg-red-900">
             Delete
           </AlertDialogAction>
