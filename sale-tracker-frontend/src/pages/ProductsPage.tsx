@@ -3,9 +3,11 @@ import Products from "@/components/products/Products"
 import { getCount } from "@/utils/productApiCalls"
 import { useQuery } from "@tanstack/react-query"
 import { LoaderCircle } from "lucide-react"
+import { useState } from "react"
 
 function ProductsPage() {
-  let query = useQuery({
+  const [page, setPage] = useState(1)
+  const query = useQuery({
     queryKey: ["products", "count"],
     queryFn: async () => await getCount(),
   })
@@ -27,9 +29,10 @@ function ProductsPage() {
             )}
           </p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-2 ">
-          <Products className="" page={1} count={10} showDelete={true} />
+        <div className="px-2">
+          <Products className="" page={page} count={10} showDelete={true} />
         </div>
+
       </main>
     </div>
   )
