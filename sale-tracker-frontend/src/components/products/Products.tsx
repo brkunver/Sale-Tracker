@@ -1,15 +1,22 @@
 import { getAllProducts, getImageUrl } from "@/utils/productApiCalls"
 import { useQuery } from "@tanstack/react-query"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { CircleX, LoaderCircle } from "lucide-react"
+import { CircleX, LoaderCircle, RefreshCcw } from "lucide-react"
 import { cn } from "@/lib/utils"
 import DeleteProduct from "./DeleteProduct"
+import { useEffect } from "react"
 
 interface Props {
   page?: number
   count?: number
   className?: string
   showDelete?: boolean
+  setRefetch?: React.Dispatch<
+    React.SetStateAction<{
+      reloadProducts: () => null
+      reloadSales: () => null
+    }>
+  >
 }
 export default function Products(props: Props) {
   let page = props.page ?? 1
@@ -18,6 +25,18 @@ export default function Products(props: Props) {
     queryKey: ["products", page, count],
     queryFn: async () => await getAllProducts(page, count),
   })
+
+  useEffect(() => {
+    if (props.setRefetch) {
+      props.setRefetch((prev) => ({
+        ...prev,
+        reloadProducts: () => {
+          query.refetch()
+          return null
+        },
+      }))
+    }
+  }, [])
 
   if (query.isLoading) {
     return (

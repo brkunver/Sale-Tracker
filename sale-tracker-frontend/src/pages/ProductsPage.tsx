@@ -5,6 +5,16 @@ import { useQuery } from "@tanstack/react-query"
 import { LoaderCircle } from "lucide-react"
 import { useState } from "react"
 
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
 function ProductsPage() {
   const [page, setPage] = useState(1)
   const query = useQuery({
@@ -28,11 +38,37 @@ function ProductsPage() {
               <LoaderCircle size={20} className="animate-spin" />
             )}
           </p>
+          <p>
+            <p>Current Page = {page}</p>
+          </p>
         </div>
         <div className="px-2">
-          <Products className="" page={page} count={10} showDelete={true} />
+          <div className="flex flex-col">
+            <Products className="" page={page} count={10} showDelete={true} />
+            <Pagination className="mt-2">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious onClick={() => setPage((prev) => prev - 1)} />
+                </PaginationItem>
+                {page != 1 ? <PaginationItem>
+                  <PaginationLink onClick={() => setPage((prev) => prev - 1)}>{page - 1}</PaginationLink>
+                </PaginationItem> : null}
+                <PaginationItem>
+                  <PaginationLink className="bg-green-800 text-white">{page}</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink onClick={() => setPage((prev) => prev + 1)} >{page + 1}</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext onClick={() => setPage((prev) => prev + 1)} />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
         </div>
-
       </main>
     </div>
   )
