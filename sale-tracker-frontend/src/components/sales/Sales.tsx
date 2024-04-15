@@ -5,11 +5,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { CircleX, LoaderCircle } from "lucide-react"
 import formatDate from "@/utils/formatDate"
 import { cn } from "@/lib/utils"
+import { useEffect } from "react"
 
 interface Props {
   page?: number
   count?: number
   className?: string
+  setRefetch: React.Dispatch<
+    React.SetStateAction<{
+      reloadProducts: () => null
+      reloadSales: () => null
+    }>
+  >
 }
 
 export default function Sales(props: Props) {
@@ -19,6 +26,18 @@ export default function Sales(props: Props) {
     queryKey: ["sales", page, count],
     queryFn: async () => await getAllSales(page, count),
   })
+
+  useEffect(() => {
+    if (props.setRefetch) {
+      props.setRefetch((prev) => ({
+        ...prev,
+        reloadSales: () => {
+          query.refetch()
+          return null
+        },
+      }))
+    }
+  }, [])
 
   if (query.isLoading) {
     return (
@@ -50,8 +69,10 @@ export default function Sales(props: Props) {
   return (
     <Table className={cn(props.className)}>
       <TableHeader>
+        <TableRow></TableRow>
         <TableRow>
           <TableHead className="min-w-10 text-center">Sale ID</TableHead>
+          <TableHead className="min-w-10 text-center">Product ID</TableHead>
           <TableHead className="min-w-10 lg:min-w-24">Image</TableHead>
           <TableHead className="min-w-10 lg:min-w-24 text-center">Name</TableHead>
           <TableHead className="min-w-10 lg:min-w-24 text-center">Saled on</TableHead>
@@ -62,6 +83,7 @@ export default function Sales(props: Props) {
         {query.data?.data.map((sale) => (
           <TableRow key={sale.saleId}>
             <TableCell className="text-center">{sale.saleId}</TableCell>
+            <TableCell className="text-center">{sale.productId}</TableCell>
             <TableCell>
               <img
                 src={getImageUrl(sale.productImageUrl)}
