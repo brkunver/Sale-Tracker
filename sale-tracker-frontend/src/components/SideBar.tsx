@@ -4,7 +4,7 @@ import { Link, redirect } from "react-router-dom"
 
 function SideBar() {
   return (
-    <aside className="w-[80px] lg:w-[200px] h-screen flex flex-col bg-gray-900 text-white items-center">
+    <aside className="w-[80px] lg:w-[200px] min-h-full flex flex-col bg-gray-900 text-white items-center">
       <div className="hidden lg:flex flex-col text-lg font-bold gap-10 pt-6">
         <Link
           to={"/dashboard"}
