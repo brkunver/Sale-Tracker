@@ -48,3 +48,10 @@
     --ring: 142.4 71.8% 29.2%;
   }
 }
+
+@font-face {
+  font-family: "Inter";
+  src: url("/Inter.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
