@@ -33,7 +33,7 @@ function ProductsPage() {
   return (
     <div className="flex min-h-screen">
       <SideBar />
-      <main className="grid grid-cols-1 lg:grid-cols-2 items-center mx-auto gap-4 w-full">
+      <main className="grid grid-cols-1 lg:grid-cols-2 items-center mx-auto gap-2">
         <div id="products-table" className="flex flex-col mx-auto">
           <h1 className="text-3xl lg:py-8 mx-auto">Products</h1>
           <div className="flex gap-2 justify-center items-center text-lg font-semibold">
