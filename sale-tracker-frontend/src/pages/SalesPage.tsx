@@ -2,7 +2,7 @@ import SideBar from "@/components/SideBar"
 
 function SalesPage() {
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <SideBar />
       <main className="flex flex-col">
         <h1>Sales</h1>

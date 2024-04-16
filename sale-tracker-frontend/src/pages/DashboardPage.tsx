@@ -14,14 +14,14 @@ function DashboardPage() {
   async function reloadHandler() {
     reloads.reloadProducts()
     reloads.reloadSales()
-    console.log("Reloading")
+    
   }
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <SideBar />
       <main className="flex flex-col items-center text-center mx-auto">
-        <h1 className="text-3xl lg:py-8">Dashboard</h1>
+        <h1 className="text-3xl lg:py-8 font-sans">Dashboard</h1>
         <button onClick={reloadHandler} className="flex justify-center items-center text-lg font-semibold rounded bg-gray-200 px-2 py-1 gap-2 mb-4 hover:outline active:scale-90">
           <span>Reload All</span>
           <RefreshCcw size={24} className="text-green-700"/>
