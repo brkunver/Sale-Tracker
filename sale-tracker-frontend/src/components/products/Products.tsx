@@ -1,7 +1,7 @@
 import { getAllProducts, getImageUrl } from "@/utils/productApiCalls"
 import { useQuery } from "@tanstack/react-query"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { CircleX, LoaderCircle, RefreshCcw } from "lucide-react"
+import { CircleX, LoaderCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import DeleteProduct from "./DeleteProduct"
 import { useEffect } from "react"
@@ -69,7 +69,7 @@ export default function Products(props: Props) {
           {props.showDelete && <TableHead className="min-w-10 text-center">Delete</TableHead>}
           <TableHead className="min-w-10 text-left">ID</TableHead>
           <TableHead className="min-w-10 lg:min-w-24">Image</TableHead>
-          <TableHead className="min-w-10 lg:min-w-24 text-left">Name</TableHead>
+          <TableHead className="min-w-10 lg:min-w-24 text-center">Name</TableHead>
           <TableHead className="min-w-10 lg:min-w-24 text-right">Price</TableHead>
         </TableRow>
       </TableHeader>
@@ -89,7 +89,7 @@ export default function Products(props: Props) {
                 className="w-10 h-10 rounded-full object-cover"
               />
             </TableCell>
-            <TableCell>{product.name}</TableCell>
+            <TableCell className="text-center">{product.name}</TableCell>
             <TableCell className="text-right text-green-800 text-base">{product.price}$</TableCell>
           </TableRow>
         ))}
