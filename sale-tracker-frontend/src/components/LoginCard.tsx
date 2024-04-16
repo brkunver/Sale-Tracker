@@ -16,23 +16,28 @@ function LoginCard() {
 
   let navigate = useNavigate()
 
-  async function onSubmit(e : any) {
+  async function onSubmit(e: any) {
     e.preventDefault()
     setFetchState((prev) => ({ ...prev, isLoading: true, isError: false }))
-    let response = await fetch(import.meta.env.VITE_API_URL + "/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formInfo),
-    })
-    if (!response.ok) {
+    try {
+      let response = await fetch(import.meta.env.VITE_API_URL + "/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formInfo),
+      })
+      if (!response.ok) {
+        setFetchState((prev) => ({ ...prev, isError: true }))
+      } else {
+        let data = await response.json()
+        localStorage.setItem("token", data.token)
+        navigate("/dashboard")
+      }
+    } catch (error) {
       setFetchState((prev) => ({ ...prev, isError: true }))
-    } else {
-      let data = await response.json()
-      localStorage.setItem("token", data.token)
-      navigate("/dashboard")
     }
+
     setFetchState((prev) => ({ ...prev, isLoading: false }))
   }
 
@@ -59,7 +64,7 @@ function LoginCard() {
 
       <Button type="submit">Login</Button>
       {fetchState.isLoading && <p className="text-center font-semibold">Loading...</p>}
-      {fetchState.isError && <p className="text-center font-semibold">Can't Login In</p>}
+      {fetchState.isError && <p className="text-center font-semibold text-red-600">Error : Can't Login In</p>}
     </form>
   )
 }
