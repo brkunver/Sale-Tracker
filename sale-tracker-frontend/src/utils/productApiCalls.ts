@@ -102,3 +102,18 @@ export async function updateProduct(productId: number, input: any) {
   let data = await response.json()
   return data
 }
+
+
+export async function AddNewProduct(formData : FormData) {
+  let url = import.meta.env.VITE_API_URL + "/api/product"
+  let response = await fetch(url, {
+    method: "POST",
+    headers: getTokenHeader(),
+    body: formData,
+  })
+  if (!response.ok) {
+    throw new Error(response.statusText)
+  }
+  let data = await response.json()
+  return data
+}
