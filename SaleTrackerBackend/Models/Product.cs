@@ -15,4 +15,6 @@ public class Product
     public DateTime CreatedOn { get; set; } = DateTime.Now;
     public DateTime UpdatedOn { get; set; } = DateTime.Now;
     public string ImageUrl { get; set; } = "default.jpg";
+    public bool IsDeleted { get; set; } = false;
+    
 }
