@@ -12,7 +12,6 @@ using SaleTrackerBackend.Services;
 [ApiController]
 [Route("api/product")]
 //[Authorize]
-
 public class ProductController : ControllerBase
 {
     private readonly ProductRepository productRepo;
@@ -144,18 +143,5 @@ public class ProductController : ControllerBase
         }
     }
 
-
-    // [HttpGet("image/{imagename}")]
-    // [AllowAnonymous]
-    // public IActionResult GetImage(string imagename)
-    // {
-    //     var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", imagename);
-    //     if (!System.IO.File.Exists(imagePath))
-    //     {
-    //         return NotFound();
-    //     }
-    //     var imageBytes = System.IO.File.ReadAllBytes(imagePath);
-    //     return File(imageBytes, "image/jpeg");
-    // }
 
 }
