@@ -19,7 +19,7 @@ export default function AddProduct() {
     let formData = new FormData(event.currentTarget)
     mutation.mutate(formData)
   }
-
+ 
   return (
     <form onSubmit={formSubmitHandler} className="mx-auto flex flex-col px-8 gap-2 border rounded py-10">
       <h2 className="text-center font-semibold text-lg mb-2">Add New Product</h2>
