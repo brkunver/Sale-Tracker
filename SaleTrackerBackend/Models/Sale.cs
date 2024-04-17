@@ -14,6 +14,7 @@ public class Sale
     public Customer Customer { get; set; } = new();
     
     public int Quantity { get; set; }
+    
     [Column(TypeName = "decimal(18, 2)")]
     public decimal Total { get; set; }
 }
