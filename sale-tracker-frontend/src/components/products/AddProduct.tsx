@@ -13,7 +13,7 @@ export default function AddProduct() {
       queryClient.invalidateQueries({ queryKey: ["products"] })
     },
   })
-
+ 
   function formSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     let formData = new FormData(event.currentTarget)
