@@ -10,7 +10,7 @@ using SaleTrackerBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+ 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
