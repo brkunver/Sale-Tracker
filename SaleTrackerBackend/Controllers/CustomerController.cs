@@ -29,10 +29,25 @@ public class CustomerController : ControllerBase
       }
       return Ok(new ResponseDto<GetCustomerDto> { Data = currentCustomer.Adapt<GetCustomerDto>() });
     }
-    catch (System.Exception)
+    catch (Exception ex)
     {
 
-      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Error" });
+      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = ex.Message});
+    }
+  }
+
+  [HttpGet]
+  public async Task<ActionResult<ResponseDto<List<GetCustomerDto>>>> GetAll([FromQuery] int? page, int? count)
+  {
+    try
+    {
+      var currentCustomer = await customerRepo.GetAllAsync(page ?? 1, count ?? 5);
+      currentCustomer ??= [];
+      return Ok(new ResponseDto<List<GetCustomerDto>> { Data = currentCustomer.Select(c => c.Adapt<GetCustomerDto>()).ToList() });
+    }
+    catch (Exception ex)
+    {
+      return BadRequest(new ResponseDto<List<GetCustomerDto>> { Success = false, Message = ex.Message });
     }
   }
 
