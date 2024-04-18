@@ -12,7 +12,7 @@ public class AuthController : ControllerBase
     private readonly UserManager<IdentityUser> _userManager;
     private readonly TokenService _tokenService;
     private readonly SignInManager<IdentityUser> _signInManager;
-    
+
     public AuthController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, TokenService tokenService)
     {
         _signInManager = signInManager;
