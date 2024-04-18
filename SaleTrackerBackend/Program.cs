@@ -9,7 +9,6 @@ using SaleTrackerBackend.Repository;
 using SaleTrackerBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
  
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
@@ -20,8 +19,6 @@ builder.Services.AddCors(options =>
                           policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
                       });
 });
-
- 
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -90,7 +87,6 @@ builder.Services.AddAuthentication(options =>
 });
 
 
-
 var app = builder.Build();
 app.UseCors(MyAllowSpecificOrigins);
 if (app.Environment.IsDevelopment())
@@ -98,7 +94,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseStaticFiles();
 app.UseDefaultFiles();
