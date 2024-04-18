@@ -1,3 +1,4 @@
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SaleTrackerBackend.Models;
 using SaleTrackerBackend.Models.Dto;
@@ -17,21 +18,21 @@ public class CustomerController : ControllerBase
   }
 
   [HttpGet("{id}")]
-  public async Task<ActionResult<ResponseDto<Customer>>> GetById([FromRoute] int id)
+  public async Task<ActionResult<ResponseDto<GetCustomerDto>>> GetById([FromRoute] int id)
   {
     try
     {
       var currentCustomer = await customerRepo.GetByIdAsync(id);
       if (currentCustomer is null)
       {
-        return NotFound(new ResponseDto<Customer> { Success = false, Message = "Not found" });
+        return NotFound(new ResponseDto<GetCustomerDto> { Success = false, Message = "Not found" });
       }
-      return Ok(new ResponseDto<Customer> { Data = currentCustomer });
+      return Ok(new ResponseDto<GetCustomerDto> { Data = currentCustomer.Adapt<GetCustomerDto>() });
     }
     catch (System.Exception)
     {
 
-      return BadRequest(new ResponseDto<Customer> { Success = false, Message = "Error" });
+      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Error" });
     }
   }
 
