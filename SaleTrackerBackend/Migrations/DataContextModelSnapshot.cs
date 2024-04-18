@@ -251,7 +251,7 @@ namespace SaleTrackerBackend.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("SaleTrackerBackend.Models.Product", b =>
