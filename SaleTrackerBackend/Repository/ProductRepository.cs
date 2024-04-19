@@ -117,4 +117,22 @@ public class ProductRepository
             throw new Exception("Error deleting product: " + ex.Message);
         }
     }
+
+    public async Task MarkDeletedAsync(int id)
+    {
+        try
+        {
+            var prod = await db.Products.FindAsync(id);
+            if (prod is null)
+            {
+                throw new Exception("Product not found");
+            }
+            prod.IsDeleted = true;
+            await SaveAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Error deleting product: " + ex.Message);
+        }
+    }
 }
