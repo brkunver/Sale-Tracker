@@ -119,4 +119,17 @@ public class CustomerRepository
       throw new Exception("Failed to delete customer", ex);
     }
   }
+
+
+  public async Task<int> GetCountAsync()
+  {
+    try
+    {
+      return await db.Customers.Where(c => !c.IsDeleted).CountAsync();
+    }
+    catch (Exception)
+    {
+      throw new Exception("Cannot get customer count");
+    }
+  }
 }
