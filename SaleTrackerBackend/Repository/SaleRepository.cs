@@ -34,12 +34,18 @@ public class SaleRepository
                 throw new Exception("Product not specified for sale");
             }
 
-            var product = await db.Products.FindAsync(sale.ProductId);
-            if (product is null)
+            if(sale.CustomerId == null)
             {
-                throw new Exception("Product not found");
+                throw new Exception("Customer not specified for sale");
             }
 
+            var product = await db.Products.FindAsync(sale.ProductId);
+
+            if (product is null)
+            {
+                throw new Exception("Product or Customer not found");
+            }
+            
             sale.Product = product;
 
             await db.Sales.AddAsync(sale);
