@@ -110,22 +110,14 @@ public class ProductController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<ResponseDto<string>>> Delete([FromRoute] int id)
     {
-        var product = await productRepo.GetByIdAsync(id);
-        if (product is null)
-        {
-            return NotFound(new ResponseDto<string> { Success = false, Message = "Not found" });
-        }
-
         try
         {
-            await productRepo.DeleteByIdAsync(id);
+            await productRepo.MarkDeletedAsync(id);
         }
         catch (Exception ex)
         {
             return BadRequest(new ResponseDto<string> { Success = false, Message = ex.Message });
         }
-
-        deleteImageService.DeleteImage(product.ImageUrl);
         return Ok(new ResponseDto<string> { Success = true, Message = "Deleted" });
     }
 
