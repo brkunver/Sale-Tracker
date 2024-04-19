@@ -95,7 +95,7 @@ public class CustomerController : ControllerBase
     {
       return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Invalid data input" });
     }
-
+  
     try
     {
       var newCustomer = customerDto.Adapt<Customer>();
