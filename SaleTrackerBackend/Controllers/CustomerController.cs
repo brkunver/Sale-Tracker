@@ -12,9 +12,9 @@ public class CustomerController : ControllerBase
 {
 
   private readonly CustomerRepository customerRepo;
-  public CustomerController(CustomerRepository customerRepo)
+  public CustomerController(CustomerRepository _customerRepo)
   {
-    this.customerRepo = customerRepo;
+    customerRepo = _customerRepo;
   }
 
   [HttpGet("{id}")]
