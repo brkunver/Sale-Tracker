@@ -50,7 +50,7 @@ public class ProductRepository
         }
     }
 
-    public async Task<List<Product>?> GetAllAsync(int page, int count )
+    public async Task<List<Product>?> GetAllAsync(int page, int count)
     {
         try
         {
@@ -67,11 +67,11 @@ public class ProductRepository
     {
         try
         {
-            return await db.Products.CountAsync();
+            return await db.Products.Where(p => !p.IsDeleted).CountAsync();
         }
         catch (Exception)
         {
-            throw new Exception("Get count error");
+            throw new Exception("Cannot get product count");
         }
     }
 
