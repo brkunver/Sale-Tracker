@@ -32,7 +32,7 @@ public class CustomerController : ControllerBase
     catch (Exception ex)
     {
 
-      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = ex.Message});
+      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = ex.Message });
     }
   }
 
@@ -48,6 +48,65 @@ public class CustomerController : ControllerBase
     catch (Exception ex)
     {
       return BadRequest(new ResponseDto<List<GetCustomerDto>> { Success = false, Message = ex.Message });
+    }
+  }
+
+  [HttpPost]
+  public async Task<ActionResult<ResponseDto<GetCustomerDto>>> Create([FromBody] CreateCustomerDto customerDto)
+  {
+
+    if (!ModelState.IsValid)
+    {
+      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Invalid data input" });
+    }
+
+    try
+    {
+      var newCustomer = customerDto.Adapt<Customer>();
+      await customerRepo.CreateAsync(newCustomer);
+      return Ok(new ResponseDto<GetCustomerDto> { Data = newCustomer.Adapt<GetCustomerDto>() });
+    }
+    catch (Exception ex)
+    {
+      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = ex.Message });
+    }
+  }
+
+  [HttpDelete]
+  public async Task<ActionResult<ResponseDto<GetCustomerDto?>>> Delete([FromRoute] int id)
+  {
+    try
+    {
+      await customerRepo.MarkDeletedAsync(id);
+      await customerRepo.SaveAsync();
+      return Ok(new ResponseDto<GetCustomerDto?> { Data = null });
+    }
+    catch (Exception ex)
+    {
+      return BadRequest(new ResponseDto<GetCustomerDto?> { Success = false, Message = ex.Message, Data = null });
+    }
+  }
+
+  [HttpPut("{id}")]
+  public async Task<ActionResult<ResponseDto<GetCustomerDto>>> Update([FromRoute] int id, [FromBody] UpdateCustomerDto customerDto)
+  {
+
+    if(!ModelState.IsValid)
+    {
+      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Invalid data input" });
+    }
+
+    try
+    {
+      var newCustomer = customerDto.Adapt<Customer>();
+      newCustomer.CustomerId = id;
+      await customerRepo.UpdateAsync(newCustomer);
+      var updatedUser = await customerRepo.GetByIdAsync(id);
+      return Ok(new ResponseDto<GetCustomerDto> { Data = updatedUser.Adapt<GetCustomerDto>() });
+    }
+    catch (Exception ex)
+    {
+      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Failed to update =>" + ex.Message });
     }
   }
 
