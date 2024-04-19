@@ -1,10 +1,10 @@
+namespace SaleTrackerBackend.Controllers;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SaleTrackerBackend.Models;
 using SaleTrackerBackend.Models.Dto;
 using SaleTrackerBackend.Repository;
 
-namespace SaleTrackerBackend.Controllers;
 
 [ApiController]
 [Route("api/customer")]
@@ -37,7 +37,7 @@ public class CustomerController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<ResponseDto<List<GetCustomerDto>>>> GetAll([FromQuery] int? page, int? count)
+  public async Task<ActionResult<ResponseDto<List<GetCustomerDto>?>>> GetAll([FromQuery] int? page, int? count)
   {
     try
     {
@@ -47,7 +47,7 @@ public class CustomerController : ControllerBase
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<List<GetCustomerDto>> { Success = false, Message = ex.Message });
+      return BadRequest(new ResponseDto<List<GetCustomerDto>?> { Success = false, Message = ex.Message, Data = null });
     }
   }
 
@@ -91,7 +91,7 @@ public class CustomerController : ControllerBase
   public async Task<ActionResult<ResponseDto<GetCustomerDto>>> Update([FromRoute] int id, [FromBody] UpdateCustomerDto customerDto)
   {
 
-    if(!ModelState.IsValid)
+    if (!ModelState.IsValid)
     {
       return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Invalid data input" });
     }
@@ -106,7 +106,21 @@ public class CustomerController : ControllerBase
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Failed to update =>" + ex.Message });
+      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = ex.Message });
+    }
+  }
+
+  [HttpGet("count")]
+  public async Task<ActionResult<ResponseDto<int>>> Count()
+  {
+    try
+    {
+      var count = await customerRepo.GetCountAsync();
+      return Ok(new ResponseDto<int> { Data = count });
+    }
+    catch (Exception ex)
+    {
+      return BadRequest(new ResponseDto<int> { Success = false, Message = ex.Message });
     }
   }
 
