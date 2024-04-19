@@ -67,7 +67,7 @@ public class CustomerRepository
   {
     try
     {
-      var currentCustomer = await db.Customers.FindAsync(customer.CustomerId);
+      var currentCustomer = await GetByIdAsync(customer.CustomerId);
       if (currentCustomer is null)
       {
         throw new Exception("Customer not found");
@@ -80,11 +80,11 @@ public class CustomerRepository
     }
     catch (Exception ex)
     {
-      throw new Exception("Failed to update customer", ex);
+      throw new Exception("Failed to update customer =>" + ex.Message, ex);
     }
   }
 
-  public async Task MarkDeleted(int id)
+  public async Task MarkDeletedAsync(int id)
   {
     try
     {
@@ -98,7 +98,7 @@ public class CustomerRepository
     }
     catch (Exception ex)
     {
-      throw new Exception("Failed to delete customer", ex);
+      throw new Exception("Failed to delete customer => " + ex.Message, ex);
     }
   }
 
