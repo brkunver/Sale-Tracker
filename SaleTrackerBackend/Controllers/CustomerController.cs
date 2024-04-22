@@ -25,13 +25,12 @@ public class CustomerController : ControllerBase
       var currentCustomer = await customerRepo.GetByIdAsync(id);
       if (currentCustomer is null)
       {
-        return NotFound(new ResponseDto<GetCustomerDto> { Success = false, Message = "Not found" });
+        return NotFound(new ResponseDto<GetCustomerDto> { Success = false, Message = "Customer Not found" });
       }
       return Ok(new ResponseDto<GetCustomerDto> { Data = currentCustomer.Adapt<GetCustomerDto>() });
     }
     catch (Exception ex)
     {
-
       return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = ex.Message });
     }
   }
