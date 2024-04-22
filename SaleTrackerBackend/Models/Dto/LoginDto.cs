@@ -1,6 +1,6 @@
+namespace SaleTrackerBackend.Models.Dto;
 using System.ComponentModel.DataAnnotations;
 
-namespace SaleTrackerBackend.Models.Dto;
 
 public class LoginDto
 {
