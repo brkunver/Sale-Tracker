@@ -1,6 +1,5 @@
 namespace SaleTrackerBackend.Controllers;
 
-using Azure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SaleTrackerBackend.Models.Dto;
