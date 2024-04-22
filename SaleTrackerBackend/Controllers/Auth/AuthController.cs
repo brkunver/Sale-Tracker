@@ -1,5 +1,6 @@
 namespace SaleTrackerBackend.Controllers;
 
+using Azure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SaleTrackerBackend.Models.Dto;
@@ -23,18 +24,18 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult> Login([FromBody] LoginDto input)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
+        if (!ModelState.IsValid) return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid input data" });
 
         var user = await _userManager.FindByNameAsync(input.Username!);
 
-        if (user is null) return Unauthorized("User not found");
+        if (user is null) return BadRequest(new ResponseDto<string> { Success = false, Message = "User not found" });
 
         var result = await _signInManager.CheckPasswordSignInAsync(user, input.Password!, false);
 
-        if (!result.Succeeded) return Unauthorized("Invalid credentials");
+        if (!result.Succeeded) return Unauthorized(new ResponseDto<string> { Success = false, Message = "Invalid password or username" });
         var token = _tokenService.GenerateToken(user);
 
-        return Ok(new { success = true, token });
+        return Ok(new { Success = true, token });
     }
 
     // [HttpPost("register")]
