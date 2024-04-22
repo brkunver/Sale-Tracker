@@ -1,6 +1,6 @@
+namespace SaleTrackerBackend.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace SaleTrackerBackend.Models;
 
 public class Customer
 {
