@@ -47,7 +47,7 @@ public class SaleRepository
             await db.Sales.AddAsync(sale);
             await SaveAsync();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             throw new Exception("Failed to create sale");
         }
