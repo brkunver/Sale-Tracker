@@ -19,9 +19,9 @@ public class ProductRepository
             var newProduct = await db.Products.AddAsync(product);
             await SaveAsync();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            throw new Exception("Error creating product: " + ex.Message);
+            throw new Exception("Failed to create product");
         }
     }
 
@@ -31,9 +31,9 @@ public class ProductRepository
         {
             await db.SaveChangesAsync();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            throw new Exception("Error saving changes: " + ex.Message);
+            throw new Exception("Failed to save changes");
         }
     }
 
@@ -46,7 +46,7 @@ public class ProductRepository
         }
         catch (Exception)
         {
-            return null;
+            throw new Exception("Failed to get product");
         }
     }
 
@@ -59,7 +59,7 @@ public class ProductRepository
         }
         catch (Exception)
         {
-            return null;
+            throw new Exception("Failed to get products");
         }
     }
 
@@ -71,7 +71,7 @@ public class ProductRepository
         }
         catch (Exception)
         {
-            throw new Exception("Cannot get product count");
+            throw new Exception("Failed to get count of products");
         }
     }
 
@@ -94,9 +94,9 @@ public class ProductRepository
                 throw new Exception("Product not found");
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            throw new Exception("Error updating product: " + ex.Message);
+            throw new Exception("Failed to update product");
         }
     }
 
@@ -112,9 +112,9 @@ public class ProductRepository
             db.Products.Remove(prod);
             await SaveAsync();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            throw new Exception("Error deleting product: " + ex.Message);
+            throw new Exception("Failed to delete product");
         }
     }
 
@@ -130,9 +130,9 @@ public class ProductRepository
             prod.IsDeleted = true;
             await SaveAsync();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            throw new Exception("Error deleting product: " + ex.Message);
+            throw new Exception("Failed to delete product");
         }
     }
 }
