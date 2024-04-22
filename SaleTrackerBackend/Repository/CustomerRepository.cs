@@ -78,7 +78,7 @@ public class CustomerRepository
       currentCustomer.UpdatedOn = DateTime.Now;
       await SaveAsync();
     }
-    catch (Exception ex)
+    catch (Exception)
     {
       throw new Exception("Failed to update customer");
     }
