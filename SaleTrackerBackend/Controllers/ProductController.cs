@@ -72,12 +72,19 @@ public class ProductController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<ResponseDto<GetProductDto>>> GetById([FromRoute] int id)
     {
-        var product = await productRepo.GetByIdAsync(id);
-        if (product is null)
+        try
         {
-            return NotFound(new ResponseDto<GetProductDto> { Success = false, Message = "Not found" });
+            var product = await productRepo.GetByIdAsync(id);
+            if (product is null)
+            {
+                return NotFound(new ResponseDto<GetProductDto> { Success = false, Message = "Not found" });
+            }
+            return Ok(new ResponseDto<GetProductDto> { Data = product.Adapt<GetProductDto>() });
         }
-        return Ok(new ResponseDto<GetProductDto> { Data = product.Adapt<GetProductDto>() });
+        catch (Exception ex)
+        {
+            return BadRequest(new ResponseDto<GetProductDto> { Success = false, Message = ex.Message });
+        }
     }
 
     [HttpPut("{id}")]
