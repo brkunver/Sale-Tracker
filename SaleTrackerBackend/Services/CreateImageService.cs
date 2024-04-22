@@ -44,7 +44,7 @@ public class CreateImageService
 
     image.Mutate(x => x.Resize(newWidth, newHeight));
 
-    // Düzenlenmiş resmi kaydet
+
     image.Save(filePath, new JpegEncoder());
     return fileName;
   }
