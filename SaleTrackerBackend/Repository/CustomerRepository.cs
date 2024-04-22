@@ -78,9 +78,9 @@ public class CustomerRepository
       currentCustomer.UpdatedOn = DateTime.Now;
       await SaveAsync();
     }
-    catch (Exception)
+    catch (Exception e)
     {
-      throw new Exception("Failed to update customer");
+      throw new Exception("Failed to update customer, " + e.Message);
     }
   }
 
@@ -96,9 +96,9 @@ public class CustomerRepository
       customer.IsDeleted = true;
       await SaveAsync();
     }
-    catch (Exception)
+    catch (Exception e)
     {
-      throw new Exception("Failed to delete customer ");
+      throw new Exception("Failed to delete customer, " + e.Message);
     }
   }
 
@@ -114,9 +114,9 @@ public class CustomerRepository
       db.Customers.Remove(customer);
       await SaveAsync();
     }
-    catch (Exception)
+    catch (Exception e)
     {
-      throw new Exception("Failed to delete customer permanently");
+      throw new Exception("Failed to delete customer permanently," + e.Message);
     }
   }
 
