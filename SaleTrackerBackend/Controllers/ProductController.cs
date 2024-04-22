@@ -138,16 +138,16 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("count")]
-    public async Task<ActionResult<ResponseDto<int>>> GetCount()
+    public async Task<ActionResult<ResponseDto<int?>>> GetCount()
     {
         try
         {
             var count = await productRepo.GetCountAsync();
-            return Ok(new ResponseDto<int> { Data = count });
+            return Ok(new ResponseDto<int?> { Data = count });
         }
         catch (Exception)
         {
-            return BadRequest(new ResponseDto<int> { Message = "error", Success = false });
+            return BadRequest(new ResponseDto<int?> { Message = "error", Success = false , Data = null});
         }
     }
 
