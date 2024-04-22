@@ -47,9 +47,9 @@ public class SaleRepository
             await db.Sales.AddAsync(sale);
             await SaveAsync();
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            throw new Exception("Failed to create sale");
+            throw new Exception("Failed to create sale, " + e.Message);
         }
     }
 
@@ -65,9 +65,9 @@ public class SaleRepository
             db.Sales.Remove(sale);
             await SaveAsync();
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            throw new Exception("Failed to delete sale");
+            throw new Exception("Failed to delete sale, " + e.Message);
         }
     }
 
@@ -97,9 +97,9 @@ public class SaleRepository
             currentSale.ProductId = sale.ProductId;
             await SaveAsync();
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            throw new Exception("Failed to update sale");
+            throw new Exception("Failed to update sale, " + e.Message);
         }
     }
 
@@ -110,7 +110,7 @@ public class SaleRepository
             var sales = db.Sales.Skip((page - 1) * count).Take(count).OrderBy(s => s.SaleId);
             return await sales.ToListAsync();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             throw new Exception("Failed to get sales");
         }
