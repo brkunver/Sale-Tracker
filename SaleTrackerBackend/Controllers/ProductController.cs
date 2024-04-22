@@ -77,7 +77,7 @@ public class ProductController : ControllerBase
             var product = await productRepo.GetByIdAsync(id);
             if (product is null)
             {
-                return NotFound(new ResponseDto<GetProductDto> { Success = false, Message = "Not found" });
+                return NotFound(new ResponseDto<GetProductDto> { Success = false, Message = "Product not found" });
             }
             return Ok(new ResponseDto<GetProductDto> { Data = product.Adapt<GetProductDto>() });
         }
@@ -102,7 +102,7 @@ public class ProductController : ControllerBase
 
             if (existingProduct is null)
             {
-                return NotFound(new ResponseDto<string> { Success = false, Message = "Not Found" });
+                return NotFound(new ResponseDto<string> { Success = false, Message = "Product not found" });
             }
 
             var updatedProduct = input.Adapt<Product>();
