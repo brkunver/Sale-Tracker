@@ -92,8 +92,10 @@ public class ProductController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid data" });
+            return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid data input" });
         }
+
+
         var existingProduct = await productRepo.GetByIdAsync(id);
 
         if (existingProduct is null)
