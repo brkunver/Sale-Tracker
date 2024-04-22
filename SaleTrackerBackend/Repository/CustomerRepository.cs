@@ -20,7 +20,7 @@ public class CustomerRepository
     }
     catch (Exception)
     {
-      throw new Exception("Cannot save changes");
+      throw new Exception("Failed to save changes");
     }
   }
 
@@ -32,7 +32,7 @@ public class CustomerRepository
     }
     catch (Exception)
     {
-      throw new Exception("Cannot get customer");
+      throw new Exception("Failed to get customer");
     }
   }
 
@@ -45,7 +45,7 @@ public class CustomerRepository
     }
     catch (Exception)
     {
-      return null;
+      throw new Exception("Failed to get customers");
     }
   }
 
@@ -57,9 +57,9 @@ public class CustomerRepository
       await db.Customers.AddAsync(customer);
       await SaveAsync();
     }
-    catch (Exception ex)
+    catch (Exception)
     {
-      throw new Exception("Failed to create customer", ex);
+      throw new Exception("Failed to create customer");
     }
   }
 
@@ -80,7 +80,7 @@ public class CustomerRepository
     }
     catch (Exception ex)
     {
-      throw new Exception("Failed to update customer =>" + ex.Message, ex);
+      throw new Exception("Failed to update customer");
     }
   }
 
@@ -96,9 +96,9 @@ public class CustomerRepository
       customer.IsDeleted = true;
       await SaveAsync();
     }
-    catch (Exception ex)
+    catch (Exception)
     {
-      throw new Exception("Failed to delete customer => " + ex.Message, ex);
+      throw new Exception("Failed to delete customer ");
     }
   }
 
@@ -114,9 +114,9 @@ public class CustomerRepository
       db.Customers.Remove(customer);
       await SaveAsync();
     }
-    catch (Exception ex)
+    catch (Exception)
     {
-      throw new Exception("Failed to delete customer", ex);
+      throw new Exception("Failed to delete customer permanently");
     }
   }
 
@@ -129,7 +129,7 @@ public class CustomerRepository
     }
     catch (Exception)
     {
-      throw new Exception("Cannot get customer count");
+      throw new Exception("Failed to get count of customers");
     }
   }
 }
