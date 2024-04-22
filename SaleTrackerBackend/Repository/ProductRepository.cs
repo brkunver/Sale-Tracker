@@ -94,9 +94,9 @@ public class ProductRepository
                 throw new Exception("Product not found");
             }
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            throw new Exception("Failed to update product");
+            throw new Exception("Failed to update product," + e.Message);
         }
     }
 
@@ -112,9 +112,9 @@ public class ProductRepository
             db.Products.Remove(prod);
             await SaveAsync();
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            throw new Exception("Failed to delete product");
+            throw new Exception("Failed to delete product," + e.Message);
         }
     }
 
@@ -130,9 +130,9 @@ public class ProductRepository
             prod.IsDeleted = true;
             await SaveAsync();
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            throw new Exception("Failed to delete product");
+            throw new Exception("Failed to delete product," + e.Message);
         }
     }
 }
