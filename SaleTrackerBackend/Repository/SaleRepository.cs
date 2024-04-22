@@ -29,23 +29,19 @@ public class SaleRepository
     {
         try
         {
-            if (sale.ProductId == null)
-            {
-                throw new Exception("Product not specified for sale");
-            }
-
-            if(sale.CustomerId == null)
-            {
-                throw new Exception("Customer not specified for sale");
-            }
 
             var product = await db.Products.FindAsync(sale.ProductId);
+            var customer = await db.Customers.FindAsync(sale.CustomerId);
 
             if (product is null)
             {
-                throw new Exception("Product or Customer not found");
+                throw new Exception("Product not found");
             }
-            
+            if (customer is null)
+            {
+                throw new Exception("Customer not found");
+            }
+
             sale.Product = product;
 
             await db.Sales.AddAsync(sale);
@@ -53,7 +49,7 @@ public class SaleRepository
         }
         catch (Exception ex)
         {
-            throw new Exception("Failed to create sale", ex);
+            throw new Exception("Failed to create sale");
         }
     }
 
@@ -83,7 +79,7 @@ public class SaleRepository
         }
         catch (Exception)
         {
-            throw new Exception("Get count error");
+            throw new Exception("Failed to get count of sales");
         }
     }
 
@@ -91,21 +87,19 @@ public class SaleRepository
     {
         try
         {
-            var sale1 = await db.Sales.FindAsync(id);
-            if (sale1 != null)
-            {
-                sale1.SaledOn = sale.SaledOn;
-                sale1.ProductId = sale.ProductId;
-                await SaveAsync();
-            }
-            else
+            var currentSale = await db.Sales.FindAsync(id);
+
+            if (currentSale == null)
             {
                 throw new Exception("Sale not found");
             }
+            currentSale.SaledOn = sale.SaledOn;
+            currentSale.ProductId = sale.ProductId;
+            await SaveAsync();
         }
         catch (Exception)
         {
-            throw new Exception("Update failed");
+            throw new Exception("Failed to update sale");
         }
     }
 
@@ -118,7 +112,7 @@ public class SaleRepository
         }
         catch (Exception e)
         {
-            throw new Exception("Get all sales error => " + e.Message, e);
+            throw new Exception("Failed to get sales");
         }
     }
 
@@ -135,7 +129,7 @@ public class SaleRepository
         }
     }
 
-    public async Task<List<GetSaleWithProductDto>?> GetAllWithProductAsync(int page, int count)
+    public async Task<List<GetCompleteSaleDto>?> GetCompleteSalesAsync(int page, int count)
     {
         try
         {
@@ -151,7 +145,7 @@ public class SaleRepository
                 return [];
             }
 
-            var dto = sales.Select(s => new GetSaleWithProductDto
+            var dto = sales.Select(s => new GetCompleteSaleDto
             {
                 SaleId = s.SaleId,
                 SaledOn = s.SaledOn,
@@ -161,14 +155,18 @@ public class SaleRepository
                 ProductPrice = s.Product.Price,
                 ProductCreatedOn = s.Product.CreatedOn,
                 ProductUpdatedOn = s.Product.UpdatedOn,
-                ProductImageUrl = s.Product.ImageUrl
+                ProductImageUrl = s.Product.ImageUrl,
+                CustomerId = s.CustomerId,
+                CustomerName = s.Customer.Name,
+                CustomerPhone = s.Customer.Phone,
+                CustomerAddress = s.Customer.Address
             }).ToList();
 
             return dto;
         }
         catch (Exception)
         {
-            return null;
+            throw new Exception("Failed to get complete sales");
         }
     }
 
