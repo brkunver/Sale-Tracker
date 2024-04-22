@@ -95,24 +95,24 @@ public class ProductController : ControllerBase
             return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid data input" });
         }
 
-
-        var existingProduct = await productRepo.GetByIdAsync(id);
-
-        if (existingProduct is null)
-        {
-            return NotFound(new ResponseDto<string> { Success = false, Message = "Not Found" });
-        }
-
-        var updatedProduct = input.Adapt<Product>();
-
-        if (input.FormFile is not null)
-        {
-            deleteImageService.DeleteImage(existingProduct.ImageUrl);
-            updatedProduct.ImageUrl = await createImageService.CreateImage(input.FormFile);
-        }
-
         try
         {
+
+            var existingProduct = await productRepo.GetByIdAsync(id);
+
+            if (existingProduct is null)
+            {
+                return NotFound(new ResponseDto<string> { Success = false, Message = "Not Found" });
+            }
+
+            var updatedProduct = input.Adapt<Product>();
+
+            if (input.FormFile is not null)
+            {
+                deleteImageService.DeleteImage(existingProduct.ImageUrl);
+                updatedProduct.ImageUrl = await createImageService.CreateImage(input.FormFile);
+            }
+
             await productRepo.UpdateAsync(id, updatedProduct);
         }
         catch (Exception ex)
@@ -147,7 +147,7 @@ public class ProductController : ControllerBase
         }
         catch (Exception)
         {
-            return BadRequest(new ResponseDto<int?> { Message = "error", Success = false , Data = null});
+            return BadRequest(new ResponseDto<int?> { Message = "error", Success = false, Data = null });
         }
     }
 
