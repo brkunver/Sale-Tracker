@@ -15,7 +15,6 @@ using SaleTrackerBackend.Services;
 public class ProductController : ControllerBase
 {
     private readonly ProductRepository productRepo;
-    // private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly CreateImageService createImageService;
     private readonly DeleteImageService deleteImageService;
 
@@ -24,7 +23,7 @@ public class ProductController : ControllerBase
         productRepo = productRepository;
         createImageService = _createImageService;
         deleteImageService = _deleteImageService;
-        // _webHostEnvironment = webHostEnvironment;
+       
     }
 
     [HttpPost]
