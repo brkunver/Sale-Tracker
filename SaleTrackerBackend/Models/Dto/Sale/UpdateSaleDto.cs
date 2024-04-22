@@ -6,5 +6,5 @@ public class UpdateSaleDto
 {
     public DateTime? SaledOn { get; set; } = DateTime.Now;
     [Required]
-    public int ProductId { get; set; }
+    public required int ProductId { get; set; }
 }
