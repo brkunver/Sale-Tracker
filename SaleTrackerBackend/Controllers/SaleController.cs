@@ -98,10 +98,10 @@ public class SaleController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ResponseDto<List<GetSaleWithProductDto>>>> GetAllWithProducts([FromQuery] int? page, int? count)
+    public async Task<ActionResult<ResponseDto<List<GetCompleteSaleDto>>>> GetAllWithProducts([FromQuery] int? page, int? count)
     {
-        var products = await saleRepo.GetAllWithProductAsync(page ?? 1, count ?? 5) ?? [];
-        return Ok(new ResponseDto<List<GetSaleWithProductDto>> { Data = products });
+        var products = await saleRepo.GetCompleteSalesAsync(page ?? 1, count ?? 5) ?? [];
+        return Ok(new ResponseDto<List<GetCompleteSaleDto>> { Data = products });
     }
 
 
