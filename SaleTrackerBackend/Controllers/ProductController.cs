@@ -23,7 +23,7 @@ public class ProductController : ControllerBase
         productRepo = productRepository;
         createImageService = _createImageService;
         deleteImageService = _deleteImageService;
-       
+
     }
 
     [HttpPost]
@@ -56,9 +56,17 @@ public class ProductController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ResponseDto<List<GetProductDto>>>> GetAll([FromQuery] int? page, int? count)
     {
-        var products = await productRepo.GetAllAsync(page ?? 1, count ?? 5);
-        products ??= [];
-        return Ok(new ResponseDto<List<GetProductDto>> { Data = products.Select(p => p.Adapt<GetProductDto>()).ToList() });
+        try
+        {
+            var products = await productRepo.GetAllAsync(page ?? 1, count ?? 5);
+            products ??= [];
+            return Ok(new ResponseDto<List<GetProductDto>> { Data = products.Select(p => p.Adapt<GetProductDto>()).ToList() });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ResponseDto<List<GetProductDto>> { Success = false, Message = ex.Message });
+        }
+
     }
 
     [HttpGet("{id}")]
