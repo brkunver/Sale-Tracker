@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SaleTrackerBackend.Data;
-using SaleTrackerBackend.Repository;
+using SaleTrackerBackend.Models;
+
+// using SaleTrackerBackend.Repository;
 using SaleTrackerBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,14 +55,14 @@ Array.Empty<string>()
 
 builder.Services.AddScoped<TokenService>();
 
-builder.Services.AddScoped<ProductRepository>();
-builder.Services.AddScoped<SaleRepository>();
-builder.Services.AddScoped<CustomerRepository>();
+// builder.Services.AddScoped<ProductRepository>();
+// builder.Services.AddScoped<SaleRepository>();
+// builder.Services.AddScoped<CustomerRepository>();
 
-builder.Services.AddScoped<CreateImageService>();
-builder.Services.AddScoped<DeleteImageService>();
+// builder.Services.AddScoped<CreateImageService>();
+// builder.Services.AddScoped<DeleteImageService>();
 
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<SaletrackerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
@@ -69,7 +70,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireDigit = false;
-}).AddEntityFrameworkStores<DataContext>();
+}).AddEntityFrameworkStores<SaletrackerContext>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(options =>
