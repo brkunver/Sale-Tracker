@@ -1,7 +1,7 @@
 namespace SaleTrackerBackend.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SaleTrackerBackend.Models.Dto;
+using SaleTrackerBackend.Dto;
 
 [ApiController]
 [Route("/health")]
