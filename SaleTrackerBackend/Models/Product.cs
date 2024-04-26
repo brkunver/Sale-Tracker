@@ -4,19 +4,19 @@ public partial class Product
 {
     public Guid Id { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string Name { get; set; } = "";
 
-    public string? Description { get; set; }
+    public string Description { get; set; } = "";
 
-    public decimal Price { get; set; }
+    public decimal Price { get; set; } 
 
-    public DateTime? CreatedOn { get; set; }
+    public DateTime CreatedOn { get; set; } = DateTime.Now;
+ 
+    public DateTime UpdatedOn { get; set; } = DateTime.Now;
 
-    public DateTime? UpdatedOn { get; set; }
+    public string ImageUrl { get; set; } = "default.jpg";
 
-    public string? ImageUrl { get; set; }
-
-    public bool? IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = false;
 
     public virtual ICollection<ProductSale> ProductSales { get; set; } = new List<ProductSale>();
 }
