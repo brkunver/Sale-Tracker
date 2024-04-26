@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SaleTrackerBackend.Models;
 
-// using SaleTrackerBackend.Repository;
+using SaleTrackerBackend.Repository;
 using SaleTrackerBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,12 +55,12 @@ Array.Empty<string>()
 
 builder.Services.AddScoped<TokenService>();
 
-// builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<ProductRepository>();
 // builder.Services.AddScoped<SaleRepository>();
-// builder.Services.AddScoped<CustomerRepository>();
+builder.Services.AddScoped<CustomerRepository>();
 
-// builder.Services.AddScoped<CreateImageService>();
-// builder.Services.AddScoped<DeleteImageService>();
+builder.Services.AddScoped<CreateImageService>();
+builder.Services.AddScoped<DeleteImageService>();
 
 builder.Services.AddDbContext<SaletrackerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
