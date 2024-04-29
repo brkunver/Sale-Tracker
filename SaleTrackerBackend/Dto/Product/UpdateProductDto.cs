@@ -11,5 +11,5 @@ public class UpdateProductDto
   [Required]
   public decimal Price { get; set; }
 
-
+  public IFormFile? FormFile { get; set; }
 }
