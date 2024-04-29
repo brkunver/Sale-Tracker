@@ -1,4 +1,4 @@
-namespace SaleTrackerBackend.Models;
+namespace SaleTrackerBackend.Dto;
 
 public partial class UpdateSaleDto
 {
