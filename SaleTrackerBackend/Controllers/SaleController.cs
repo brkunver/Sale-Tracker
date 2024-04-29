@@ -78,14 +78,81 @@ public class SaleController : ControllerBase
   [HttpPost]
   public async Task<ActionResult<ResponseDto<GetSaleDto?>>> CreateSale([FromForm] CreateSaleDto input)
   {
+    if (!ModelState.IsValid)
+    {
+      return BadRequest(new ResponseDto<GetSaleDto?>
+      {
+        Success = false,
+        Message = "Invalid input",
+        Data = null
+      });
+    }
+
+
     try
     {
-      var newSale =  input.Adapt<Sale>();
+      var newSale = input.Adapt<Sale>();
       var createdSale = await saleRepo.CreateSaleAsync(newSale);
       return Ok(new ResponseDto<GetSaleDto>
       {
         Success = true,
         Data = createdSale.Adapt<GetSaleDto>()
+      });
+    }
+    catch (Exception e)
+    {
+      return StatusCode(500, new ResponseDto<GetSaleDto?>
+      {
+        Success = false,
+        Message = e.Message,
+        Data = null
+      });
+    }
+  }
+
+  [HttpPut("{id}")]
+  public async Task<ActionResult<ResponseDto<GetSaleDto?>>> UpdateSale(Guid id, [FromForm] UpdateSaleDto input)
+  {
+    if (!ModelState.IsValid)
+    {
+      return BadRequest(new ResponseDto<GetSaleDto?>
+      {
+        Success = false,
+        Message = "Invalid input",
+        Data = null
+      });
+    }
+
+    try
+    {
+      var updatedSale = await saleRepo.UpdateSaleAsync(id, input.Adapt<Sale>());
+      return Ok(new ResponseDto<GetSaleDto>
+      {
+        Success = true,
+        Data = updatedSale.Adapt<GetSaleDto>()
+      });
+    }
+    catch (Exception e)
+    {
+      return StatusCode(500, new ResponseDto<GetSaleDto?>
+      {
+        Success = false,
+        Message = e.Message,
+        Data = null
+      });
+    }
+  }
+
+
+  [HttpDelete("{id}")]
+  public async Task<ActionResult<ResponseDto<GetSaleDto?>>> DeleteSale(Guid id)
+  {
+    try
+    {
+      await saleRepo.DeleteSaleAsync(id);
+      return Ok(new ResponseDto<GetSaleDto>
+      {
+        Success = true,
       });
     }
     catch (Exception e)
