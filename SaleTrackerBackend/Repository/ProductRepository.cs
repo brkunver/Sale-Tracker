@@ -54,7 +54,7 @@ public class ProductRepository
     {
         try
         {
-            var products = db.Products.Where(p => !p.IsDeleted).Skip((page - 1) * count).Take(count).OrderBy(p => p.Id);
+            var products = db.Products.Where(p => !p.IsDeleted).Skip((page - 1) * count).Take(count).OrderBy(p => p.CreatedOn);
             return await products.ToListAsync();
         }
         catch (Exception)
