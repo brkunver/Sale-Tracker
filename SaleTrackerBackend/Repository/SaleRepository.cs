@@ -67,4 +67,43 @@ public class SaleRepository
     }
   }
 
+  public async Task<Sale?> UpdateSaleAsync(Guid id,Sale sale)
+  {
+    try
+    {
+      var saleToUpdate = await db.Sales.FirstOrDefaultAsync(s => s.Id == id);
+      if (saleToUpdate is null)
+      {
+        throw new Exception("Sale not found");
+      }
+      saleToUpdate.CustomerId = sale.CustomerId;
+      saleToUpdate.SaledOn = sale.SaledOn;
+      saleToUpdate.Total = sale.Total;
+      await SaveAsync();
+      return saleToUpdate;
+    }
+    catch (Exception)
+    {
+      throw new Exception("Failed to update sale");
+    }
+  }
+
+  public async Task DeleteSaleAsync(Guid id)
+  {
+    try
+    {
+      var sale = await db.Sales.FirstOrDefaultAsync(s => s.Id == id);
+      if (sale is null)
+      {
+        throw new Exception("Sale not found");
+      }
+      db.Sales.Remove(sale);
+      await SaveAsync();
+    }
+    catch (Exception)
+    {
+      throw new Exception("Failed to delete sale");
+    }
+  }
+
 }
