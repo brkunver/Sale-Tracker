@@ -36,7 +36,6 @@ public class SaleRepository
     }
   }
 
-
   public async Task<List<Sale>?> GetSalesAsync()
   {
     try
@@ -67,6 +66,5 @@ public class SaleRepository
       throw new Exception("Failed to create sale");
     }
   }
-
 
 }
