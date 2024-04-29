@@ -1,44 +1,72 @@
-// namespace SaleTrackerBackend.Repository;
+namespace SaleTrackerBackend.Repository;
 
-// using Microsoft.EntityFrameworkCore;
-// using SaleTrackerBackend.Data;
-// using SaleTrackerBackend.Models;
-// using SaleTrackerBackend.Models.Dto;
+using Microsoft.EntityFrameworkCore;
+using SaleTrackerBackend.Models;
 
-// public class SaleRepository
-// {
-//   private readonly DataContext db;
-//   public SaleRepository(DataContext dataContext)
-//   {
-//     db = dataContext;
-//   }
+public class SaleRepository
+{
+  private readonly SaletrackerContext db;
+  public SaleRepository(SaletrackerContext dataContext)
+  {
+    db = dataContext;
+  }
 
-//   public async Task SaveAsync()
-//   {
-//     try
-//     {
-//       await db.SaveChangesAsync();
-//     }
-//     catch (Exception)
-//     {
-//       throw new Exception("Cannot save changes");
-//     }
-//   }
+  public async Task SaveAsync()
+  {
+    try
+    {
+      await db.SaveChangesAsync();
+    }
+    catch (Exception)
+    {
+      throw new Exception("Failed to save changes");
+    }
+  }
 
-//   public async Task<Sale?> GetSaleByIdAsync(int id)
-//   { 
-//     try
-//     {
-//       return await db.Sales.Include(sale => sale.Customer).Include(sale => sale.SaleDetails).FirstOrDefaultAsync(s => s.SaleId == id);
-//     }
+  public async Task<Sale?> GetSaleByIdAsync(Guid id)
+  {
+    try
+    {
+      return await db.Sales.FirstOrDefaultAsync(s => s.Id == id);
+    }
 
-
-//     catch (Exception)
-//     {
-//       throw new Exception("Failed to get sales");
-//     }
-//   }
+    catch (Exception)
+    {
+      throw new Exception("Failed to get sales");
+    }
+  }
 
 
+  public async Task<List<Sale>?> GetSalesAsync()
+  {
+    try
+    {
+      return await db.Sales.OrderBy(s => s.SaledOn).ToListAsync();
+    }
+    catch (Exception)
+    {
+      throw new Exception("Failed to get sales");
+    }
+  }
 
-// }
+  public async Task<Sale?> CreateSaleAsync(Sale sale)
+  {
+    try
+    {
+      var customer = await db.Customers.FirstOrDefaultAsync(c => c.Id == sale.CustomerId);
+      if (customer is null)
+      {
+        throw new Exception("Customer not found");
+      }
+      await db.Sales.AddAsync(sale);
+      await SaveAsync();
+      return sale;
+    }
+    catch (Exception)
+    {
+      throw new Exception("Failed to create sale");
+    }
+  }
+
+
+}
