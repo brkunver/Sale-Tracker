@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SaleTrackerBackend.Dto;
 
-public partial class CreateSaleSale
+public partial class CreateSaleDto
 {
   [Required]
   public Guid CustomerId { get; set; }
