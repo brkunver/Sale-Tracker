@@ -87,41 +87,42 @@ public class ProductController : ControllerBase
     }
   }
 
-  // [HttpPut("{id}")]
-  // public async Task<ActionResult<ResponseDto<string>>> Update([FromRoute] int id, [FromForm] UpdateProductDto input)
-  // {
-  //     if (!ModelState.IsValid)
-  //     {
-  //         return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid data input" });
-  //     }
+  [HttpPut("{id}")]
+  public async Task<ActionResult<ResponseDto<GetProductDto>>> Update([FromRoute] Guid id, [FromForm] UpdateProductDto input)
+  {
+    if (!ModelState.IsValid)
+    {
+      return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid data input" });
+    }
 
-  //     try
-  //     {
+    try
+    {
 
-  //         var existingProduct = await productRepo.GetByIdAsync(id);
+      var existingProduct = await productRepo.GetByIdAsync(id);
 
-  //         if (existingProduct is null)
-  //         {
-  //             return NotFound(new ResponseDto<string> { Success = false, Message = "Product not found" });
-  //         }
+      if (existingProduct is null)
+      {
+        return NotFound(new ResponseDto<GetProductDto> { Success = false, Message = "Product not found" });
+      }
 
-  //         var updatedProduct = input.Adapt<Product>();
+      var updatedProduct = input.Adapt<Product>();
 
-  //         if (input.FormFile is not null)
-  //         {
-  //             deleteImageService.DeleteImage(existingProduct.ImageUrl);
-  //             updatedProduct.ImageUrl = await createImageService.CreateImage(input.FormFile);
-  //         }
+      if (input.FormFile is not null)
+      {
+        deleteImageService.DeleteImage(existingProduct.ImageUrl);
+        updatedProduct.ImageUrl = await createImageService.CreateImage(input.FormFile);
+      }
 
-  //         await productRepo.UpdateAsync(id, updatedProduct);
-  //     }
-  //     catch (Exception ex)
-  //     {
-  //         return BadRequest(new ResponseDto<string> { Success = false, Message = ex.Message });
-  //     }
+      await productRepo.UpdateAsync(id, updatedProduct);
+      return Ok(new ResponseDto<GetProductDto> { Success = true, Message = "Updated", Data = updatedProduct.Adapt<GetProductDto>() });
+    }
+    catch (Exception ex)
+    {
+      return BadRequest(new ResponseDto<GetProductDto> { Success = false, Message = ex.Message });
+    }
 
-  //     return Ok(new ResponseDto<string> { Success = true, Message = "Updated" });
-  // }
+
+  }
 
   [HttpDelete("{id}")]
   public async Task<ActionResult<ResponseDto<string>>> Delete([FromRoute] Guid id)
