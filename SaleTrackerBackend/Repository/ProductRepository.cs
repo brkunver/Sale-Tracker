@@ -75,30 +75,30 @@ public class ProductRepository
         }
     }
 
-    // public async Task UpdateAsync(Guid id, Product product)
-    // {
-    //     try
-    //     {
-    //         var prod = await db.Products.FindAsync(id);
-    //         if (prod != null)
-    //         {
-    //             prod.Name = product.Name;
-    //             prod.Description = product.Description;
-    //             prod.Price = product.Price;
-    //             prod.UpdatedOn = DateTime.Now;
-    //             prod.ImageUrl = product.ImageUrl;
-    //             await SaveAsync();
-    //         }
-    //         else
-    //         {
-    //             throw new Exception("Product not found");
-    //         }
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         throw new Exception("Failed to update product," + e.Message);
-    //     }
-    // }
+    public async Task UpdateAsync(Guid id, Product product)
+    {
+        try
+        {
+            var prod = await db.Products.FindAsync(id);
+            if (prod != null)
+            {
+                prod.Name = product.Name;
+                prod.Description = product.Description;
+                prod.Price = product.Price;
+                prod.UpdatedOn = DateTime.Now;
+                prod.ImageUrl = product.ImageUrl;
+                await SaveAsync();
+            }
+            else
+            {
+                throw new Exception("Product not found");
+            }
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Failed to update product," + e.Message);
+        }
+    }
 
     public async Task DeleteByIdAsync(Guid id)
     {
