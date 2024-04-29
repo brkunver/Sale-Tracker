@@ -47,7 +47,7 @@ public class CustomerRepository
     {
       var customers = includeDeleted ?
       db.Customers.Skip((page - 1) * count).Take(count) :
-      db.Customers.Where(c => !c.IsDeleted).Skip((page - 1) * count).Take(count);
+      db.Customers.Where(c => !c.IsDeleted).Skip((page - 1) * count).Take(count).OrderBy(c => c.Id);
       return await customers.ToListAsync();
     }
     catch (Exception)
