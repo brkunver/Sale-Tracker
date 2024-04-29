@@ -56,7 +56,7 @@ Array.Empty<string>()
 builder.Services.AddScoped<TokenService>();
 
 builder.Services.AddScoped<ProductRepository>();
-// builder.Services.AddScoped<SaleRepository>();
+builder.Services.AddScoped<SaleRepository>();
 builder.Services.AddScoped<CustomerRepository>();
 
 builder.Services.AddScoped<CreateImageService>();
