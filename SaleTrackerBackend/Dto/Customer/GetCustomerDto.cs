@@ -1,6 +1,6 @@
 namespace SaleTrackerBackend.Dto;
 
-public partial class GetCustomerDto
+public class GetCustomerDto
 {
     public Guid Id { get; set; }
 
