@@ -1,8 +1,8 @@
+namespace SaleTrackerBackend.Dto;
 using System.ComponentModel.DataAnnotations;
 
-namespace SaleTrackerBackend.Dto;
 
-public partial class UpdateCustomerDto
+public class UpdateCustomerDto
 {
   [Required]
   public string Name { get; set; } = "";
