@@ -1,6 +1,6 @@
 namespace SaleTrackerBackend.Dto;
 
-public partial class UpdateSaleDto
+public class UpdateSaleDto
 {
   public DateTime SaledOn { get; set; }
   public Guid CustomerId { get; set; }
