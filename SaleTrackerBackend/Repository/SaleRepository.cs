@@ -67,7 +67,7 @@ public class SaleRepository
     }
   }
 
-  public async Task<Sale?> UpdateSaleAsync(Guid id,Sale sale)
+  public async Task<Sale?> UpdateSaleAsync(Guid id, Sale sale)
   {
     try
     {
