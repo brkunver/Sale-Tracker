@@ -1,8 +1,8 @@
+namespace SaleTrackerBackend.Dto;
 using System.ComponentModel.DataAnnotations;
 
-namespace SaleTrackerBackend.Dto;
 
-public partial class CreateSaleDto
+public class CreateSaleDto
 {
   [Required]
   public Guid CustomerId { get; set; }
