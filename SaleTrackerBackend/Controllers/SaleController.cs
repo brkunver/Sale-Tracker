@@ -14,10 +14,13 @@ public class SaleController : ControllerBase
 {
 
   private readonly SaleRepository saleRepo;
-  public SaleController(SaleRepository saleRepository)
+  private readonly ProductSaleRepository productSaleRepo;
+  public SaleController(SaleRepository saleRepository, ProductSaleRepository productSaleRepository)
   {
     saleRepo = saleRepository;
+    productSaleRepo = productSaleRepository;
   }
+
 
   [HttpGet]
   public async Task<ActionResult<ResponseDto<List<GetSaleDto>>>> GetSales()
@@ -44,12 +47,13 @@ public class SaleController : ControllerBase
 
 
   [HttpGet("{id}")]
-  public async Task<ActionResult<ResponseDto<GetSaleDto?>>> GetSaleById(Guid id)
+  public async Task<ActionResult> GetSaleById(Guid id)
   {
     try
     {
       var sale = await saleRepo.GetSaleByIdAsync(id);
-      if (sale == null)
+      var saleDetails = await productSaleRepo.GetSaleDetailsForSaleAsync(id);
+      if (sale is null)
       {
         return NotFound(new ResponseDto<GetSaleDto?>
         {
@@ -58,10 +62,14 @@ public class SaleController : ControllerBase
           Data = null
         });
       }
-      return Ok(new ResponseDto<GetSaleDto>
+      return Ok(new
       {
         Success = true,
-        Data = sale.Adapt<GetSaleDto>()
+        Data = new
+        {
+          sale = sale.Adapt<GetSaleDto>(),
+          saleDetails = saleDetails.Adapt<List<GetProductSaleDto>?>()
+        }
       });
     }
     catch (Exception e)
@@ -87,7 +95,6 @@ public class SaleController : ControllerBase
         Data = null
       });
     }
-
 
     try
     {
