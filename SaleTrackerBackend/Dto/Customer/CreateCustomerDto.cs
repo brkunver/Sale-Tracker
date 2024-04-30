@@ -1,8 +1,8 @@
+namespace SaleTrackerBackend.Dto;
 using System.ComponentModel.DataAnnotations;
 
-namespace SaleTrackerBackend.Dto;
 
-public partial class CreateCustomerDto
+public class CreateCustomerDto
 {
   [Required]
   [MaxLength(255)]
