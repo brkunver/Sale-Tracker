@@ -57,6 +57,19 @@ public class ProductSaleRepository
     }
   }
 
+  // Overload method to accept a list of product sales
+  public async Task CreateProductSaleAsync(List<ProductSale> productSales)
+  {
+    try
+    {
+      await db.ProductSales.AddRangeAsync(productSales);
+      await SaveAsync();
+    }
+    catch (Exception e)
+    {
+      throw new Exception("Failed to create product sales " + e.Message);
+    }
+  }
 
 
 }
