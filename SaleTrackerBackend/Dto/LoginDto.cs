@@ -1,4 +1,4 @@
-namespace SaleTrackerBackend.Models.Dto;
+namespace SaleTrackerBackend.Dto;
 using System.ComponentModel.DataAnnotations;
 
 
