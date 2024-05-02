@@ -100,17 +100,8 @@ public class SaleController : ControllerBase
     try
     {
       var sale = await saleRepo.CreateSaleAsync(input.Adapt<Sale>());
-      if (sale is null)
-      {
-        return StatusCode(500, new ResponseDto<GetSaleDto?>
-        {
-          Success = false,
-          Message = "Failed to create sale",
-          Data = null
-        });
-      }
 
-      if (input.ProductSales is null)
+      if (input.ProductSales is null || input.ProductSales.Count == 0)
       {
         return Ok(new ResponseDto<GetSaleDto>
         {
