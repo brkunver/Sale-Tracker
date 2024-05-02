@@ -52,14 +52,10 @@ public class SaleRepository
   {
     try
     {
-      var customer = await db.Customers.FirstOrDefaultAsync(c => c.Id == sale.CustomerId);
-      if (customer is null)
-      {
-        throw new Exception("Customer not found");
-      }
-      await db.Sales.AddAsync(sale);
+      var customer = await db.Customers.FirstOrDefaultAsync(c => c.Id == sale.CustomerId) ?? throw new Exception("Customer not found");
+      var newSale = await db.Sales.AddAsync(sale);
       await SaveAsync();
-      return sale;
+      return newSale.Entity;
     }
     catch (Exception)
     {
