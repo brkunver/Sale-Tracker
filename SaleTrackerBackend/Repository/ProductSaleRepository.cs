@@ -31,11 +31,7 @@ public class ProductSaleRepository
   {
     try
     {
-      var sale = await db.Sales.FirstOrDefaultAsync(s => s.Id == SaleId);
-      if (sale is null)
-      {
-        throw new Exception("Sale not found");
-      }
+      var sale = await db.Sales.FirstOrDefaultAsync(s => s.Id == SaleId) ?? throw new Exception("Sale not found");
       return await db.ProductSales.Where(ps => ps.SaleId == SaleId).ToListAsync();
     }
     catch (Exception)
@@ -68,6 +64,24 @@ public class ProductSaleRepository
     catch (Exception e)
     {
       throw new Exception("Failed to create product sales " + e.Message);
+    }
+  }
+
+
+  public async Task<decimal> CalculateTotalForSaleAsync(Guid saleId)
+  {
+    try
+    {
+      var productSales = await GetSaleDetailsForSaleAsync(saleId);
+      if (productSales is null || productSales.Count == 0)
+      {
+        throw new Exception("No product sales found for sale");
+      }
+      return productSales.Sum(ps => ps.SaledPrice * ps.Quantity);
+    }
+    catch (Exception)
+    {
+      throw new Exception("Failed to calculate total for sale");
     }
   }
 
