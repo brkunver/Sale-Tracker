@@ -3,8 +3,6 @@ namespace SaleTrackerBackend.Repository;
 using Microsoft.EntityFrameworkCore;
 using SaleTrackerBackend.Models;
 
-
-
 public class ProductSaleRepository
 {
 
@@ -52,7 +50,6 @@ public class ProductSaleRepository
       throw new Exception("Failed to create product sale");
     }
   }
-
   // Overload method to accept a list of product sales
   public async Task CreateProductSaleAsync(List<ProductSale> productSales)
   {
@@ -66,7 +63,6 @@ public class ProductSaleRepository
       throw new Exception("Failed to create product sales " + e.Message);
     }
   }
-
 
   public async Task<decimal> CalculateTotalForSaleAsync(Guid saleId)
   {
