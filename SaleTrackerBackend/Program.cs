@@ -63,7 +63,11 @@ builder.Services.AddScoped<ProductSaleRepository>();
 builder.Services.AddScoped<CreateImageService>();
 builder.Services.AddScoped<DeleteImageService>();
 
-builder.Services.AddDbContext<SaletrackerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<SaletrackerContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
+});
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
