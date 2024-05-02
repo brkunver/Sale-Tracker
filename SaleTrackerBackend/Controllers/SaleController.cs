@@ -99,8 +99,6 @@ public class SaleController : ControllerBase
 
     try
     {
-      var sale = await saleRepo.CreateSaleAsync(input.Adapt<Sale>());
-
       if (input.ProductSales is null || input.ProductSales.Count == 0)
       {
         return Ok(new ResponseDto<GetSaleDto>
@@ -110,6 +108,11 @@ public class SaleController : ControllerBase
         });
       }
 
+      var sale = await saleRepo.CreateSaleAsync(input.Adapt<Sale>());
+      if (sale is not null)
+      {
+        sale.Total = await productSaleRepo.CalculateTotalForSaleAsync(sale.Id);
+      }
       return Ok(new ResponseDto<GetSaleDto>
       {
         Success = true,
