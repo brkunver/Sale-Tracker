@@ -83,8 +83,9 @@ public class SaleController : ControllerBase
     }
   }
 
+
   [HttpPost]
-  public async Task<ActionResult<ResponseDto<GetSaleDto?>>> CreateSale([FromForm] CreateSaleDto input)
+  public async Task<ActionResult> CreateSale([FromBody] CreateSaleDto input)
   {
     if (!ModelState.IsValid)
     {
@@ -98,14 +99,33 @@ public class SaleController : ControllerBase
 
     try
     {
-      var newSale = input.Adapt<Sale>();
-      var createdSale = await saleRepo.CreateSaleAsync(newSale);
+      var sale = await saleRepo.CreateSaleAsync(input.Adapt<Sale>());
+      if (sale is null)
+      {
+        return StatusCode(500, new ResponseDto<GetSaleDto?>
+        {
+          Success = false,
+          Message = "Failed to create sale",
+          Data = null
+        });
+      }
+
+      if (input.ProductSales is null)
+      {
+        return Ok(new ResponseDto<GetSaleDto>
+        {
+          Success = false,
+          Message = "No product sales provided",
+        });
+      }
+
       return Ok(new ResponseDto<GetSaleDto>
       {
         Success = true,
-        Data = createdSale.Adapt<GetSaleDto>()
+        Data = sale.Adapt<GetSaleDto>()
       });
     }
+
     catch (Exception e)
     {
       return StatusCode(500, new ResponseDto<GetSaleDto?>
@@ -116,6 +136,7 @@ public class SaleController : ControllerBase
       });
     }
   }
+
 
   [HttpPut("{id}")]
   public async Task<ActionResult<ResponseDto<GetSaleDto?>>> UpdateSale(Guid id, [FromForm] UpdateSaleDto input)
@@ -172,5 +193,6 @@ public class SaleController : ControllerBase
       });
     }
   }
+
 
 }
