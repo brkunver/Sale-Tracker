@@ -112,6 +112,7 @@ public class SaleController : ControllerBase
       if (sale is not null)
       {
         sale.Total = await productSaleRepo.CalculateTotalForSaleAsync(sale.Id);
+        await saleRepo.SaveAsync();
       }
       return Ok(new ResponseDto<GetSaleDto>
       {
@@ -180,6 +181,30 @@ public class SaleController : ControllerBase
     catch (Exception e)
     {
       return StatusCode(500, new ResponseDto<GetSaleDto?>
+      {
+        Success = false,
+        Message = e.Message,
+        Data = null
+      });
+    }
+  }
+
+
+  [HttpGet("last-sales")]
+  public async Task<ActionResult<ResponseDto<List<decimal>?>>> GetLastSales(int count = 7)
+  {
+    try
+    {
+      var lastSales = await saleRepo.GetLastSalesAsync(count);
+      return Ok(new ResponseDto<List<decimal>?>
+      {
+        Success = true,
+        Data = lastSales
+      });
+    }
+    catch (Exception e)
+    {
+      return StatusCode(500, new ResponseDto<List<decimal>?>
       {
         Success = false,
         Message = e.Message,
