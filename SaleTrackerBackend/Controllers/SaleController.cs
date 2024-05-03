@@ -36,11 +36,10 @@ public class SaleController : ControllerBase
     }
     catch (Exception e)
     {
-      return StatusCode(500, new ResponseDto<List<GetSaleDto>>
+      return StatusCode(500, new ResponseDto<List<GetSaleDto>?>
       {
         Success = false,
         Message = e.Message,
-        Data = null
       });
     }
   }
@@ -101,7 +100,7 @@ public class SaleController : ControllerBase
     {
       if (input.ProductSales is null || input.ProductSales.Count == 0)
       {
-        return Ok(new ResponseDto<GetSaleDto>
+        return Ok(new ResponseDto<GetSaleDto?>
         {
           Success = false,
           Message = "No product sales provided",
@@ -228,7 +227,7 @@ public class SaleController : ControllerBase
     }
     catch (Exception e)
     {
-      return StatusCode(500, new ResponseDto<decimal>
+      return StatusCode(500, new ResponseDto<decimal?>
       {
         Success = false,
         Message = e.Message,
