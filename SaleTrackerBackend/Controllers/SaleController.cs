@@ -184,11 +184,11 @@ public class SaleController : ControllerBase
   }
 
   [HttpGet("last-sales")]
-  public async Task<ActionResult<ResponseDto<List<decimal>?>>> GetLastSales([FromQuery] int count = 7)
+  public async Task<ActionResult<ResponseDto<List<decimal>?>>> GetLastSales([FromQuery] int? count)
   {
     try
     {
-      var lastSales = await saleRepo.GetLastSalesAsync(count);
+      var lastSales = await saleRepo.GetLastSalesAsync(count ?? 10);
       return Ok(new ResponseDto<List<decimal>?>
       {
         Success = true,
@@ -207,11 +207,11 @@ public class SaleController : ControllerBase
   }
 
   [HttpGet("sum-of-last-sales")]
-  public async Task<ActionResult<ResponseDto<decimal>?>> GetSumOfLastSales([FromQuery] int days = 7)
+  public async Task<ActionResult<ResponseDto<decimal>?>> GetSumOfLastSales([FromQuery] int? days)
   {
     try
     {
-      decimal sum = await saleRepo.GetSumOfLastSalesAsync(days);
+      decimal sum = await saleRepo.GetSumOfLastSalesAsync(days ?? 7);
       return Ok(new ResponseDto<decimal>
       {
         Success = true,
