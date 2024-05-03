@@ -122,11 +122,7 @@ public class ProductRepository
     {
         try
         {
-            var prod = await db.Products.FindAsync(id);
-            if (prod is null)
-            {
-                throw new Exception("Product not found");
-            }
+            var prod = await db.Products.FindAsync(id) ?? throw new Exception("Product not found");
             prod.IsDeleted = true;
             await SaveAsync();
         }
