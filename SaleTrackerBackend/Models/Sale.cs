@@ -12,6 +12,5 @@ public partial class Sale
 
     public virtual required Customer Customer { get; set; }
 
-
     public virtual ICollection<ProductSale> ProductSales { get; set; } = new List<ProductSale>();
 }
