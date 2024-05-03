@@ -134,7 +134,7 @@ public class SaleController : ControllerBase
 
 
   [HttpPut("{id}")]
-  public async Task<ActionResult<ResponseDto<GetSaleDto?>>> UpdateSale(Guid id, [FromForm] UpdateSaleDto input)
+  public async Task<ActionResult<ResponseDto<GetSaleDto?>>> UpdateSale([FromRoute] Guid id, [FromForm] UpdateSaleDto input)
   {
     if (!ModelState.IsValid)
     {
@@ -168,7 +168,7 @@ public class SaleController : ControllerBase
 
 
   [HttpDelete("{id}")]
-  public async Task<ActionResult<ResponseDto<GetSaleDto?>>> DeleteSale(Guid id)
+  public async Task<ActionResult<ResponseDto<GetSaleDto?>>> DeleteSale([FromRoute] Guid id)
   {
     try
     {
@@ -191,7 +191,7 @@ public class SaleController : ControllerBase
 
 
   [HttpGet("last-sales")]
-  public async Task<ActionResult<ResponseDto<List<decimal>?>>> GetLastSales(int count = 7)
+  public async Task<ActionResult<ResponseDto<List<decimal>?>>> GetLastSales([FromQuery] int count = 7)
   {
     try
     {
@@ -213,5 +213,27 @@ public class SaleController : ControllerBase
     }
   }
 
+
+  [HttpGet("sum-of-last-sales")]
+  public async Task<ActionResult<ResponseDto<decimal>?>> GetSumOfLastSales([FromQuery] int days = 7)
+  {
+    try
+    {
+      decimal sum = await saleRepo.GetSumOfLastSalesAsync(days);
+      return Ok(new ResponseDto<decimal>
+      {
+        Success = true,
+        Data = sum
+      });
+    }
+    catch (Exception e)
+    {
+      return StatusCode(500, new ResponseDto<decimal>
+      {
+        Success = false,
+        Message = e.Message,
+      });
+    }
+  }
 
 }
