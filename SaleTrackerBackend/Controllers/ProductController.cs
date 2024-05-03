@@ -124,6 +124,14 @@ public class ProductController : ControllerBase
   {
     try
     {
+      var product = await productRepo.GetByIdAsync(id);
+      if (product is null)
+      {
+        return NotFound(new ResponseDto<string> { Success = false, Message = "Product not found" });
+      }
+      deleteImageService.DeleteImage(product.ImageUrl);
+      product.ImageUrl = "default.jpg";
+
       await productRepo.MarkDeletedAsync(id);
     }
     catch (Exception ex)
