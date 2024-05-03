@@ -40,7 +40,7 @@ public class SaleRepository
   {
     try
     {
-      return await db.Sales.OrderBy(s => s.SaledOn).ToListAsync();
+      return await db.Sales.AsNoTracking().OrderByDescending(s => s.SaledOn).ToListAsync();
     }
     catch (Exception)
     {
@@ -99,6 +99,37 @@ public class SaleRepository
     catch (Exception)
     {
       throw new Exception("Failed to delete sale");
+    }
+  }
+
+  public async Task<List<decimal>?> GetLastSalesAsync(int count = 7)
+  {
+    try
+    {
+      return await db.Sales.OrderByDescending(s => s.SaledOn)
+                           .Take(count)
+                           .Select(s => s.Total)
+                           .ToListAsync();
+    }
+    catch (Exception)
+    {
+      throw new Exception("Failed to get last sales");
+    }
+  }
+
+
+  public async Task<decimal> GetSumOfLastSalesAsync(int days = 7)
+  {
+    try
+    {
+      DateTime startDate = DateTime.Now.AddDays(-days);
+      decimal sum = await db.Sales.Where(s => s.SaledOn >= startDate)
+                     .SumAsync(s => s.Total);
+      return sum;
+    }
+    catch (Exception)
+    {
+      throw new Exception("Failed to get sum of last sales");
     }
   }
 
