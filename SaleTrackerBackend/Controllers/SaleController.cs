@@ -12,7 +12,6 @@ using SaleTrackerBackend.Repository;
 //[Authorize]
 public class SaleController : ControllerBase
 {
-
   private readonly SaleRepository saleRepo;
   private readonly ProductSaleRepository productSaleRepo;
   public SaleController(SaleRepository saleRepository, ProductSaleRepository productSaleRepository)
@@ -20,7 +19,6 @@ public class SaleController : ControllerBase
     saleRepo = saleRepository;
     productSaleRepo = productSaleRepository;
   }
-
 
   [HttpGet]
   public async Task<ActionResult<ResponseDto<List<GetSaleDto>>>> GetSales()
@@ -82,7 +80,6 @@ public class SaleController : ControllerBase
     }
   }
 
-
   [HttpPost]
   public async Task<ActionResult> CreateSale([FromBody] CreateSaleDto input)
   {
@@ -131,7 +128,6 @@ public class SaleController : ControllerBase
     }
   }
 
-
   [HttpPut("{id}")]
   public async Task<ActionResult<ResponseDto<GetSaleDto?>>> UpdateSale([FromRoute] Guid id, [FromForm] UpdateSaleDto input)
   {
@@ -165,7 +161,6 @@ public class SaleController : ControllerBase
     }
   }
 
-
   [HttpDelete("{id}")]
   public async Task<ActionResult<ResponseDto<GetSaleDto?>>> DeleteSale([FromRoute] Guid id)
   {
@@ -187,7 +182,6 @@ public class SaleController : ControllerBase
       });
     }
   }
-
 
   [HttpGet("last-sales")]
   public async Task<ActionResult<ResponseDto<List<decimal>?>>> GetLastSales([FromQuery] int count = 7)
@@ -212,7 +206,6 @@ public class SaleController : ControllerBase
     }
   }
 
-
   [HttpGet("sum-of-last-sales")]
   public async Task<ActionResult<ResponseDto<decimal>?>> GetSumOfLastSales([FromQuery] int days = 7)
   {
@@ -234,5 +227,4 @@ public class SaleController : ControllerBase
       });
     }
   }
-
 }
