@@ -23,7 +23,6 @@ public class ProductController : ControllerBase
     productRepo = productRepository;
     createImageService = _createImageService;
     deleteImageService = _deleteImageService;
-
   }
 
   [HttpPost]
@@ -49,7 +48,6 @@ public class ProductController : ControllerBase
     {
       return BadRequest(new ResponseDto<Product?> { Success = false, Message = ex.Message });
     }
-
     return Ok(new ResponseDto<Product?> { Success = true, Message = "Created", Data = product });
   }
 
@@ -66,7 +64,6 @@ public class ProductController : ControllerBase
     {
       return BadRequest(new ResponseDto<List<GetProductDto>> { Success = false, Message = ex.Message });
     }
-
   }
 
   [HttpGet("{id}")]
@@ -120,8 +117,6 @@ public class ProductController : ControllerBase
     {
       return BadRequest(new ResponseDto<GetProductDto> { Success = false, Message = ex.Message });
     }
-
-
   }
 
   [HttpDelete("{id}")]
