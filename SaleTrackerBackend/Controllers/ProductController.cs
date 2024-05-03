@@ -94,7 +94,6 @@ public class ProductController : ControllerBase
 
     try
     {
-
       var existingProduct = await productRepo.GetByIdAsync(id);
 
       if (existingProduct is null)
