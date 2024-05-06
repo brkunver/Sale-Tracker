@@ -56,7 +56,6 @@ public class SaleController : ControllerBase
         {
           Success = false,
           Message = "Sale not found",
-          Data = null
         });
       }
       return Ok(new
