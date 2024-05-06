@@ -62,25 +62,25 @@ public class ProductController : ControllerBase
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<List<GetProductDto>> { Success = false, Message = ex.Message });
+      return BadRequest(new ResponseDto<List<GetProductDto?>> { Success = false, Message = ex.Message });
     }
   }
 
   [HttpGet("{id}")]
-  public async Task<ActionResult<ResponseDto<GetProductDto>>> GetById([FromRoute] Guid id)
+  public async Task<ActionResult<ResponseDto<GetProductDto?>>> GetById([FromRoute] Guid id)
   {
     try
     {
       var product = await productRepo.GetByIdAsync(id);
       if (product is null)
       {
-        return NotFound(new ResponseDto<GetProductDto> { Success = false, Message = "Product not found" });
+        return NotFound(new ResponseDto<GetProductDto?> { Success = false, Message = "Product not found" });
       }
       return Ok(new ResponseDto<GetProductDto> { Data = product.Adapt<GetProductDto>() });
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<GetProductDto> { Success = false, Message = ex.Message });
+      return BadRequest(new ResponseDto<GetProductDto?> { Success = false, Message = ex.Message });
     }
   }
 
@@ -89,7 +89,7 @@ public class ProductController : ControllerBase
   {
     if (!ModelState.IsValid)
     {
-      return BadRequest(new ResponseDto<string> { Success = false, Message = "Invalid data input" });
+      return BadRequest(new ResponseDto<GetProductDto?> { Success = false, Message = "Invalid data input" });
     }
 
     try
@@ -98,7 +98,7 @@ public class ProductController : ControllerBase
 
       if (existingProduct is null)
       {
-        return NotFound(new ResponseDto<GetProductDto> { Success = false, Message = "Product not found" });
+        return NotFound(new ResponseDto<GetProductDto?> { Success = false, Message = "Product not found" });
       }
 
       var updatedProduct = input.Adapt<Product>();
@@ -114,19 +114,19 @@ public class ProductController : ControllerBase
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<GetProductDto> { Success = false, Message = ex.Message });
+      return BadRequest(new ResponseDto<GetProductDto?> { Success = false, Message = ex.Message });
     }
   }
 
   [HttpDelete("{id}")]
-  public async Task<ActionResult<ResponseDto<string>>> Delete([FromRoute] Guid id)
+  public async Task<ActionResult<ResponseDto<string?>>> Delete([FromRoute] Guid id)
   {
     try
     {
       var product = await productRepo.GetByIdAsync(id);
       if (product is null)
       {
-        return NotFound(new ResponseDto<string> { Success = false, Message = "Product not found" });
+        return NotFound(new ResponseDto<string?> { Success = false, Message = "Product not found" });
       }
       deleteImageService.DeleteImage(product.ImageUrl);
       product.ImageUrl = "default.jpg";
@@ -135,7 +135,7 @@ public class ProductController : ControllerBase
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<string> { Success = false, Message = ex.Message });
+      return BadRequest(new ResponseDto<string?> { Success = false, Message = ex.Message });
     }
     return Ok(new ResponseDto<string> { Success = true, Message = "Deleted" });
   }
