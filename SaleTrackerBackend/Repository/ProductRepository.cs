@@ -50,12 +50,16 @@ public class ProductRepository
         }
     }
 
-    public async Task<List<Product>?> GetAllAsync(int page, int count)
+    public async Task<List<Product>?> GetAllAsync(int page, int count, string? name)
     {
         try
         {
-            var products = db.Products.Where(p => !p.IsDeleted).Skip((page - 1) * count).Take(count).OrderBy(p => p.CreatedOn);
-            return await products.ToListAsync();
+            var products = db.Products.Where(p => !p.IsDeleted).Skip((page - 1) * count).Take(count);
+            if (!string.IsNullOrEmpty(name))
+            {
+                products = products.Where(p => p.Name.Contains(name) || p.Description.Contains(name));
+            }
+            return await products.OrderBy(p => p.CreatedOn).ToListAsync();
         }
         catch (Exception)
         {
