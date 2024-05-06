@@ -52,11 +52,11 @@ public class ProductController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<ResponseDto<List<GetProductDto>>>> GetAll([FromQuery] int? page, int? count)
+  public async Task<ActionResult<ResponseDto<List<GetProductDto>>>> GetAll([FromQuery] int? page, int? count, [FromQuery] string? name)
   {
     try
     {
-      var products = await productRepo.GetAllAsync(page ?? 1, count ?? 5);
+      var products = await productRepo.GetAllAsync(page ?? 1, count ?? 5, name);
       products ??= [];
       return Ok(new ResponseDto<List<GetProductDto>> { Data = products.Select(p => p.Adapt<GetProductDto>()).ToList() });
     }
