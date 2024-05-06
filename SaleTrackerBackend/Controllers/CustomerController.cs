@@ -1,16 +1,15 @@
 namespace SaleTrackerBackend.Controllers;
+
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using SaleTrackerBackend.Dto;
 using SaleTrackerBackend.Models;
 using SaleTrackerBackend.Repository;
 
-
 [ApiController]
 [Route("api/customer")]
 public class CustomerController : ControllerBase
 {
-
   private readonly CustomerRepository customerRepo;
   public CustomerController(CustomerRepository _customerRepo)
   {
@@ -36,11 +35,11 @@ public class CustomerController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<ResponseDto<List<GetCustomerDto>?>>> GetAll([FromQuery] int? page, int? count, bool includeDeleted = false)
+  public async Task<ActionResult<ResponseDto<List<GetCustomerDto>?>>> GetAll([FromQuery] int? page, int? count, bool? includeDeleted, [FromQuery] string? name)
   {
     try
     {
-      var currentCustomer = await customerRepo.GetAllAsync(page ?? 1, count ?? 5, includeDeleted);
+      var currentCustomer = await customerRepo.GetAllAsync(page ?? 1, count ?? 5, includeDeleted ?? false, name);
       currentCustomer ??= [];
       return Ok(new ResponseDto<List<GetCustomerDto>> { Data = currentCustomer.Select(c => c.Adapt<GetCustomerDto>()).ToList() });
     }
