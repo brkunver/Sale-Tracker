@@ -17,20 +17,20 @@ public class CustomerController : ControllerBase
   }
 
   [HttpGet("{id}")]
-  public async Task<ActionResult<ResponseDto<GetCustomerDto>>> GetById([FromRoute] Guid id, [FromQuery] bool includeDeleted = false)
+  public async Task<ActionResult<ResponseDto<GetCustomerDto?>>> GetById([FromRoute] Guid id, [FromQuery] bool includeDeleted = false)
   {
     try
     {
       var currentCustomer = await customerRepo.GetByIdAsync(id);
       if (currentCustomer is null)
       {
-        return NotFound(new ResponseDto<GetCustomerDto> { Success = false, Message = "Customer Not found" });
+        return NotFound(new ResponseDto<GetCustomerDto?> { Success = false, Message = "Customer Not found" });
       }
       return Ok(new ResponseDto<GetCustomerDto> { Data = currentCustomer.Adapt<GetCustomerDto>() });
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = ex.Message });
+      return BadRequest(new ResponseDto<GetCustomerDto?> { Success = false, Message = ex.Message });
     }
   }
 
@@ -50,12 +50,12 @@ public class CustomerController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<ActionResult<ResponseDto<GetCustomerDto>>> Create([FromBody] CreateCustomerDto customerDto)
+  public async Task<ActionResult<ResponseDto<GetCustomerDto?>>> Create([FromBody] CreateCustomerDto customerDto)
   {
 
     if (!ModelState.IsValid)
     {
-      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Invalid data input" });
+      return BadRequest(new ResponseDto<GetCustomerDto?> { Success = false, Message = "Invalid data input" });
     }
 
     try
@@ -66,7 +66,7 @@ public class CustomerController : ControllerBase
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = ex.Message });
+      return BadRequest(new ResponseDto<GetCustomerDto?> { Success = false, Message = ex.Message });
     }
   }
 
@@ -92,7 +92,7 @@ public class CustomerController : ControllerBase
 
     if (!ModelState.IsValid)
     {
-      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = "Invalid data input" });
+      return BadRequest(new ResponseDto<GetCustomerDto?> { Success = false, Message = "Invalid data input" });
     }
 
     try
@@ -102,12 +102,12 @@ public class CustomerController : ControllerBase
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<GetCustomerDto> { Success = false, Message = ex.Message });
+      return BadRequest(new ResponseDto<GetCustomerDto?> { Success = false, Message = ex.Message });
     }
   }
 
   [HttpGet("count")]
-  public async Task<ActionResult<ResponseDto<int>>> Count()
+  public async Task<ActionResult<ResponseDto<int?>>> Count()
   {
     try
     {
@@ -116,7 +116,7 @@ public class CustomerController : ControllerBase
     }
     catch (Exception ex)
     {
-      return BadRequest(new ResponseDto<int> { Success = false, Message = ex.Message });
+      return BadRequest(new ResponseDto<int?> { Success = false, Message = ex.Message });
     }
   }
 
