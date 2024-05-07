@@ -49,17 +49,20 @@ public class ProductRepository
             throw new Exception("Failed to get product");
         }
     }
-
-    public async Task<List<Product>?> GetAllAsync(int page, int count, string? name)
+    public async Task<List<Product>?> GetAllAsync(int page, int count, string? name, bool? returnDeleted)
     {
         try
         {
-            var products = db.Products.Where(p => !p.IsDeleted).Skip((page - 1) * count).Take(count);
+            var productsQuery = db.Products.AsQueryable();
+            if (returnDeleted is null | returnDeleted == false)
+            {
+                productsQuery = productsQuery.Where(p => !p.IsDeleted);
+            }
             if (!string.IsNullOrEmpty(name))
             {
-                products = products.Where(p => p.Name.Contains(name) || p.Description.Contains(name));
+                productsQuery = productsQuery.Where(p => p.Name.Contains(name) || p.Description.Contains(name));
             }
-            return await products.OrderBy(p => p.CreatedOn).ToListAsync();
+            return await productsQuery.Skip((page - 1) * count).Take(count).OrderBy(p => p.CreatedOn).ToListAsync();
         }
         catch (Exception)
         {
@@ -67,7 +70,7 @@ public class ProductRepository
         }
     }
 
-    public async Task<int> GetCountAsync()
+    public async Task<int?> GetCountAsync()
     {
         try
         {
