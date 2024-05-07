@@ -52,11 +52,11 @@ public class ProductController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<ResponseDto<List<GetProductDto>>>> GetAll([FromQuery] int? page, int? count, [FromQuery] string? name)
+  public async Task<ActionResult<ResponseDto<List<GetProductDto>?>>> GetAll([FromQuery] int? page, int? count, [FromQuery] string? name, bool? returnDeleted = false)
   {
     try
     {
-      var products = await productRepo.GetAllAsync(page ?? 1, count ?? 5, name);
+      var products = await productRepo.GetAllAsync(page ?? 1, count ?? 5, name, returnDeleted);
       products ??= [];
       return Ok(new ResponseDto<List<GetProductDto>> { Data = products.Select(p => p.Adapt<GetProductDto>()).ToList() });
     }
@@ -85,7 +85,7 @@ public class ProductController : ControllerBase
   }
 
   [HttpPut("{id}")]
-  public async Task<ActionResult<ResponseDto<GetProductDto>>> Update([FromRoute] Guid id, [FromForm] UpdateProductDto input)
+  public async Task<ActionResult<ResponseDto<GetProductDto?>>> Update([FromRoute] Guid id, [FromForm] UpdateProductDto input)
   {
     if (!ModelState.IsValid)
     {
