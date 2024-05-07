@@ -1,4 +1,4 @@
-import type { Product , ProductData  } from "@/types/productTypes"
+import type { Product, ProductData } from "@/types/productTypes"
 
 function getTokenHeader() {
   let bearerToken = localStorage.getItem("token")
@@ -7,11 +7,24 @@ function getTokenHeader() {
   return headers
 }
 
-export async function getAllProducts(page?: number, count?: number) {
-  let url = import.meta.env.VITE_API_URL + "/api/product?page=" + (page ?? 1) + "&count=" + (count ?? 5)
+export async function getAllProducts(page?: number, count?: number, returnDeleted?: boolean) {
+  let url = import.meta.env.VITE_API_URL + "/api/product"
+  let params = new URLSearchParams()
+
+  if (page) {
+    params.append("page", page.toString())
+  }
+  if (count) {
+    params.append("count", count.toString())
+  }
+  if (returnDeleted) {
+    params.append("returnDeleted", "true")
+  }
+  url += "?" + params.toString()
   let response = await fetch(url, {
     headers: getTokenHeader(),
   })
+
   if (!response.ok) {
     throw new Error(response.statusText)
   }
