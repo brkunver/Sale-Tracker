@@ -35,11 +35,11 @@ public class CustomerController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<ResponseDto<List<GetCustomerDto>?>>> GetAll([FromQuery] int? page, int? count, bool? includeDeleted, [FromQuery] string? name)
+  public async Task<ActionResult<ResponseDto<List<GetCustomerDto>?>>> GetAll([FromQuery] int? page, int? count, bool? returnDeleted, [FromQuery] string? name)
   {
     try
     {
-      var currentCustomer = await customerRepo.GetAllAsync(page ?? 1, count ?? 5, includeDeleted ?? false, name);
+      var currentCustomer = await customerRepo.GetAllAsync(page ?? 1, count ?? 5, name, returnDeleted ?? false);
       currentCustomer ??= [];
       return Ok(new ResponseDto<List<GetCustomerDto>> { Data = currentCustomer.Select(c => c.Adapt<GetCustomerDto>()).ToList() });
     }
@@ -87,9 +87,8 @@ public class CustomerController : ControllerBase
   }
 
   [HttpPut("{id}")]
-  public async Task<ActionResult<ResponseDto<GetCustomerDto>>> Update([FromRoute] Guid id, [FromBody] UpdateCustomerDto customerDto)
+  public async Task<ActionResult<ResponseDto<GetCustomerDto?>>> Update([FromRoute] Guid id, [FromBody] UpdateCustomerDto customerDto)
   {
-
     if (!ModelState.IsValid)
     {
       return BadRequest(new ResponseDto<GetCustomerDto?> { Success = false, Message = "Invalid data input" });
