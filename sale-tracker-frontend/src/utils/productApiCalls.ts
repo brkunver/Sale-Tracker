@@ -1,5 +1,11 @@
 import type { Product, ProductData } from "@/types/productTypes"
 
+enum queryNames {
+  page = "page",
+  count = "count",
+  returnDeleted = "returnDeleted",
+}
+
 function getTokenHeader() {
   let bearerToken = localStorage.getItem("token")
   let headers = new Headers()
@@ -12,13 +18,13 @@ export async function getAllProducts(page?: number, count?: number, returnDelete
   let params = new URLSearchParams()
 
   if (page) {
-    params.append("page", page.toString())
+    params.append(queryNames.page, page.toString())
   }
   if (count) {
-    params.append("count", count.toString())
+    params.append(queryNames.count, count.toString())
   }
   if (returnDeleted) {
-    params.append("returnDeleted", "true")
+    params.append(queryNames.returnDeleted, "true")
   }
   url += "?" + params.toString()
   let response = await fetch(url, {
