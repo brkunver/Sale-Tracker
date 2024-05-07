@@ -4,11 +4,11 @@ import { Link, redirect } from "react-router-dom"
 
 function SideBar() {
   return (
-    <aside className="w-[80px] lg:w-[200px] min-h-full flex flex-col bg-gray-900 text-white items-center">
+    <aside className="w-[80px] lg:min-w-[200px] min-h-full flex flex-col bg-gray-900 text-white items-center">
       <div className="hidden lg:flex flex-col text-lg font-bold gap-10 pt-6">
         <Link
           to={"/dashboard"}
-          className="flex justify-center items-center gap-2 duration-100 ease-in-out hover:scale-110 "
+          className="flex justify-center items-center gap-2 duration-100 ease-in-out hover:scale-110 text-nowrap"
         >
           <span>Sale Tracker</span>
           <Banknote size={30} color="#03c700" />
