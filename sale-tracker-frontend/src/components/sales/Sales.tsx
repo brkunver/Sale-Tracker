@@ -1,4 +1,3 @@
-import { getImageUrl } from "@/utils/productApiCalls"
 import { getAllSales } from "@/utils/saleApiCalls"
 import { useQuery } from "@tanstack/react-query"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -69,31 +68,16 @@ export default function Sales(props: Props) {
   return (
     <Table className={cn(props.className)}>
       <TableHeader>
-        <TableRow></TableRow>
         <TableRow>
-          <TableHead className="min-w-10 text-center">Sale ID</TableHead>
-          <TableHead className="min-w-10 text-center">Product ID</TableHead>
-          <TableHead className="min-w-10 lg:min-w-24">Image</TableHead>
-          <TableHead className="min-w-10 lg:min-w-24 text-center">Name</TableHead>
           <TableHead className="min-w-10 lg:min-w-24 text-center">Saled on</TableHead>
-          <TableHead className="min-w-10 lg:min-w-24 text-center">Price</TableHead>
+          <TableHead className="min-w-10 lg:min-w-24 text-center">Total</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {query.data?.data.map((sale) => (
-          <TableRow key={sale.saleId}>
-            <TableCell className="text-center">{sale.saleId}</TableCell>
-            <TableCell className="text-center">{sale.productId}</TableCell>
-            <TableCell>
-              <img
-                src={getImageUrl(sale.productImageUrl)}
-                alt={sale.productName}
-                className="w-10 h-10 rounded-full object-cover"
-              />
-            </TableCell>
-            <TableCell>{sale.productName}</TableCell>
+          <TableRow key={sale.id}>
             <TableCell className="text-center ">{formatDate(sale.saledOn)}</TableCell>
-            <TableCell className="text-center text-green-800 text-base">{sale.productPrice}$</TableCell>
+            <TableCell className="text-center text-green-800 text-base">{sale.total}$</TableCell>
           </TableRow>
         ))}
       </TableBody>
