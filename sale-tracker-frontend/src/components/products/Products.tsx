@@ -62,37 +62,38 @@ export default function Products(props: Props) {
     )
   }
 
+
   return (
     <Table className={cn("w-fit", props.className)}>
       <TableHeader>
         <TableRow>
           {props.showDelete && <TableHead className="min-w-10 text-center">Delete</TableHead>}
-          <TableHead className="min-w-10 text-left">ID</TableHead>
           <TableHead className="min-w-10 lg:min-w-24">Image</TableHead>
           <TableHead className="min-w-10 lg:min-w-24 text-center">Name</TableHead>
           <TableHead className="min-w-10 lg:min-w-24 text-right">Price</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {query.data?.data.map((product) => (
-          <TableRow key={product.productId}>
-            {props.showDelete && (
-              <TableCell className="min-w-10 text-center">
-                <DeleteProduct productId={product.productId} />
+        {query.data?.data
+          .filter((product) => !product.isDeleted)
+          .map((product) => (
+            <TableRow key={product.id}>
+              {props.showDelete && (
+                <TableCell className="min-w-10 text-center">
+                  <DeleteProduct productId={product.id} />
+                </TableCell>
+              )}
+              <TableCell>
+                <img
+                  src={getImageUrl(product.imageUrl)}
+                  alt={product.name}
+                  className="w-10 h-10 rounded-full object-cover"
+                />
               </TableCell>
-            )}
-            <TableCell className="text-left">{product.productId}</TableCell>
-            <TableCell>
-              <img
-                src={getImageUrl(product.imageUrl)}
-                alt={product.name}
-                className="w-10 h-10 rounded-full object-cover"
-              />
-            </TableCell>
-            <TableCell className="text-center">{product.name}</TableCell>
-            <TableCell className="text-right text-green-800 text-base">{product.price}$</TableCell>
-          </TableRow>
-        ))}
+              <TableCell className="text-center">{product.name}</TableCell>
+              <TableCell className="text-right text-green-800 text-base">{product.price}$</TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   )
