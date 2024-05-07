@@ -55,11 +55,6 @@ export async function getSingleProduct(productId: number) {
   return data.data as Product
 }
 
-export async function getImageUrlById(productId: number) {
-  let product = await getSingleProduct(productId)
-  return getImageUrl(product.imageUrl)
-}
-
 export async function getCount() {
   let url = import.meta.env.VITE_API_URL + "/api/product/count"
   let response = await fetch(url, {
