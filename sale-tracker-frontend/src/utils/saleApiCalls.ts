@@ -1,5 +1,10 @@
 import type { Sale, SaleData } from "@/types/saleTypes"
 
+enum queryNames {
+  page = "page",
+  count = "count",
+}
+
 function getTokenHeader() {
   let bearerToken = localStorage.getItem("token")
   let headers = new Headers()
@@ -11,10 +16,10 @@ export async function getAllSales(page?: number, count?: number) {
   let url = import.meta.env.VITE_API_URL + "/api/sale"
   let params = new URLSearchParams()
   if (page) {
-    params.append("page", page.toString())
+    params.append(queryNames.page, page.toString())
   }
   if (count) {
-    params.append("count", count.toString())
+    params.append(queryNames.count, count.toString())
   }
   url += "?" + params.toString()
   let response = await fetch(url, {
