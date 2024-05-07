@@ -1,4 +1,4 @@
-function formatDateTime(dateTimeString :string) {
+function formatDateTime(dateTimeString: string | Date) {
   const dateObject = new Date(dateTimeString)
 
   const day = dateObject.getDate().toString().padStart(2, "0")
@@ -9,6 +9,5 @@ function formatDateTime(dateTimeString :string) {
 
   return `${day}/${month}/${year} ${hours}:${minutes}`
 }
-
 
 export default formatDateTime
