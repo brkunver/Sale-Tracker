@@ -9,6 +9,4 @@ public class GetProductDto
     public DateTime CreatedOn { get; set; } 
     public DateTime UpdatedOn { get; set; } 
     public string ImageUrl { get; set; } = "default.jpg";
-    public bool IsDeleted { get; set; } = false;
-
 }
