@@ -75,7 +75,6 @@ export default function Products(props: Props) {
       </TableHeader>
       <TableBody>
         {query.data?.data
-          .filter((product) => !product.isDeleted)
           .map((product) => (
             <TableRow key={product.id}>
               {props.showDelete && (
