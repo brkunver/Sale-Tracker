@@ -41,20 +41,23 @@ public class CustomerRepository
 
 
 
-  public async Task<List<Customer>?> GetAllAsync(int page, int count, bool includeDeleted = false, string? name = null)
+  public async Task<List<Customer>?> GetAllAsync(int page, int count, string? name = null, bool returnDeleted = false)
   {
     try
     {
-      var customers = includeDeleted ?
-        db.Customers.Skip((page - 1) * count).Take(count) :
-        db.Customers.Where(c => !c.IsDeleted).Skip((page - 1) * count).Take(count);
+      var customers = db.Customers.AsQueryable();
+
+      if (returnDeleted is false)
+      {
+        customers = customers.Where(c => !c.IsDeleted);
+      }
 
       if (!string.IsNullOrEmpty(name))
       {
         customers = customers.Where(c => c.Name.Contains(name));
       }
 
-      customers = customers.OrderBy(c => c.CreatedOn);
+      customers = customers.Skip((page - 1) * count).Take(count).OrderBy(c => c.CreatedOn);
 
       return await customers.ToListAsync();
     }
