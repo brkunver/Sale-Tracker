@@ -1,20 +1,4 @@
-type Sale = {
-  saleId: number
-  saledOn: string
-  productId: number
-  productName: string
-  productDescription: string
-  productPrice: number
-  productCreatedOn: string
-  productUpdatedOn: string
-  productImageUrl: string
-}
-
-type SaleData = {
-  success: boolean
-  message: string
-  data: Sale[]
-}
+import type { Sale, SaleData } from "@/types/saleTypes"
 
 function getTokenHeader() {
   let bearerToken = localStorage.getItem("token")
@@ -35,8 +19,7 @@ export async function getAllSales(page?: number, count?: number) {
   return data as SaleData
 }
 
-
-export async function getSaleById(saleId: number) {
+export async function getSaleById(saleId: string) {
   let url = import.meta.env.VITE_API_URL + "/api/sale/" + saleId
   let response = await fetch(url, {
     headers: getTokenHeader(),
@@ -47,4 +30,3 @@ export async function getSaleById(saleId: number) {
   let data = await response.json()
   return data as Sale
 }
-

@@ -1,18 +1,4 @@
-type Product = {
-  productId: number
-  name: string
-  description: string
-  price: number
-  imageUrl: string
-  createdOn: Date
-  updatedOn: Date
-}
-
-type ProductData = {
-  success: boolean
-  message: string
-  data: [Product]
-}
+import type { Product , ProductData  } from "@/types/productTypes"
 
 function getTokenHeader() {
   let bearerToken = localStorage.getItem("token")
@@ -103,8 +89,7 @@ export async function updateProduct(productId: number, input: any) {
   return data
 }
 
-
-export async function AddNewProduct(formData : FormData) {
+export async function AddNewProduct(formData: FormData) {
   let url = import.meta.env.VITE_API_URL + "/api/product"
   let response = await fetch(url, {
     method: "POST",
