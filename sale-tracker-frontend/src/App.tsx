@@ -6,6 +6,7 @@ import { authLoader } from "./utils/authLoader"
 import DashboardPage from "./pages/DashboardPage"
 import NotFound from "./pages/NotFound"
 import ProductsPage from "./pages/ProductsPage"
+import SingleProductPage from "./pages/SingleProductPage"
 import SalesPage from "./pages/SalesPage"
 
 
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
   {
     path: "/products",
     element: <ProductsPage />,
+    loader: authLoader,
+  },
+  {
+    path: "/product/:id",
+    element: <SingleProductPage />,
     loader: authLoader,
   },
   {
