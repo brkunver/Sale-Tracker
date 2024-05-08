@@ -36,11 +36,16 @@ public class SaleRepository
     }
   }
 
-  public async Task<List<Sale>?> GetSalesAsync()
+  public async Task<List<Sale>?> GetSalesAsync(int count, int page)
   {
     try
     {
-      return await db.Sales.AsNoTracking().OrderByDescending(s => s.SaledOn).ToListAsync();
+      int skip = (page - 1) * count;
+      return await db.Sales.AsNoTracking()
+                           .Skip(skip)
+                           .Take(count)
+                           .OrderByDescending(s => s.SaledOn)
+                           .ToListAsync();
     }
     catch (Exception)
     {
@@ -117,7 +122,6 @@ public class SaleRepository
     }
   }
 
-
   public async Task<decimal> GetSumOfLastSalesAsync(int days = 7)
   {
     try
@@ -132,5 +136,4 @@ public class SaleRepository
       throw new Exception("Failed to get sum of last sales");
     }
   }
-
 }
