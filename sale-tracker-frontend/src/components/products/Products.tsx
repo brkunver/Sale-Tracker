@@ -5,6 +5,7 @@ import { CircleX, LoaderCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import DeleteProduct from "./DeleteProduct"
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
 
 interface Props {
   page?: number
@@ -62,7 +63,6 @@ export default function Products(props: Props) {
     )
   }
 
-
   return (
     <Table className={cn("w-fit", props.className)}>
       <TableHeader>
@@ -74,25 +74,28 @@ export default function Products(props: Props) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {query.data?.data
-          .map((product) => (
-            <TableRow key={product.id}>
-              {props.showDelete && (
-                <TableCell className="min-w-10 text-center">
-                  <DeleteProduct productId={product.id} />
-                </TableCell>
-              )}
-              <TableCell>
+        {query.data?.data.map((product) => (
+          <TableRow key={product.id}>
+            {props.showDelete && (
+              <TableCell className="min-w-10 text-center">
+                <DeleteProduct productId={product.id} />
+              </TableCell>
+            )}
+            <TableCell>
+              <Link to={`/product/${product.id}`}>
                 <img
                   src={getImageUrl(product.imageUrl)}
                   alt={product.name}
                   className="w-10 h-10 rounded-full object-cover"
                 />
-              </TableCell>
-              <TableCell className="text-center">{product.name}</TableCell>
-              <TableCell className="text-right text-green-800 text-base">{product.price}$</TableCell>
-            </TableRow>
-          ))}
+              </Link>
+            </TableCell>
+            <TableCell className="text-center">
+              <Link to={`/product/${product.id}`}>{product.name}</Link>
+            </TableCell>
+            <TableCell className="text-right text-green-800 text-base">{product.price}$</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   )
