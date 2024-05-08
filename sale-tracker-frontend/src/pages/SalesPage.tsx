@@ -1,6 +1,8 @@
 import SideBar from "@/components/SideBar"
+import { getLastSales } from "@/utils/saleApiCalls"
 
 function SalesPage() {
+  
   return (
     <div className="flex min-h-screen">
       <SideBar />
