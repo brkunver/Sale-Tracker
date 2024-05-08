@@ -62,9 +62,6 @@ export default function Sales(props: Props) {
     )
   }
 
-  if (query.isSuccess) {
-  }
-
   return (
     <Table className={cn(props.className)}>
       <TableHeader>
