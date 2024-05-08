@@ -21,11 +21,11 @@ public class SaleController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<ActionResult<ResponseDto<List<GetSaleDto>>>> GetSales()
+  public async Task<ActionResult<ResponseDto<List<GetSaleDto>?>>> GetSales([FromQuery] int? count, [FromQuery] int? page)
   {
     try
     {
-      var sales = await saleRepo.GetSalesAsync();
+      var sales = await saleRepo.GetSalesAsync(count ?? 5, page ?? 1);
       return Ok(new ResponseDto<List<GetSaleDto>>
       {
         Success = true,
