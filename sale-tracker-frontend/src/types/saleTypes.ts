@@ -25,3 +25,9 @@ export type SaleData = {
   message: string
   data: Sales[]
 }
+
+export type SingleSaleData = {
+  success: boolean
+  message: string
+  data: Sale
+}
