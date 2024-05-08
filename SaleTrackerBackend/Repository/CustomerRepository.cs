@@ -39,8 +39,6 @@ public class CustomerRepository
     }
   }
 
-
-
   public async Task<List<Customer>?> GetAllAsync(int page, int count, string? name = null, bool returnDeleted = false)
   {
     try
@@ -80,7 +78,6 @@ public class CustomerRepository
     }
   }
 
-
   public async Task MarkDeletedAsync(Guid id)
   {
     try
@@ -117,7 +114,6 @@ public class CustomerRepository
     }
   }
 
-
   public async Task<int> GetCountAsync()
   {
     try
@@ -147,5 +143,4 @@ public class CustomerRepository
       throw new Exception("Failed to update customer " + e.Message);
     }
   }
-
 }
