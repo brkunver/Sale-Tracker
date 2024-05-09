@@ -42,9 +42,9 @@ public class SaleRepository
     {
       int skip = (page - 1) * count;
       return await db.Sales.AsNoTracking()
+                           .OrderByDescending(s => s.SaledOn)
                            .Skip(skip)
                            .Take(count)
-                           .OrderByDescending(s => s.SaledOn)
                            .ToListAsync();
     }
     catch (Exception)
