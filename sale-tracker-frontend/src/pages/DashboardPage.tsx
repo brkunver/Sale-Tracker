@@ -5,7 +5,7 @@ import LastSalesChart from "@/components/sales/LastSalesChart"
 import { RefreshCcw } from "lucide-react"
 
 import { useState } from "react"
-
+//TODO : add shadcn day picker for last sales day
 function DashboardPage() {
   const [reloads, setReloads] = useState({
     reloadProducts: () => null,
