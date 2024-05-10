@@ -63,7 +63,7 @@ export default function Sales(props: Props) {
   }
 
   return (
-    <Table className={cn(props.className)}>
+    <Table className={cn("w-fit mx-auto",props.className)}>
       <TableHeader>
         <TableRow>
           <TableHead className="min-w-10 lg:min-w-24 text-center">Saled on</TableHead>
