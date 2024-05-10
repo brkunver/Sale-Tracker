@@ -11,12 +11,14 @@ import {
 import { Line } from "react-chartjs-2"
 import { useQuery } from "@tanstack/react-query"
 import { getLastSales } from "@/utils/saleApiCalls"
+import { cn } from "@/lib/utils"
 
 type Props = {
   day: number
+  className?: string
 }
 
-export default function LastSalesChart({ day }: Props) {
+export default function LastSalesChart({ day , className }: Props) {
   const lastSalesQuery = useQuery({
     queryKey: ["last-sales", day],
     queryFn: async () => await getLastSales(day ?? 10),
@@ -25,11 +27,11 @@ export default function LastSalesChart({ day }: Props) {
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
   if (lastSalesQuery.isLoading) {
-    return <p>Loading...</p>
+    return <p className="mx-auto text-lg min-w-20 min-h-5 rounded border-4 border-green-600 px-4 py-2">Loading Last Sale Revenue Graph...</p>
   }
 
   if (lastSalesQuery.isError) {
-    return <p>Error Loading Data</p>
+    return <p className="mx-auto text-lg min-w-20 min-h-5 rounded border-4  border-red-600 px-4 py-2">Error Loading Data</p>
   }
   const chartData = {
     labels: lastSalesQuery.data!.map((_, index) => `${index + 1}`),
@@ -43,5 +45,5 @@ export default function LastSalesChart({ day }: Props) {
       },
     ],
   }
-  return <Line data={chartData} className="w-full h-96" />
+  return <Line data={chartData} options={{ maintainAspectRatio: false, responsive : true }} className={cn("lg:w-full lg:h-[24rem]", className)} />
 }
