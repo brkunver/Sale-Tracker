@@ -33,12 +33,14 @@ export default function LastSalesChart({ day , className }: Props) {
   if (lastSalesQuery.isError) {
     return <p className="mx-auto text-lg min-w-20 min-h-5 rounded border-4  border-red-600 px-4 py-2">Error Loading Data</p>
   }
+
+  
   const chartData = {
     labels: lastSalesQuery.data!.map((_, index) => `${index + 1}`),
     datasets: [
       {
         label: "Revenue",
-        data: lastSalesQuery.data!,
+        data: [...lastSalesQuery.data!].reverse(),
         fill: false,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.1,
