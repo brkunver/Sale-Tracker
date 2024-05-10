@@ -74,7 +74,7 @@ export default function Products(props: Props) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {query.data?.data.map((product) => (
+        {query.data?.data.reverse().map((product) => (
           <TableRow key={product.id}>
             {props.showDelete && (
               <TableCell className="min-w-10 text-center">
