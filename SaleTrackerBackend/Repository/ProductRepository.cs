@@ -62,7 +62,7 @@ public class ProductRepository
             {
                 productsQuery = productsQuery.Where(p => p.Name.Contains(name) || p.Description.Contains(name));
             }
-            return await productsQuery.Skip((page - 1) * count).Take(count).OrderBy(p => p.CreatedOn).ToListAsync();
+            return await productsQuery.OrderByDescending(p => p.CreatedOn).Skip((page - 1) * count).Take(count).ToListAsync();
         }
         catch (Exception)
         {
