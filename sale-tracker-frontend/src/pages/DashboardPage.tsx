@@ -33,7 +33,7 @@ function DashboardPage() {
         <h2 className="text-lg font-sans">
           Revenue of the last <span className="font-bold italic">{lastSalesDay}</span> sales
         </h2>
-        <LastSalesChart day={30} />
+        <LastSalesChart day={lastSalesDay} />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-2">
           <Products className="" setRefetch={setReloads} />
           <Sales className="" setRefetch={setReloads} />
