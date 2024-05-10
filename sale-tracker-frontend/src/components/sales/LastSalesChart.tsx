@@ -35,7 +35,7 @@ export default function LastSalesChart({ day }: Props) {
     labels: lastSalesQuery.data!.map((_, index) => `${index + 1}`),
     datasets: [
       {
-        label: "Data",
+        label: "Revenue",
         data: lastSalesQuery.data!,
         fill: false,
         borderColor: "rgb(75, 192, 192)",
