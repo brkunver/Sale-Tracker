@@ -64,7 +64,7 @@ export default function Products(props: Props) {
   }
 
   return (
-    <Table className={cn("w-fit", props.className)}>
+    <Table className={cn("w-fit mx-auto", props.className)}>
       <TableHeader>
         <TableRow>
           {props.showDelete && <TableHead className="min-w-10 text-center">Delete</TableHead>}
