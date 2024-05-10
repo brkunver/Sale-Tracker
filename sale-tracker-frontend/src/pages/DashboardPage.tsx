@@ -11,7 +11,7 @@ function DashboardPage() {
     reloadProducts: () => null,
     reloadSales: () => null,
   })
-  const [lastSalesDay, setLastSalesDay] = useState(10)
+  const [lastSalesDay, setLastSalesDay] = useState(20)
 
   async function reloadHandler() {
     reloads.reloadProducts()
@@ -21,7 +21,7 @@ function DashboardPage() {
   return (
     <div className="flex min-h-screen">
       <SideBar />
-      <main className="flex flex-col items-center text-center mx-auto">
+      <main className="flex flex-col items-center text-center mx-auto w-full lg:px-10">
         <h1 className="text-3xl lg:py-8 font-sans">Dashboard</h1>
         <button
           onClick={reloadHandler}
@@ -33,8 +33,10 @@ function DashboardPage() {
         <h2 className="text-lg font-sans">
           Revenue of the last <span className="font-bold italic">{lastSalesDay}</span> sales
         </h2>
-        <LastSalesChart day={lastSalesDay} />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-2">
+        <section className="mx-auto">
+          <LastSalesChart day={lastSalesDay} />
+        </section>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:max-w-[50rem] w-full my-10">
           <Products className="" setRefetch={setReloads} />
           <Sales className="" setRefetch={setReloads} />
         </div>
