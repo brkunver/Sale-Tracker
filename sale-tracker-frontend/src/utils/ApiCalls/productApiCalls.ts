@@ -97,7 +97,7 @@ export async function updateProduct(productId: number, input: any) {
   return data
 }
 
-export async function AddNewProduct(formData: FormData) {
+export async function addNewProduct(formData: FormData) {
   let url = import.meta.env.VITE_API_URL + "/api/product"
   let response = await fetch(url, {
     method: "POST",

@@ -1,4 +1,4 @@
-import { AddNewProduct } from "@/utils/ApiCalls/productApiCalls"
+import { addNewProduct } from "@/utils/ApiCalls/productApiCalls"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -7,7 +7,7 @@ export default function AddProduct() {
   const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: async (formData: FormData) => {
-      return await AddNewProduct(formData)
+      return await addNewProduct(formData)
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] })
