@@ -1,4 +1,4 @@
-import { BadgeDollarSign, Banknote, LogOut, ShoppingBag } from "lucide-react"
+import { BadgeDollarSign, Banknote, LogOut, ShoppingBag, CircleUserRoundIcon, Circle } from "lucide-react"
 
 import { Link, redirect } from "react-router-dom"
 
@@ -24,6 +24,13 @@ function SideBar() {
           <span>Sales</span>
           <BadgeDollarSign size={30} />
         </Link>
+        <Link
+          to={"/customers"}
+          className="flex justify-center items-center gap-2 duration-100 ease-in-out hover:scale-110"
+        >
+          <span>Customers</span>
+          <CircleUserRoundIcon size={30} />
+        </Link>
         <button
           className="flex justify-center items-center gap-2 duration-100 ease-in-out hover:scale-110"
           onClick={() => {
@@ -45,6 +52,10 @@ function SideBar() {
         </Link>
         <Link to={"/sales"}>
           <BadgeDollarSign size={40} />
+        </Link>
+
+        <Link to={"/customers"}>
+          <CircleUserRoundIcon size={40} />
         </Link>
 
         <button
