@@ -5,12 +5,7 @@ enum queryNames {
   count = "count",
 }
 
-function getTokenHeader() {
-  let bearerToken = localStorage.getItem("token")
-  let headers = new Headers()
-  headers.append("Authorization", "Bearer " + bearerToken)
-  return headers
-}
+import getTokenHeader from "./getTokenHeader"
 
 export async function getAllSales(page?: number, count?: number) {
   let url = import.meta.env.VITE_API_URL + "/api/sale"

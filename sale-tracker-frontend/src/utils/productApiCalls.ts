@@ -1,16 +1,10 @@
 import type { Product, ProductData } from "@/types/productTypes"
+import getTokenHeader from "./getTokenHeader"
 
 enum queryNames {
   page = "page",
   count = "count",
   returnDeleted = "returnDeleted",
-}
-
-function getTokenHeader() {
-  let bearerToken = localStorage.getItem("token")
-  let headers = new Headers()
-  headers.append("Authorization", "Bearer " + bearerToken)
-  return headers
 }
 
 export async function getAllProducts(page?: number, count?: number, returnDeleted?: boolean) {

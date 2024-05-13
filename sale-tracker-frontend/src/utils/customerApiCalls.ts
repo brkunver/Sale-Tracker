@@ -1,11 +1,6 @@
 import type { Customer, CustomerData } from "@/types/customerTypes"
 
-function getTokenHeader() {
-  let bearerToken = localStorage.getItem("token")
-  let headers = new Headers()
-  headers.append("Authorization", "Bearer " + bearerToken)
-  return headers
-}
+import getTokenHeader from "./getTokenHeader"
 
 export async function GetAllCustomer(page?: number, count?: number, returnDeleted?: boolean, name?: string) {
   let url = import.meta.env.VITE_API_URL + "/api/customer"
