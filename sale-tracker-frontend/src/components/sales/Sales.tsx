@@ -1,4 +1,4 @@
-import { getAllSales } from "@/utils/saleApiCalls"
+import { getAllSales } from "@/utils/ApiCalls/saleApiCalls"
 import { useQuery } from "@tanstack/react-query"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CircleX, LoaderCircle } from "lucide-react"
@@ -63,7 +63,7 @@ export default function Sales(props: Props) {
   }
 
   return (
-    <Table className={cn("w-fit mx-auto",props.className)}>
+    <Table className={cn("w-fit mx-auto", props.className)}>
       <TableHeader>
         <TableRow>
           <TableHead className="min-w-10 lg:min-w-24 text-center">Saled on</TableHead>
