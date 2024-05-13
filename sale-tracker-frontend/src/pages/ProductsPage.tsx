@@ -1,6 +1,6 @@
 import SideBar from "@/components/SideBar"
 import Products from "@/components/products/Products"
-import { getCount } from "@/utils/productApiCalls"
+import { getCount } from "@/utils/ApiCalls/productApiCalls"
 import { useQuery } from "@tanstack/react-query"
 import { LoaderCircle } from "lucide-react"
 import { useEffect, useState } from "react"

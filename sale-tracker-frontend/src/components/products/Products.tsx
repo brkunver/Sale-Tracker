@@ -1,4 +1,4 @@
-import { getAllProducts, getImageUrl } from "@/utils/productApiCalls"
+import { getAllProducts, getImageUrl } from "@/utils/ApiCalls/productApiCalls"
 import { useQuery } from "@tanstack/react-query"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CircleX, LoaderCircle } from "lucide-react"

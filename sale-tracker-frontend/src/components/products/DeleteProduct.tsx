@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Trash2 } from "lucide-react"
-import { deleteProduct } from "@/utils/productApiCalls"
+import { deleteProduct } from "@/utils/ApiCalls/productApiCalls"
 
 interface Props {
   productId: number

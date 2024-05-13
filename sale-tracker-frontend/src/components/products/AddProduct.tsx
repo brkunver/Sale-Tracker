@@ -1,4 +1,4 @@
-import { AddNewProduct } from "@/utils/productApiCalls"
+import { AddNewProduct } from "@/utils/ApiCalls/productApiCalls"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
