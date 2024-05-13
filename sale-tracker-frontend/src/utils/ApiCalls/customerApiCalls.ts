@@ -22,6 +22,18 @@ export async function getSingleCustomer(customerId: number) {
   let url = import.meta.env.VITE_API_URL + "/api/customer/" + customerId
   let response = await fetch(url, { headers: getTokenHeader() })
   if (!response.ok) throw new Error(response.statusText)
-  let data = await response.json()
-  return data as Customer
+  const data = await response.json()
+  return data.data as Customer
+}
+
+export async function addNewCustomer(formData: FormData) {
+  let url = import.meta.env.VITE_API_URL + "/api/customer"
+  let response = await fetch(url, {
+    method: "POST",
+    headers: getTokenHeader(),
+    body: formData,
+  })
+  if (!response.ok) throw new Error(response.statusText)
+  const data = await response.json()
+  return data.data as Customer
 }
