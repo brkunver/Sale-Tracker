@@ -86,7 +86,7 @@ public class CustomerController : ControllerBase
   }
 
   [HttpPut("{id}")]
-  public async Task<ActionResult<ResponseDto<GetCustomerDto?>>> Update([FromRoute] Guid id, [FromBody] UpdateCustomerDto customerDto)
+  public async Task<ActionResult<ResponseDto<GetCustomerDto?>>> Update([FromRoute] Guid id, [FromForm] UpdateCustomerDto customerDto)
   {
     if (!ModelState.IsValid)
     {
