@@ -50,9 +50,8 @@ public class CustomerController : ControllerBase
   }
 
   [HttpPost]
-  public async Task<ActionResult<ResponseDto<GetCustomerDto?>>> Create([FromBody] CreateCustomerDto customerDto)
+  public async Task<ActionResult<ResponseDto<GetCustomerDto?>>> Create([FromForm] CreateCustomerDto customerDto)
   {
-
     if (!ModelState.IsValid)
     {
       return BadRequest(new ResponseDto<GetCustomerDto?> { Success = false, Message = "Invalid data input" });
@@ -118,5 +117,4 @@ public class CustomerController : ControllerBase
       return BadRequest(new ResponseDto<int?> { Success = false, Message = ex.Message });
     }
   }
-
 }
