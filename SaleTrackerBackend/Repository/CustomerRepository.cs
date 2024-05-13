@@ -43,7 +43,7 @@ public class CustomerRepository
   {
     try
     {
-      var customers = db.Customers.AsQueryable();
+      var customers = db.Customers.AsQueryable().AsNoTracking();
 
       if (returnDeleted is false)
       {
@@ -55,7 +55,7 @@ public class CustomerRepository
         customers = customers.Where(c => c.Name.Contains(name));
       }
 
-      customers = customers.Skip((page - 1) * count).Take(count).OrderBy(c => c.CreatedOn);
+      customers = customers.OrderBy(c => c.CreatedOn).Skip((page - 1) * count).Take(count);
 
       return await customers.ToListAsync();
     }
