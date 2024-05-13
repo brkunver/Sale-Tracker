@@ -13,6 +13,4 @@ public class GetCustomerDto
     public DateTime CreatedOn { get; set; } = DateTime.Now;
 
     public DateTime? UpdatedOn { get; set; } = DateTime.Now;
-
-    public bool IsDeleted { get; set; } = false;
 }
