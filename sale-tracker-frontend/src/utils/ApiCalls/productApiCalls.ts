@@ -37,7 +37,7 @@ export function getImageUrl(imagename: string) {
   return url
 }
 
-export async function getSingleProduct(productId: number) {
+export async function getSingleProduct(productId: string) {
   let url = import.meta.env.VITE_API_URL + "/api/product/" + productId
   let response = await fetch(url, {
     headers: getTokenHeader(),
@@ -62,7 +62,7 @@ export async function getCount() {
 }
 
 // delete product
-export async function deleteProduct(productId: number) {
+export async function deleteProduct(productId: string) {
   let url = import.meta.env.VITE_API_URL + "/api/product/" + productId
   let response = await fetch(url, {
     method: "DELETE",
@@ -75,7 +75,7 @@ export async function deleteProduct(productId: number) {
 }
 
 // TODO : Update product
-export async function updateProduct(productId: number, input: any) {
+export async function updateProduct(productId: string, input: any) {
   let url = import.meta.env.VITE_API_URL + "/api/product/" + productId
 
   let formData = new FormData()
