@@ -36,7 +36,7 @@ export default function DeleteProduct(props: Props) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete product with ID{" "}
+            This action cannot be undone. This will delete product with ID{" "}
             <span className="font-semibold">{props.productId}</span>.
           </AlertDialogDescription>
         </AlertDialogHeader>
