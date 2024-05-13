@@ -38,7 +38,7 @@ export async function addNewCustomer(formData: FormData) {
   return data.data as Customer
 }
 
-export async function updateCustomer(customerId: number, formData: FormData) {
+export async function updateCustomer(customerId: string, formData: FormData) {
   let url = import.meta.env.VITE_API_URL + "/api/customer/" + customerId
   let response = await fetch(url, {
     method: "PUT",
@@ -50,3 +50,11 @@ export async function updateCustomer(customerId: number, formData: FormData) {
   return data.data as Customer
 }
 
+export async function deleteCustomer(customerId: string) {
+  let url = import.meta.env.VITE_API_URL + "/api/customer/" + customerId
+  let response = await fetch(url, {
+    method: "DELETE",
+    headers: getTokenHeader(),
+  })
+  if (!response.ok) throw new Error(response.statusText)
+}
