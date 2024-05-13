@@ -1,6 +1,6 @@
 namespace SaleTrackerBackend.Dto;
-using System.ComponentModel.DataAnnotations;
 
+using System.ComponentModel.DataAnnotations;
 
 public class CreateCustomerDto
 {
@@ -15,6 +15,4 @@ public class CreateCustomerDto
   [Required]
   [MaxLength(500)]
   public string Address { get; set; } = "";
-
-
 }
