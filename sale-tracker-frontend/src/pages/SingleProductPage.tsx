@@ -1,7 +1,7 @@
 import SideBar from "@/components/SideBar"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
-import { getSingleProduct } from "@/utils/ApiCalls/productApiCalls"
+import { getImageUrl, getSingleProduct } from "@/utils/ApiCalls/productApiCalls"
 
 export default function SingleProductPage() {
   let { id } = useParams<{ id: string }>()
@@ -18,7 +18,11 @@ export default function SingleProductPage() {
     return (
       <div className="flex min-h-screen">
         <SideBar />
-        <div>{query.data!.name}</div>
+        <main className="mx-auto flex-col flex">
+          <h1>{query.data.name}</h1>
+          <p>{query.data.description}</p>
+          <img src={getImageUrl(query.data.imageUrl)} alt={query.data.name} className="rounded lg:max-w-[400px]" />
+        </main>
       </div>
     )
   }
