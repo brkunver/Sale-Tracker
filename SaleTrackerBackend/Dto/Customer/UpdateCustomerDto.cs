@@ -10,6 +10,4 @@ public class UpdateCustomerDto
   public string Phone { get; set; } = "";
   [Required]
   public string Address { get; set; } = "";
-
-  public IFormFile? FormFile { get; set; }
 }
