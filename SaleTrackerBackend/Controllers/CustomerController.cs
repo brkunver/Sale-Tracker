@@ -69,7 +69,6 @@ public class CustomerController : ControllerBase
     }
   }
 
-
   [HttpDelete("{id}")]
   public async Task<ActionResult<ResponseDto<GetCustomerDto?>>> Delete([FromRoute] Guid id)
   {
