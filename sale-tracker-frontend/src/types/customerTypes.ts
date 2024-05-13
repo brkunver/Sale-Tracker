@@ -5,7 +5,6 @@ export type Customer = {
   address: string
   createdOn: string
   updatedOn: string
-  isDeleted: boolean
 }
 
 export type CustomerData = {
