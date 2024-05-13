@@ -1,4 +1,4 @@
-import type { Customer, CustomerData } from "@/types/customerTypes"
+import type { Customer } from "@/types/customerTypes"
 
 import getTokenHeader from "./getTokenHeader"
 
