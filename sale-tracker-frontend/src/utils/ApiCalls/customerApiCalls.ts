@@ -58,3 +58,11 @@ export async function deleteCustomer(customerId: string) {
   })
   if (!response.ok) throw new Error(response.statusText)
 }
+
+export async function getCustomerCount () {
+  let url = import.meta.env.VITE_API_URL + "/api/customer/count"
+  let response = await fetch(url, { headers: getTokenHeader() })
+  if (!response.ok) throw new Error(response.statusText)
+  const data = await response.json()
+  return data.data as number
+}
