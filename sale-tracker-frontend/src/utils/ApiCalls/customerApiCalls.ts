@@ -37,3 +37,16 @@ export async function addNewCustomer(formData: FormData) {
   const data = await response.json()
   return data.data as Customer
 }
+
+export async function updateCustomer(customerId: number, formData: FormData) {
+  let url = import.meta.env.VITE_API_URL + "/api/customer/" + customerId
+  let response = await fetch(url, {
+    method: "PUT",
+    headers: getTokenHeader(),
+    body: formData,
+  })
+  if (!response.ok) throw new Error(response.statusText)
+  const data = await response.json()
+  return data.data as Customer
+}
+
