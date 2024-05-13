@@ -45,7 +45,6 @@ function LoginCard() {
     setFormInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  console.log(formInfo)
   return (
     <form onSubmit={onSubmit} className="flex flex-col w-96 rounded border mx-auto p-6 gap-6 ">
       <h1 className="text-center text-3xl font-bold">Login</h1>
