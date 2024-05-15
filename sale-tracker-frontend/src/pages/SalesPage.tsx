@@ -1,11 +1,10 @@
 import SideBar from "@/components/SideBar"
-import { getLastSales } from "@/utils/ApiCalls/saleApiCalls"
 
 function SalesPage() {
   return (
     <div className="flex min-h-screen">
       <SideBar />
-      <main className="flex flex-col">
+      <main>
         <h1>Sales</h1>
       </main>
     </div>
