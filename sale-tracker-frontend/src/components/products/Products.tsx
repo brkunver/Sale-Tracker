@@ -1,7 +1,7 @@
 import { getAllProducts, getImageUrl } from "@/utils/ApiCalls/productApiCalls"
 import { useQuery } from "@tanstack/react-query"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { CircleX, LoaderCircle } from "lucide-react"
+import { CircleX, FilePenLine, LoaderCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import DeleteProduct from "./DeleteProduct"
 import { useEffect } from "react"
@@ -70,7 +70,8 @@ export default function Products(props: Props) {
           {props.showDelete && <TableHead className="min-w-10 text-center">Delete</TableHead>}
           <TableHead className="min-w-10 lg:min-w-24">Image</TableHead>
           <TableHead className="min-w-10 lg:min-w-24 text-center">Name</TableHead>
-          <TableHead className="min-w-10 lg:min-w-24 text-right">Price</TableHead>
+          <TableHead className="min-w-10 lg:min-w-24 text-center">Price</TableHead>
+          {props.showDelete && <TableHead className="min-w-10 text-center">Edit</TableHead>}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -94,6 +95,13 @@ export default function Products(props: Props) {
               <Link to={`/product/${product.id}`}>{product.name}</Link>
             </TableCell>
             <TableCell className="text-right text-green-800 text-base">{product.price}$</TableCell>
+            {props.showDelete && (
+              <TableCell className="min-w-10 text-center">
+                <Link to={`/edit-product/${product.id}`}>
+                  <FilePenLine className="text-blue-700 hover:scale-110 duration-100" />
+                </Link>
+              </TableCell>
+            )}
           </TableRow>
         ))}
       </TableBody>
