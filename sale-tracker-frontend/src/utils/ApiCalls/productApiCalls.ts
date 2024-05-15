@@ -75,16 +75,8 @@ export async function deleteProduct(productId: string) {
 }
 
 // TODO : Update product
-export async function updateProduct(productId: string, input: any) {
+export async function updateProduct(productId: string, formData: FormData) {
   let url = import.meta.env.VITE_API_URL + "/api/product/" + productId
-
-  let formData = new FormData()
-  formData.append("name", input.name)
-  formData.append("description", input.description)
-  formData.append("price", input.price.toString())
-  if (input.imageFile) {
-    formData.append("imageFile", input.imageFile)
-  }
   let response = await fetch(url, {
     method: "PUT",
     headers: getTokenHeader(),
