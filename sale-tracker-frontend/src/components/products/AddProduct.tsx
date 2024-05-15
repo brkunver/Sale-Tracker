@@ -18,14 +18,13 @@ export default function AddProduct() {
   function formSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     let formData = new FormData(event.currentTarget)
+    formData.set("Price", (formData.get("Price") as string).replace(".", ","))
     mutation.mutate(formData)
   }
 
   function clearInputs() {
     const inputs = document.querySelectorAll('input[type="text"], input[type="file"]')
-    inputs.forEach((input) => {
-      ;(input as HTMLInputElement).value = ""
-    })
+    inputs.forEach((input) => ((input as HTMLInputElement).value = ""))
   }
 
   return (
@@ -43,7 +42,7 @@ export default function AddProduct() {
         type="text"
         required
         aria-required
-        pattern="^\d{1,10}(,\d{1,2})?$"
+        pattern="^\d{1,10}([.,]\d{1,2})?$"
         name="Price"
         placeholder="Price, ex : 24,50"
       />
