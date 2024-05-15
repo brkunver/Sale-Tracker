@@ -3,6 +3,7 @@ import Products from "@/components/products/Products"
 import Sales from "@/components/sales/Sales"
 import LastSalesChart from "@/components/sales/LastSalesChart"
 import { RefreshCcw } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 import { useState } from "react"
 //TODO : add shadcn day picker for last sales day
@@ -16,6 +17,10 @@ function DashboardPage() {
   async function reloadHandler() {
     reloads.reloadProducts()
     reloads.reloadSales()
+  }
+
+  function onLastSalesDayChange(value : string) {
+    setLastSalesDay(Number(value))
   }
 
   return (
@@ -33,6 +38,16 @@ function DashboardPage() {
         <h2 className="text-lg font-sans">
           Revenue of the last <span className="font-bold italic">{lastSalesDay}</span> sales
         </h2>
+        <Select value={lastSalesDay.toString()} onValueChange={onLastSalesDayChange}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select Day" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="10">Last 10 Sales</SelectItem>
+            <SelectItem value="20">Last 20 Sales</SelectItem>
+            <SelectItem value="30">Last 30 Sales</SelectItem>
+          </SelectContent>
+        </Select>
         <section className="mx-auto">
           <LastSalesChart day={lastSalesDay} />
         </section>
