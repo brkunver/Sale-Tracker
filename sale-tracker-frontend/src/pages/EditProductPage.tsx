@@ -16,15 +16,21 @@ export default function EditProductPage() {
     <div className="flex min-h-screen">
       <SideBar />
       <main className="mx-auto flex-col flex items-center">
-        <h1>Edit Product</h1>
+        <h1 className="font-bold text-3xl my-4">Edit Product</h1>
         {query.isLoading && <div>Loading...</div>}
         {!query.data && <div>No Data</div>}
         {query.isSuccess && (
-          <div>
-            <h2>{query.data.name}</h2>
-            <img src={getImageUrl(query.data.imageUrl)} alt={query.data.name} className="w-40 rounded object-cover" />
+          <section className="grid lg:grid-cols-2 my-4">
+            <section id="product-info">
+              <h2 className="font-semibold text-lg text-center">{query.data.name}</h2>
+              <img
+                src={getImageUrl(query.data.imageUrl)}
+                alt={query.data.name}
+                className="w-40 rounded object-cover mx-auto"
+              />
+            </section>
             <EditProduct product={query.data} />
-          </div>
+          </section>
         )}
       </main>
     </div>
