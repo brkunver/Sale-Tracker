@@ -10,6 +10,7 @@ import ProductsPage from "./pages/ProductsPage"
 import SingleProductPage from "./pages/SingleProductPage"
 import SalesPage from "./pages/SalesPage"
 import CustomersPage from "./pages/CustomersPage"
+import EditProductPage from "./pages/EditProductPage"
 // query client
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 1000 * 60 * 2, staleTime: 1000 * 60 * 2 } },
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
   {
     path: "/product/:id",
     element: <SingleProductPage />,
+    loader: authLoader,
+  },
+  {
+    path: "/edit-product/:id",
+    element : <EditProductPage />,
     loader: authLoader,
   },
   {
