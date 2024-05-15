@@ -37,7 +37,6 @@ export default function AddProduct() {
       </div>
       <Input type="text" required aria-required name="Name" placeholder="Product Name" />
       <Input type="text" required aria-required name="Description" placeholder="Description" />
-
       <Input
         type="text"
         required
@@ -46,7 +45,6 @@ export default function AddProduct() {
         name="Price"
         placeholder="Price, ex : 24,50"
       />
-
       <Button className="w-full mx-auto px-2" type="submit">
         Add Product
       </Button>
