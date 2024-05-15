@@ -39,13 +39,17 @@ export default function EditProduct(props: Props) {
   function formSubmitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     let formData = new FormData(event.currentTarget)
-    formData.set("Price" , (formData.get("Price") as string).replace(".", ","))
+    formData.set("Price", (formData.get("Price") as string).replace(".", ","))
     mutation.mutate(formData)
   }
 
   function clearInputs() {
     const inputs = document.querySelectorAll('input[type="text"], input[type="file"]')
     inputs.forEach((input) => ((input as HTMLInputElement).value = ""))
+  }
+
+  if (mutation.isPending) {
+    return <div>Editing Product...</div>
   }
 
   return (
@@ -57,7 +61,6 @@ export default function EditProduct(props: Props) {
       </div>
       <Input type="text" id="edit-name" required aria-required name="Name" placeholder="Product Name" />
       <Input type="text" id="edit-desc" required aria-required name="Description" placeholder="Description" />
-
       <Input
         type="text"
         id="edit-price"
@@ -67,7 +70,6 @@ export default function EditProduct(props: Props) {
         name="Price"
         placeholder="Price, ex : 24,50"
       />
-
       <Button className="w-full mx-auto px-2" type="submit">
         Edit Product
       </Button>
