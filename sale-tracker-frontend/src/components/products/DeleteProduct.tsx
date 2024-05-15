@@ -15,6 +15,7 @@ import { deleteProduct } from "@/utils/ApiCalls/productApiCalls"
 
 interface Props {
   productId: string
+  productName: string
 }
 
 export default function DeleteProduct(props: Props) {
@@ -36,8 +37,7 @@ export default function DeleteProduct(props: Props) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will delete product with ID{" "}
-            <span className="font-semibold">{props.productId}</span>.
+            This action cannot be undone. This will delete : <span className="font-semibold">{props.productName}</span>.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
