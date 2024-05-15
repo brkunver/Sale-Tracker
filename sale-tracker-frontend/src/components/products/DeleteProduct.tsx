@@ -14,7 +14,7 @@ import { Trash2 } from "lucide-react"
 import { deleteProduct } from "@/utils/ApiCalls/productApiCalls"
 
 interface Props {
-  productId: number
+  productId: string
 }
 
 export default function DeleteProduct(props: Props) {
