@@ -9,7 +9,7 @@ import NotFound from "./pages/NotFound"
 import ProductsPage from "./pages/ProductsPage"
 import SingleProductPage from "./pages/SingleProductPage"
 import SalesPage from "./pages/SalesPage"
-import CustomersPage from "./pages/Customers"
+import CustomersPage from "./pages/CustomersPage"
 // query client
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 1000 * 60 * 2, staleTime: 1000 * 60 * 2 } },
