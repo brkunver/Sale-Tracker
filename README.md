@@ -4,6 +4,9 @@ Currently in development
 
 - .Net 8 Web API
 - React & TS
+- Tanstack Query for querying and caching
+- Tailwindcss & ShadcnUI for styling
+- Chart.js for charts
 
 ## Development Screenshots
 
