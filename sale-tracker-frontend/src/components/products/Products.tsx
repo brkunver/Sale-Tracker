@@ -79,7 +79,7 @@ export default function Products(props: Props) {
           <TableRow key={product.id}>
             {props.showDelete && (
               <TableCell className="min-w-10 text-center">
-                <DeleteProduct productId={product.id} />
+                <DeleteProduct productId={product.id} productName={product.name} />
               </TableCell>
             )}
             <TableCell>
