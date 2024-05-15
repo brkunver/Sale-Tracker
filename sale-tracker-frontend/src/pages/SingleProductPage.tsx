@@ -1,7 +1,8 @@
 import SideBar from "@/components/SideBar"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { getImageUrl, getSingleProduct } from "@/utils/ApiCalls/productApiCalls"
+import { Button } from "@/components/ui/button"
 
 export default function SingleProductPage() {
   let { id } = useParams<{ id: string }>()
@@ -26,6 +27,9 @@ export default function SingleProductPage() {
               <p className="font-bold">
                 Price : <span className="font-extrabold text-green-700">{query.data.price} $</span>
               </p>
+              <Button className="bg-blue-600 hover:bg-blue-800 w-fit text-white">
+                <Link to={`/edit-product/${query.data.id}`}>Edit Product</Link>
+              </Button>
             </section>
           </section>
         )}
