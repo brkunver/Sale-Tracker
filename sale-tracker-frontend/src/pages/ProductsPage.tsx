@@ -2,7 +2,7 @@ import SideBar from "@/components/SideBar"
 import Products from "@/components/products/Products"
 import { getCount } from "@/utils/ApiCalls/productApiCalls"
 import { useQuery } from "@tanstack/react-query"
-import { LoaderCircle } from "lucide-react"
+import { LoaderCircle, Search } from "lucide-react"
 import { useEffect, useState } from "react"
 
 import {
@@ -15,6 +15,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import AddProduct from "@/components/products/AddProduct"
+import { SearchProducts } from "@/components/products/SearchProducts"
 
 function ProductsPage() {
   const [page, setPage] = useState(1)
@@ -93,7 +94,8 @@ function ProductsPage() {
             </PaginationContent>
           </Pagination>
         </div>
-        <div id="add-new-product" className="px-8">
+        <div id="add-new-product" className="px-8 flex flex-col">
+          <SearchProducts />
           <AddProduct />
         </div>
       </main>
