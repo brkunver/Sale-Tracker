@@ -5,19 +5,30 @@ enum queryNames {
   page = "page",
   count = "count",
   returnDeleted = "returnDeleted",
+  name = "name",
 }
 
-export async function getAllProducts(page?: number, count?: number, returnDeleted?: boolean) {
+type ProductQuery = {
+  page?: number
+  count?: number
+  returnDeleted?: boolean
+  name?: string
+}
+
+export async function getAllProducts(productQuery: ProductQuery = {}) {
   let url = import.meta.env.VITE_API_URL + "/api/product"
   let params = new URLSearchParams()
 
-  if (page) {
-    params.append(queryNames.page, page.toString())
+  if (productQuery.page) {
+    params.append(queryNames.page, productQuery.page.toString())
   }
-  if (count) {
-    params.append(queryNames.count, count.toString())
+  if (productQuery.name) {
+    params.append(queryNames.name, productQuery.name)
   }
-  if (returnDeleted) {
+  if (productQuery.count) {
+    params.append(queryNames.count, productQuery.count.toString())
+  }
+  if (productQuery.returnDeleted) {
     params.append(queryNames.returnDeleted, "true")
   }
   url += "?" + params.toString()
