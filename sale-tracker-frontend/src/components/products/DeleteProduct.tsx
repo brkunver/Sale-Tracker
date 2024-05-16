@@ -12,10 +12,12 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Trash2 } from "lucide-react"
 import { deleteProduct } from "@/utils/ApiCalls/productApiCalls"
+import { Button } from "../ui/button"
 
 interface Props {
   productId: string
   productName: string
+  message?: string
 }
 
 export default function DeleteProduct(props: Props) {
@@ -30,8 +32,14 @@ export default function DeleteProduct(props: Props) {
   })
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
-        <Trash2 className="text-red-600 hover:scale-110 duration-100" />
+      <AlertDialogTrigger asChild>
+        {props.message ? (
+          <Button className="bg-red-700 hover:bg-red-900 w-fit text-white">
+            {props.message} <Trash2 className="text-white" />
+          </Button>
+        ) : (
+          <Trash2 className="text-red-600 hover:scale-110 duration-100" />
+        )}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
