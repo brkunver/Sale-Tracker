@@ -24,7 +24,7 @@ export default function Products(props: Props) {
   let count = props.count ?? 5
   let query = useQuery({
     queryKey: ["products", page, count],
-    queryFn: async () => await getAllProducts(page, count),
+    queryFn: async () => await getAllProducts({ page: page, count: count }),
   })
 
   useEffect(() => {
