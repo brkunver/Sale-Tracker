@@ -38,7 +38,7 @@ export default function DeleteProduct(props: Props) {
             {props.message} <Trash2 className="text-white" />
           </Button>
         ) : (
-          <Trash2 className="text-red-600 hover:scale-110 duration-100" />
+          <Trash2 className="text-red-600 hover:scale-110 duration-100 cursor-pointer" role="button" />
         )}
       </AlertDialogTrigger>
       <AlertDialogContent>
