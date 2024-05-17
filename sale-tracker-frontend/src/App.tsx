@@ -11,6 +11,7 @@ import SingleProductPage from "./pages/SingleProductPage"
 import SalesPage from "./pages/SalesPage"
 import CustomersPage from "./pages/CustomersPage"
 import EditProductPage from "./pages/productPages/EditProductPage"
+import SearchProductsPage from "./pages/productPages/SearchProductsPage"
 // query client
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 1000 * 60 * 2, staleTime: 1000 * 60 * 2 } },
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
   {
     path: "/products",
     element: <ProductsPage />,
+    loader: authLoader,
+  },
+  {
+    path : "/search-products",
+    element : <SearchProductsPage />,
     loader: authLoader,
   },
   {
