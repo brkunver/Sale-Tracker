@@ -6,11 +6,11 @@ import { authLoader } from "./utils/authLoader"
 import LoginPage from "./pages/LoginPage"
 import DashboardPage from "./pages/DashboardPage"
 import NotFound from "./pages/NotFound"
-import ProductsPage from "./pages/ProductsPage"
+import ProductsPage from "./pages/productPages/ProductsPage"
 import SingleProductPage from "./pages/SingleProductPage"
 import SalesPage from "./pages/SalesPage"
 import CustomersPage from "./pages/CustomersPage"
-import EditProductPage from "./pages/EditProductPage"
+import EditProductPage from "./pages/productPages/EditProductPage"
 // query client
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 1000 * 60 * 2, staleTime: 1000 * 60 * 2 } },
