@@ -1,5 +1,5 @@
-import { BadgeDollarSign, Banknote, LogOut, ShoppingBag, CircleUserRoundIcon, Circle } from "lucide-react"
-
+import { BadgeDollarSign, Banknote, LogOut, ShoppingBag, CircleUserRoundIcon } from "lucide-react"
+import React from "react"
 import { Link, redirect } from "react-router-dom"
 
 function SideBar() {
@@ -72,4 +72,4 @@ function SideBar() {
   )
 }
 
-export default SideBar
+export default React.memo(SideBar)
