@@ -2,7 +2,7 @@ import SideBar from "@/components/SideBar"
 import Products from "@/components/products/Products"
 import { getCount } from "@/utils/ApiCalls/productApiCalls"
 import { useQuery } from "@tanstack/react-query"
-import { LoaderCircle } from "lucide-react"
+import { CirclePlus, LoaderCircle, Search } from "lucide-react"
 import { useEffect, useState } from "react"
 
 import {
@@ -14,8 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import AddProduct from "@/components/products/AddProduct"
-import { SearchProducts } from "@/components/products/SearchProducts"
+import { Link } from "react-router-dom"
 
 function ProductsPage() {
   const [page, setPage] = useState(1)
@@ -94,9 +93,21 @@ function ProductsPage() {
             </PaginationContent>
           </Pagination>
         </div>
-        <div id="add-new-product" className="px-8 flex flex-col">
-          <SearchProducts />
-          <AddProduct />
+        <div  className="px-8 flex flex-col gap-4">
+          <Link
+            to={"/add-product"}
+            className="bg-green-800 hover:bg-green-900 min-h-[100px] min-w-[150px] rounded-md flex text-white justify-center items-center gap-2"
+          >
+            <CirclePlus size={40} />
+            <p className="text-xl">Add New Product</p>
+          </Link>
+          <Link
+            to={"/search-products"}
+            className="bg-violet-800 hover:bg-violet-900 min-h-[100px] min-w-[150px] rounded-md flex text-white justify-center items-center gap-2"
+          >
+            <Search size={40} />
+            <p className="text-xl">Search Products</p>
+          </Link>
         </div>
       </main>
     </div>
