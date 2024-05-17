@@ -48,7 +48,7 @@ export function SearchProducts() {
 
   return (
     <section className="flex flex-col">
-      <Input onChange={handleChange} value={inputValue} />
+      <Input onChange={handleChange} value={inputValue} className="lg:min-w-[500px]" />
       <section id="found-products" className="flex flex-col gap-4 my-6">
         {products &&
           products.map((item) => (
