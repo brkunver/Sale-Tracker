@@ -1,8 +1,9 @@
-import { getAllProducts } from "@/utils/ApiCalls/productApiCalls"
+import { getAllProducts, getImageUrl } from "@/utils/ApiCalls/productApiCalls"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { Input } from "../ui/input"
 import { Product } from "@/types/productTypes"
+import { Skeleton } from "../ui/skeleton"
 
 export function SearchProducts() {
   const [inputValue, setInputValue] = useState("")
@@ -46,10 +47,24 @@ export function SearchProducts() {
   }
 
   return (
-    <section>
+    <section className="flex flex-col">
       <Input onChange={handleChange} value={inputValue} />
-      {products && products.map((item) => <p key={item.id}>{item.name}</p>)}
-      {loading && <p>Loading...</p>}
+      <section id="found-products" className="flex flex-col gap-4 my-6">
+        {products &&
+          products.map((item) => (
+            <Link to={`/product/${item.id}`} key={item.id} className="flex items-center gap-2 rounded border hover:outline outline-1 p-2 ">
+              <img src={getImageUrl(item.imageUrl)} className="h-12 w-12 object-contain rounded-full"/>
+              <p className="font-semibold">{item.name}</p>
+            </Link>
+          ))}
+      </section>
+      {loading && (
+        <div className="flex flex-col gap-2 px-4 py-4">
+          <Skeleton className="w-full h-12" />
+          <Skeleton className="w-full h-12" />
+          <Skeleton className="w-full h-12" />
+        </div>
+      )}
     </section>
   )
 }
