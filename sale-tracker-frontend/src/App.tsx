@@ -6,7 +6,7 @@ import { authLoader } from "./utils/authLoader"
 import LoginPage from "./pages/LoginPage"
 import DashboardPage from "./pages/DashboardPage"
 import NotFound from "./pages/NotFound"
-
+// import product pages
 import ProductsPage from "./pages/ProductPages/ProductsPage"
 import SingleProductPage from "./pages/ProductPages/SingleProductPage"
 import SalesPage from "./pages/SalePages/SalesPage"
@@ -14,6 +14,9 @@ import CustomersPage from "./pages/CustomerPages/CustomersPage"
 import EditProductPage from "./pages/ProductPages/EditProductPage"
 import SearchProductsPage from "./pages/ProductPages/SearchProductsPage"
 import AddProductPage from "./pages/ProductPages/AddProductPage"
+// import customer pages
+import AddCustomer from "./components/customers/AddCustomer"
+import EditCustomerPage from "./pages/CustomerPages/EditCustomerPage"
 // query client
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 1000 * 60 * 2, staleTime: 1000 * 60 * 2 } },
@@ -68,6 +71,16 @@ const router = createBrowserRouter([
     path: "/customers",
     element: <CustomersPage />,
     loader: authLoader,
+  },
+  {
+    path: "/edit-customer/:id",
+    element: <EditCustomerPage />,
+    loader: authLoader,
+  },
+  {
+    path : "/add-customer",
+    element : <AddCustomer />,
+    loader : authLoader,
   },
   {
     path: "*",
