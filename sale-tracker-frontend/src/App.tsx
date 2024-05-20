@@ -7,13 +7,13 @@ import LoginPage from "./pages/LoginPage"
 import DashboardPage from "./pages/DashboardPage"
 import NotFound from "./pages/NotFound"
 
-import ProductsPage from "./pages/productPages/ProductsPage"
-import SingleProductPage from "./pages/productPages/SingleProductPage"
+import ProductsPage from "./pages/ProductPages/ProductsPage"
+import SingleProductPage from "./pages/ProductPages/SingleProductPage"
 import SalesPage from "./pages/SalesPage"
 import CustomersPage from "./pages/CustomersPage"
-import EditProductPage from "./pages/productPages/EditProductPage"
-import SearchProductsPage from "./pages/productPages/SearchProductsPage"
-import AddProductPage from "./pages/productPages/AddProductPage"
+import EditProductPage from "./pages/ProductPages/EditProductPage"
+import SearchProductsPage from "./pages/ProductPages/SearchProductsPage"
+import AddProductPage from "./pages/ProductPages/AddProductPage"
 // query client
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 1000 * 60 * 2, staleTime: 1000 * 60 * 2 } },
