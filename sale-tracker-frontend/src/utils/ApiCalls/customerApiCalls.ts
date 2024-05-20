@@ -2,7 +2,15 @@ import type { Customer } from "@/types/customerTypes"
 
 import getTokenHeader from "./getTokenHeader"
 
-export async function getAllCustomers(page?: number, count?: number, returnDeleted?: boolean, name?: string) {
+
+interface getAllCustomersQuery {
+  page?: number
+  count?: number
+  returnDeleted?: boolean
+  name?: string
+}
+
+export async function getAllCustomers({ page, count, returnDeleted, name }: getAllCustomersQuery) {
   let url = import.meta.env.VITE_API_URL + "/api/customer"
   let params = new URLSearchParams()
   if (page) params.append("page", page.toString())
