@@ -50,7 +50,8 @@ export default function Customers(props: Props) {
         <TableRow>
           {props.showDelete && <TableHead className="min-w-10 text-center">Delete</TableHead>}
           <TableHead className="min-w-10 lg:min-w-24 text-center">Name</TableHead>
-
+          <TableHead className="min-w-10 text-center">Phone</TableHead>
+          <TableHead className="min-w-10 text-center">Adress</TableHead> 
           {props.showDelete && <TableHead className="min-w-10 text-center">Edit</TableHead>}
         </TableRow>
       </TableHeader>
@@ -66,7 +67,8 @@ export default function Customers(props: Props) {
             <TableCell className="text-center">
               <Link to={`/customer/${customer.id}`}>{customer.name}</Link>
             </TableCell>
-
+            <TableCell className="text-center">{customer.phone}</TableCell>
+            <TableCell className="text-center">{customer.address}</TableCell>
             {props.showDelete && (
               <TableCell className="min-w-10 text-center">
                 <Link to={`/edit-customer/${customer.id}`}>
