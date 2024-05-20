@@ -1,9 +1,14 @@
-import React from 'react'
+import { Customer } from "@/types/customerTypes"
 
-function EditCustomer() {
-  return (
-    <div>EditCustomer</div>
-  )
+
+interface Props {
+  customer: Customer
+}
+
+function EditCustomer(props: Props) {
+  return <div>
+    {props.customer.name}
+  </div>
 }
 
 export default EditCustomer
