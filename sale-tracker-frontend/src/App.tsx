@@ -6,12 +6,14 @@ import { authLoader } from "./utils/authLoader"
 import LoginPage from "./pages/LoginPage"
 import DashboardPage from "./pages/DashboardPage"
 import NotFound from "./pages/NotFound"
+
 import ProductsPage from "./pages/productPages/ProductsPage"
-import SingleProductPage from "./pages/SingleProductPage"
+import SingleProductPage from "./pages/productPages/SingleProductPage"
 import SalesPage from "./pages/SalesPage"
 import CustomersPage from "./pages/CustomersPage"
 import EditProductPage from "./pages/productPages/EditProductPage"
 import SearchProductsPage from "./pages/productPages/SearchProductsPage"
+import AddProductPage from "./pages/productPages/AddProductPage"
 // query client
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 1000 * 60 * 2, staleTime: 1000 * 60 * 2 } },
@@ -38,8 +40,8 @@ const router = createBrowserRouter([
     loader: authLoader,
   },
   {
-    path : "/search-products",
-    element : <SearchProductsPage />,
+    path: "/search-products",
+    element: <SearchProductsPage />,
     loader: authLoader,
   },
   {
@@ -49,7 +51,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/edit-product/:id",
-    element : <EditProductPage />,
+    element: <EditProductPage />,
+    loader: authLoader,
+  },
+  {
+    path: "/add-product",
+    element: <AddProductPage />,
     loader: authLoader,
   },
   {
