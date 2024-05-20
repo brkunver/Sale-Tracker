@@ -2,7 +2,6 @@ import type { Customer } from "@/types/customerTypes"
 
 import getTokenHeader from "./getTokenHeader"
 
-
 interface getAllCustomersQuery {
   page?: number
   count?: number
@@ -26,7 +25,7 @@ export async function getAllCustomers({ page, count, returnDeleted, name }: getA
   return data.data as Customer[]
 }
 
-export async function getSingleCustomer(customerId: number) {
+export async function getSingleCustomer(customerId: string) {
   let url = import.meta.env.VITE_API_URL + "/api/customer/" + customerId
   let response = await fetch(url, { headers: getTokenHeader() })
   if (!response.ok) throw new Error(response.statusText)
