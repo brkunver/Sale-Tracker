@@ -20,9 +20,7 @@ export default function EditCustomerPage() {
         {query.isLoading && <div>Loading...</div>}
         {!query.data && <div>No Data</div>}
         {query.isSuccess && (
-          <section className="grid lg:grid-cols-2 my-4">
             <EditCustomer customer={query.data} />
-          </section>
         )}
       </main>
     </div>
