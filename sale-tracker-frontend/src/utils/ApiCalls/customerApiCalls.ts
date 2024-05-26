@@ -52,8 +52,9 @@ export async function updateCustomer(customerId: string, formData: FormData) {
     headers: getTokenHeader(),
     body: formData,
   })
-  if (!response.ok) throw new Error(response.statusText)
+
   const data = await response.json()
+  console.log(data)
   return data.data as Customer
 }
 
@@ -66,7 +67,7 @@ export async function deleteCustomer(customerId: string) {
   if (!response.ok) throw new Error(response.statusText)
 }
 
-export async function getCustomerCount () {
+export async function getCustomerCount() {
   let url = import.meta.env.VITE_API_URL + "/api/customer/count"
   let response = await fetch(url, { headers: getTokenHeader() })
   if (!response.ok) throw new Error(response.statusText)
