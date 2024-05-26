@@ -17,6 +17,7 @@ import AddProductPage from "./pages/ProductPages/AddProductPage"
 // import customer pages
 import AddCustomer from "./components/customers/AddCustomer"
 import EditCustomerPage from "./pages/CustomerPages/EditCustomerPage"
+import SinglecustomerPage from "./pages/CustomerPages/SingleCustomerPage"
 // query client
 const queryClient = new QueryClient({
   defaultOptions: { queries: { gcTime: 1000 * 60 * 2, staleTime: 1000 * 60 * 2 } },
@@ -78,9 +79,14 @@ const router = createBrowserRouter([
     loader: authLoader,
   },
   {
-    path : "/add-customer",
-    element : <AddCustomer />,
-    loader : authLoader,
+    path: "/add-customer",
+    element: <AddCustomer />,
+    loader: authLoader,
+  },
+  {
+    path: "/customer/:id",
+    element: <SinglecustomerPage />,
+    loader: authLoader,
   },
   {
     path: "*",
