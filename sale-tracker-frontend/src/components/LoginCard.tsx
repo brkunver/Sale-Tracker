@@ -46,7 +46,7 @@ function LoginCard() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col w-96 rounded border mx-auto p-6 gap-6 ">
+    <form onSubmit={onSubmit} className="flex flex-col w-96 rounded border mx-auto p-6 gap-6">
       <h1 className="text-center text-3xl font-bold">Login</h1>
       <div className="flex items-center gap-4">
         <Label htmlFor="username" className="min-w-24">
