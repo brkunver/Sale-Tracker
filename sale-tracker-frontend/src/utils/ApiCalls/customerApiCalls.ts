@@ -72,5 +72,6 @@ export async function getCustomerCount() {
   let response = await fetch(url, { headers: getTokenHeader() })
   if (!response.ok) throw new Error(response.statusText)
   const data = await response.json()
+
   return data.data as number
 }

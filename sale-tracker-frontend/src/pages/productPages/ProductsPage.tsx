@@ -93,7 +93,7 @@ function ProductsPage() {
             </PaginationContent>
           </Pagination>
         </div>
-        <div  className="px-8 flex flex-col gap-4">
+        <div className="px-8 flex flex-col gap-4">
           <Link
             to={"/add-product"}
             className="bg-green-800 hover:bg-green-900 min-h-[100px] min-w-[150px] rounded-md flex text-white justify-center items-center gap-2"
