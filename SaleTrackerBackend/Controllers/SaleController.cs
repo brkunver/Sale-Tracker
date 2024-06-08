@@ -14,10 +14,12 @@ public class SaleController : ControllerBase
 {
   private readonly SaleRepository saleRepo;
   private readonly ProductSaleRepository productSaleRepo;
-  public SaleController(SaleRepository saleRepository, ProductSaleRepository productSaleRepository)
+  private readonly CustomerRepository customerRepo;
+  public SaleController(SaleRepository saleRepository, ProductSaleRepository productSaleRepository, CustomerRepository customerRepository)
   {
     saleRepo = saleRepository;
     productSaleRepo = productSaleRepository;
+    customerRepo = customerRepository;
   }
 
   [HttpGet]
@@ -26,10 +28,27 @@ public class SaleController : ControllerBase
     try
     {
       var sales = await saleRepo.GetSalesAsync(count ?? 5, page ?? 1);
+      if (sales is null)
+      {
+        return NotFound(new ResponseDto<List<GetSaleDto>?>
+        {
+          Success = false,
+          Message = "No sales found",
+        });
+      }
+      List<GetSaleDto> salesWithNames = [];
+      foreach (var sale in sales)
+      {
+        var saleDto = sale.Adapt<GetSaleDto>();
+        var customer = await customerRepo.GetByIdAsync(sale.CustomerId);
+        saleDto.CustomerName = customer?.Name ?? "Empty Customer";
+        salesWithNames.Add(saleDto);
+      }
+
       return Ok(new ResponseDto<List<GetSaleDto>>
       {
         Success = true,
-        Data = sales.Adapt<List<GetSaleDto>>()
+        Data = salesWithNames
       });
     }
     catch (Exception e)
