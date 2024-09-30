@@ -61,7 +61,9 @@ function SideBar() {
         <button
           className=""
           onClick={() => {
+            console.log("log out")
             localStorage.removeItem("token")
+            localStorage.setItem("demo", "false")
             redirect("/")
           }}
         >
