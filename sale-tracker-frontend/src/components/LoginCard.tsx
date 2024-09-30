@@ -45,6 +45,11 @@ function LoginCard() {
     setFormInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
+  function onDemoClick() {
+    localStorage.setItem("demo", "true")
+    navigate("/dashboard")
+  }
+
   return (
     <form onSubmit={onSubmit} className="flex flex-col w-96 rounded border mx-auto p-6 gap-6">
       <h1 className="text-center text-3xl font-bold">Login</h1>
@@ -62,6 +67,9 @@ function LoginCard() {
       </div>
 
       <Button type="submit">Login</Button>
+      <Button onClick={onDemoClick}>
+        Demo Login
+      </Button>
       {fetchState.isLoading && <p className="text-center font-semibold">Loading...</p>}
       {fetchState.isError && <p className="text-center font-semibold text-red-600">Error : Can't Login In</p>}
     </form>
