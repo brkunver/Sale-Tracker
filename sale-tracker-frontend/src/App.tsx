@@ -2,10 +2,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { authLoader } from "./utils/authLoader"
+
 // Import Pages
 import LoginPage from "./pages/LoginPage"
 import DashboardPage from "./pages/DashboardPage"
 import NotFound from "./pages/NotFound"
+
 // import product pages
 import ProductsPage from "./pages/ProductPages/ProductsPage"
 import SingleProductPage from "./pages/ProductPages/SingleProductPage"
@@ -14,6 +16,7 @@ import CustomersPage from "./pages/CustomerPages/CustomersPage"
 import EditProductPage from "./pages/ProductPages/EditProductPage"
 import SearchProductsPage from "./pages/ProductPages/SearchProductsPage"
 import AddProductPage from "./pages/ProductPages/AddProductPage"
+
 // import customer pages
 import AddCustomer from "./components/customers/AddCustomer"
 import EditCustomerPage from "./pages/CustomerPages/EditCustomerPage"
