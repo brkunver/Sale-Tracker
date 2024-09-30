@@ -35,7 +35,7 @@ export async function getAllSales(page?: number, count?: number): Promise<SaleDa
 
 export async function getSaleById(saleId: string): Promise<SingleSaleData> {
   if (isDemo()) {
-    return getRandomSingleSaleData()
+    return getRandomSingleSaleData(saleId)
   } else {
     let url = import.meta.env.VITE_API_URL + "/api/sale/" + saleId
     let response = await fetch(url, {
