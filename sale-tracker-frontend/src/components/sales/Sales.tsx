@@ -67,7 +67,7 @@ export default function Sales(props: Props) {
     <Table className={cn("w-fit mx-auto", props.className)}>
       <TableHeader>
         <TableRow>
-          {props.showCustomer && <TableHead className="min-w-10 lg:min-w-24 text-center">Customer</TableHead>}
+          {props.showCustomer && <TableHead className="min-w-10 lg:min-w-24 text-center">Customer ID</TableHead>}
           <TableHead className="min-w-10 lg:min-w-24 text-center">Saled on</TableHead>
           <TableHead className="min-w-10 lg:min-w-24 text-center">Total</TableHead>
         </TableRow>
@@ -75,7 +75,7 @@ export default function Sales(props: Props) {
       <TableBody>
         {query.data?.data.map((sale) => (
           <TableRow key={sale.id}>
-            <TableCell className="text-center">{"Anonymous"}</TableCell>
+            {props.showCustomer && <TableHead className="min-w-10 lg:min-w-24 text-center">{sale.customerId}</TableHead>}
             <TableCell className="text-center ">{formatDate(sale.saledOn)}</TableCell>
             <TableCell className="text-center text-green-800 text-base">{sale.total}$</TableCell>
           </TableRow>
