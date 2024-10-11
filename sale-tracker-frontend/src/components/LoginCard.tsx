@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import localForage from "localforage"
+
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 function LoginCard() {
+  const [demoLoginButton, setDemoLoginButton] = useState<string>("Demo Login")
   const [fetchState, setFetchState] = useState({
     isLoading: false,
     isError: false,
@@ -45,9 +48,15 @@ function LoginCard() {
     setFormInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  function onDemoClick() {
-    localStorage.setItem("demo", "true")
-    navigate("/dashboard")
+  async function onDemoClick() {
+    try {
+      setDemoLoginButton("Logging In Demo...")
+      await localForage.setItem("demo", true)
+      navigate("/dashboard")
+    } catch (error) {
+      console.log(error)
+      setDemoLoginButton("Demo Login Failed")
+    }
   }
 
   return (
@@ -67,9 +76,7 @@ function LoginCard() {
       </div>
 
       <Button type="submit">Login</Button>
-      <Button onClick={onDemoClick}>
-        Demo Login
-      </Button>
+      <Button onClick={onDemoClick}>{demoLoginButton}</Button>
       {fetchState.isLoading && <p className="text-center font-semibold">Loading...</p>}
       {fetchState.isError && <p className="text-center font-semibold text-red-600">Error : Can't Login In</p>}
     </form>
