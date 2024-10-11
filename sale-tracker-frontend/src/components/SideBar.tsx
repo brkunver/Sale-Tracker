@@ -1,8 +1,20 @@
+import localforage from "localforage"
 import { BadgeDollarSign, Banknote, LogOut, ShoppingBag, CircleUserRoundIcon } from "lucide-react"
 import React from "react"
 import { Link, redirect } from "react-router-dom"
 
 function SideBar() {
+
+  function logoutHandler() {
+    localStorage.removeItem("token")
+    localforage.setItem("demo", false).then(() => {
+      redirect("/login")
+      window.location.reload()
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   return (
     <aside className="w-[80px] lg:min-w-[200px] min-h-full flex flex-col bg-gray-900 text-white items-center">
       <div className="hidden lg:flex flex-col text-lg font-bold gap-10 pt-6">
@@ -33,10 +45,7 @@ function SideBar() {
         </Link>
         <button
           className="flex justify-center items-center gap-2 duration-100 ease-in-out hover:scale-110"
-          onClick={() => {
-            localStorage.removeItem("token")
-            window.location.reload()
-          }}
+          onClick={logoutHandler}
         >
           <span>Log out</span>
           <LogOut size={30} />
@@ -58,15 +67,7 @@ function SideBar() {
           <CircleUserRoundIcon size={40} />
         </Link>
 
-        <button
-          className=""
-          onClick={() => {
-            console.log("log out")
-            localStorage.removeItem("token")
-            localStorage.setItem("demo", "false")
-            redirect("/")
-          }}
-        >
+        <button id="log-out-button" onClick={logoutHandler}>
           <LogOut size={40} />
         </button>
       </div>
