@@ -10,7 +10,8 @@ import isDemo from "../demoBackend/isDemo"
 import getRandomSingleSaleData from "../demoBackend/mockSingleSaleData"
 
 export async function getAllSales(page?: number, count?: number): Promise<SaleData> {
-  if (isDemo()) {
+  const demo = await isDemo()
+  if (demo) {
     return mockSaleData
   }
 
@@ -34,7 +35,8 @@ export async function getAllSales(page?: number, count?: number): Promise<SaleDa
 }
 
 export async function getSaleById(saleId: string): Promise<SingleSaleData> {
-  if (isDemo()) {
+  const demo = await isDemo()
+  if (demo) {
     return getRandomSingleSaleData(saleId)
   } else {
     let url = import.meta.env.VITE_API_URL + "/api/sale/" + saleId
@@ -52,7 +54,8 @@ export async function getSaleById(saleId: string): Promise<SingleSaleData> {
 }
 
 export async function getLastSales(day?: number): Promise<number[]> {
-  if (isDemo()) {
+  const demo = await isDemo()
+  if (demo) {
     return [1200, 675, 800, 950, 1900]
   } else {
     let url = import.meta.env.VITE_API_URL + "/api/sale/last-sales?" + "count=" + (day?.toString() ?? "7")
