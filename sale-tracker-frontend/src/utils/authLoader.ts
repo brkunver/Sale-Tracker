@@ -1,13 +1,14 @@
+import localforage from "localforage"
 import { redirect } from "react-router-dom"
 
 export async function authLoader() {
-  const demo = localStorage.getItem("demo")
-  if (demo === "true") {
+  const demo = await localforage.getItem("demo") 
+  if (demo === true) {
     return null
   }
 
   const token = localStorage.getItem("token")
-  if (!token) {
+  if (token === null || token === "") {
     return redirect("/login")
   } else {
     try {
