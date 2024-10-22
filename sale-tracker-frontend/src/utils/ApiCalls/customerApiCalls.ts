@@ -1,5 +1,5 @@
 import type { Customer } from "@/types/customerTypes"
-
+import isDemo from "../demoBackend/isDemo"
 import getTokenHeader from "./getTokenHeader"
 
 interface getAllCustomersQuery {
@@ -10,6 +10,10 @@ interface getAllCustomersQuery {
 }
 
 export async function getAllCustomers({ page, count, returnDeleted, name }: getAllCustomersQuery) {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
   let url = import.meta.env.VITE_API_URL + "/api/customer"
   let params = new URLSearchParams()
   if (page) params.append("page", page.toString())
@@ -26,6 +30,10 @@ export async function getAllCustomers({ page, count, returnDeleted, name }: getA
 }
 
 export async function getSingleCustomer(customerId: string) {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
   let url = import.meta.env.VITE_API_URL + "/api/customer/" + customerId
   let response = await fetch(url, { headers: getTokenHeader() })
   if (!response.ok) throw new Error(response.statusText)
@@ -34,6 +42,10 @@ export async function getSingleCustomer(customerId: string) {
 }
 
 export async function addNewCustomer(formData: FormData) {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
   let url = import.meta.env.VITE_API_URL + "/api/customer"
   let response = await fetch(url, {
     method: "POST",
@@ -46,6 +58,10 @@ export async function addNewCustomer(formData: FormData) {
 }
 
 export async function updateCustomer(customerId: string, formData: FormData) {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
   let url = import.meta.env.VITE_API_URL + "/api/customer/" + customerId
   let response = await fetch(url, {
     method: "PUT",
@@ -59,6 +75,10 @@ export async function updateCustomer(customerId: string, formData: FormData) {
 }
 
 export async function deleteCustomer(customerId: string) {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
   let url = import.meta.env.VITE_API_URL + "/api/customer/" + customerId
   let response = await fetch(url, {
     method: "DELETE",
@@ -68,6 +88,10 @@ export async function deleteCustomer(customerId: string) {
 }
 
 export async function getCustomerCount() {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
   let url = import.meta.env.VITE_API_URL + "/api/customer/count"
   let response = await fetch(url, { headers: getTokenHeader() })
   if (!response.ok) throw new Error(response.statusText)

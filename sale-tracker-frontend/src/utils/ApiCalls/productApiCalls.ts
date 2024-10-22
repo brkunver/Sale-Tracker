@@ -1,5 +1,6 @@
 import type { Product, ProductData } from "@/types/productTypes"
 import getTokenHeader from "./getTokenHeader"
+import isDemo from "../demoBackend/isDemo"
 
 enum queryNames {
   page = "page",
@@ -16,6 +17,11 @@ type ProductQuery = {
 }
 
 export async function getAllProducts(productQuery: ProductQuery = {}) {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
+
   let url = import.meta.env.VITE_API_URL + "/api/product"
   let params = new URLSearchParams()
 
@@ -49,6 +55,10 @@ export function getImageUrl(imagename: string) {
 }
 
 export async function getSingleProduct(productId: string) {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
   let url = import.meta.env.VITE_API_URL + "/api/product/" + productId
   let response = await fetch(url, {
     headers: getTokenHeader(),
@@ -61,6 +71,10 @@ export async function getSingleProduct(productId: string) {
 }
 
 export async function getCount() {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
   let url = import.meta.env.VITE_API_URL + "/api/product/count"
   let response = await fetch(url, {
     headers: getTokenHeader(),
@@ -74,6 +88,10 @@ export async function getCount() {
 
 // delete product
 export async function deleteProduct(productId: string) {
+  // TODO : implement mock data
+  if (await isDemo()) {
+    throw new Error("Demo mode")
+  }
   let url = import.meta.env.VITE_API_URL + "/api/product/" + productId
   let response = await fetch(url, {
     method: "DELETE",
@@ -87,6 +105,12 @@ export async function deleteProduct(productId: string) {
 
 // TODO : Update product
 export async function updateProduct(productId: string, formData: FormData) {
+  // TODO : implement mock data
+  const demo = await isDemo()
+  if (demo) {
+    throw new Error("Demo mode")
+  }
+
   let url = import.meta.env.VITE_API_URL + "/api/product/" + productId
   let response = await fetch(url, {
     method: "PUT",
@@ -101,6 +125,11 @@ export async function updateProduct(productId: string, formData: FormData) {
 }
 
 export async function addNewProduct(formData: FormData) {
+  const demo = await isDemo()
+  if (demo) {
+    throw new Error("Demo mode")
+  }
+
   let url = import.meta.env.VITE_API_URL + "/api/product"
   let response = await fetch(url, {
     method: "POST",
