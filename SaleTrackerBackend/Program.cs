@@ -104,7 +104,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.MapGet("/", async (c) => c.Response.Redirect("/swagger/index.html"));
 }
 
 app.UseStaticFiles();
